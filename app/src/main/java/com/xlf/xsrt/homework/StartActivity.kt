@@ -7,7 +7,9 @@ import android.view.View
 import com.xlf.xsrt.work.MainActivity
 
 class StartActivity : AppCompatActivity() {
-
+    /**
+     *
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
