@@ -1,4 +1,5 @@
-package com.cfwu.lib_work.entry
+package com.xlf.xsrt.work.entry
+
 
 /**
  * 组作业界面实体类

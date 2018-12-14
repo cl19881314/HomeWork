@@ -1,12 +1,12 @@
-package com.cfwu.lib_work.widget
+package com.xlf.xsrt.work.widget
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import com.cfwu.lib_work.R
-import com.cfwu.lib_work.base.BaseRcyAdapter
-import com.cfwu.lib_work.entry.SysDictVo
+import com.xlf.xsrt.work.R
+import com.xlf.xsrt.work.base.BaseRcyAdapter
+import com.xlf.xsrt.work.entry.SysDictVo
 import kotlinx.android.synthetic.main.item_spinner_rcy.view.*
 
 class PullSpinner : View {
@@ -29,8 +29,10 @@ class PullSpinner : View {
         }
 
         override fun setItemContent(itemView: View, obj: SysDictVo, positon: Int) {
-            itemView.tv_content_item_spinner.text = obj.sysDictName
+            itemView.tv_content_item_spinner.text=obj.sysDictName
+
         }
+
 
     }
 }

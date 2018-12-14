@@ -1,4 +1,4 @@
-package com.cfwu.lib_work.entry
+package com.xlf.xsrt.work.entry
 /**
  * 作业题
  */

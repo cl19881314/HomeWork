@@ -1,4 +1,4 @@
-package com.cfwu.lib_work.base
+package com.xlf.xsrt.work.base
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
