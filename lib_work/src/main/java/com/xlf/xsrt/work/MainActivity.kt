@@ -1,10 +1,15 @@
 package com.xlf.xsrt.work
 
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import com.xlf.xsrt.work.base.BaseActivity
+import com.xlf.xsrt.work.base.RequestApi
 
-class MainActivity : AppCompatActivity(){
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class MainActivity : BaseActivity(){
+    override fun getContentViewId(): Int {
+        return R.layout.activity_main
     }
+
+    override fun init() {
+
+    }
+
 }
