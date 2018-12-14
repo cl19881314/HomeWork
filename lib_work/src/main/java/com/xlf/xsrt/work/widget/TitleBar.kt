@@ -1,8 +1,6 @@
 package com.xlf.xsrt.work.widget
 
 import android.content.Context
-import android.content.res.TypedArray
-import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -37,9 +35,9 @@ class TitleBar : RelativeLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         val view = LayoutInflater.from(context).inflate(R.layout.view_titlebar, this)
-        mBackImg = view.findViewById<View>(R.id.back_img) as ImageView
+        mBackImg = view.findViewById<View>(R.id.iv_back_basetitle) as ImageView
         mTitleTxt = view.findViewById<View>(R.id.title) as TextView
-        mRightTxt = view.findViewById<View>(R.id.rightText) as TextView
+        mRightTxt = view.findViewById<View>(R.id.tv_right_basetitle) as TextView
         mBackImg!!.setOnClickListener {
             listener?.leftImgClick()
         }
