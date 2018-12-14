@@ -4,7 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.xlf.xsrt.work.MainActivity
+import com.xlf.xsrt.work.teacherclient.GroupActivity
 
 class StartActivity : AppCompatActivity() {
 
@@ -14,7 +14,7 @@ class StartActivity : AppCompatActivity() {
     }
 
     fun logonClick(view : View){
-        var  intent = Intent(this, MainActivity::class.java)
+        var  intent = Intent(this, GroupActivity::class.java)
         startActivity(intent)
     }
 }

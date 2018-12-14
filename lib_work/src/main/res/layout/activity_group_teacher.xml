@@ -3,12 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".teacherclient.GroupActivity">
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="main"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="30dp" />
+
+    <com.xlf.xsrt.work.widget.PullSpinner
+        android:id="@+id/spinner_teacher"
+        android:layout_width="120dp"
+        android:background="#FF0000"
+        android:layout_height="wrap_content" />
+
 
 </LinearLayout>

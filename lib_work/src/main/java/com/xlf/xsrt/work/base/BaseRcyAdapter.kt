@@ -5,11 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-abstract class BaseRcyAdapter<T>(data: List<T>) : RecyclerView.Adapter<BaseRcyHolder>() {
-    private var mData: List<T>? = null
+abstract class BaseRcyAdapter<T>(data: MutableList<T>) : RecyclerView.Adapter<BaseRcyHolder>() {
+    private var mData: MutableList<T>? = null
 
     init {
         this.mData = data
+    }
+
+    fun addData(data: MutableList<T>) {
+        addData(data, false)
+    }
+
+    fun addData(data: MutableList<T>, clear: Boolean) {
+        if (mData != null) {
+            if (clear) {
+                mData!!.clear()
+                mData!!.addAll(data)
+            } else {
+                mData!!.addAll(data)
+            }
+        }
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): BaseRcyHolder {

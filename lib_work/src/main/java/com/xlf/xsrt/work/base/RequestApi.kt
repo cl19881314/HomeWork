@@ -8,12 +8,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-/**
- * Created by YeeLL on 1/14/18.
- */
-
 class RequestApi {
     private val mService: RequestService
+
     init {
         val loggingInterceptor = HttpLoggingInterceptor { message ->
             if (message == null)
@@ -35,7 +32,7 @@ class RequestApi {
 
     companion object {
         private var mInstance: RequestApi? = null
-        fun getInstance() : RequestApi{
+        fun getInstance(): RequestApi {
             if (mInstance == null) {
                 synchronized(RequestApi::class.java) {
                     if (mInstance == null) {
