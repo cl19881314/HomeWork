@@ -8,7 +8,7 @@ import com.xlf.xsrt.work.MainActivity
 
 class StartActivity : AppCompatActivity() {
     /**
-     *ddd
+     *dddfdsa
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
