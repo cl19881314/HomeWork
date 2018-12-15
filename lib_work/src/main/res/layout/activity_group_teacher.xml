@@ -8,13 +8,40 @@
     tools:context=".teacher.group.GroupActivity">
 
     <com.xlf.xsrt.work.widget.TitleBar
+        android:id="@+id/titlebar_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.xlf.xsrt.work.widget.PullSpinner
-        android:id="@+id/spinner_teacher"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:background="#cccccc"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.xlf.xsrt.work.widget.PullSpinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.xlf.xsrt.work.widget.PullSpinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <com.xlf.xsrt.work.widget.PullSpinner
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginRight="@dimen/margin_right"
+            android:background="@drawable/selector_screen_btn"
+            android:button="@null" />
+    </LinearLayout>
 
 
 </LinearLayout>

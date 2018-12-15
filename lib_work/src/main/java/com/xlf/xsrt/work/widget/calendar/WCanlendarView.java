@@ -9,7 +9,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.work.onlineschool.R;
+
+import com.xlf.xsrt.work.R;
 
 import java.util.List;
 
