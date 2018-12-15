@@ -7,14 +7,13 @@
     android:orientation="vertical"
     tools:context=".teacher.group.GroupActivity">
 
-    <Button
+    <com.xlf.xsrt.work.widget.TitleBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <com.xlf.xsrt.work.widget.PullSpinner
         android:id="@+id/spinner_teacher"
         android:layout_width="120dp"
-        android:background="#FF0000"
         android:layout_height="wrap_content" />
 
 

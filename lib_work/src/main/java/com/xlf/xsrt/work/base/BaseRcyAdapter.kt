@@ -1,11 +1,11 @@
 package com.xlf.xsrt.work.base
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.xlf.xsrt.work.widget.xxxrecycler.XXXAdapter
 
-abstract class BaseRcyAdapter<T>(data: MutableList<T>) : RecyclerView.Adapter<BaseRcyHolder>() {
+abstract class BaseRcyAdapter<T>(data: MutableList<T>) : XXXAdapter<BaseRcyHolder>() {
     private var mData: MutableList<T>? = null
 
     init {
@@ -28,11 +28,7 @@ abstract class BaseRcyAdapter<T>(data: MutableList<T>) : RecyclerView.Adapter<Ba
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): BaseRcyHolder {
-        return BaseRcyHolder(LayoutInflater.from(p0.context).inflate(initLayoutId(), p0, false))
-    }
-
-    override fun getItemCount(): Int {
+    override fun getRealItemCount(): Int {
         return if (mData == null) {
             0
         } else {
@@ -40,10 +36,14 @@ abstract class BaseRcyAdapter<T>(data: MutableList<T>) : RecyclerView.Adapter<Ba
         }
     }
 
-    override fun onBindViewHolder(p0: BaseRcyHolder, p1: Int) {
-        setItemContent(p0.itemView, mData!![p1], p1)
+    override fun onRealCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseRcyHolder {
+        return BaseRcyHolder(LayoutInflater.from(parent!!.context).inflate(initLayoutId(viewType), parent, false))
     }
 
-    abstract fun initLayoutId(): Int
+    override fun onRealBindViewHolder(holder: BaseRcyHolder?, position: Int) {
+        setItemContent(holder!!.itemView, mData!![position], position)
+    }
+
+    abstract fun initLayoutId(viewType: Int): Int
     abstract fun setItemContent(itemView: View, any: T, positon: Int)
 }
