@@ -3,15 +3,19 @@ package com.xlf.xsrt.work.base
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
-import android.view.WindowManager
 
 abstract class BaseActivity : AppCompatActivity() {
+    open val RESPONSE_SUCCESS = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         removeDefaultTitle()
         setContentView(getContentViewId())
         init()
+        doResponseData()
         initListener()
+    }
+
+    open fun doResponseData() {
     }
 
     private fun removeDefaultTitle() {
@@ -21,7 +25,7 @@ abstract class BaseActivity : AppCompatActivity() {
 //        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
-    private fun initListener() {}
+    open fun initListener() {}
 
     protected abstract fun getContentViewId(): Int
     protected abstract fun init()

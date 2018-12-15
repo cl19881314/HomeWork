@@ -5,11 +5,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:background="#0BBAB3"/>
-
     <LinearLayout
         android:id="@+id/canlendar_bar"
         android:layout_width="match_parent"

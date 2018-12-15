@@ -2,11 +2,15 @@ package com.xlf.xsrt.work.base
 
 import android.util.Log
 import com.xlf.xsrt.work.constant.ServiceApi
+import com.xlf.xsrt.work.entry.GroupeEntry
+import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
+import kotlin.collections.HashMap
 
 class RequestApi {
     private val mService: RequestService
@@ -42,6 +46,15 @@ class RequestApi {
             }
             return mInstance!!
         }
+    }
+
+    /**
+     * 查询组作业
+     */
+    fun queryGroupData(userId: Int): Observable<GroupeEntry> {
+        var parame = HashMap<String, String>()
+        parame["userId"] = "$userId"
+        return mService.queryGroupData(parame)
     }
 
 }

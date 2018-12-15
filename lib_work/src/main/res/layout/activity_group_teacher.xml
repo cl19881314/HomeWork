@@ -10,29 +10,46 @@
     <com.xlf.xsrt.work.widget.TitleBar
         android:id="@+id/titlebar_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:titleTxt="组作业" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider" />
 
     <LinearLayout
-        android:background="#cccccc"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <com.xlf.xsrt.work.widget.PullSpinner
+        <CheckedTextView
+            android:id="@+id/textbook_group"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:checkMark="@drawable/selector_spinner_btn"
+            android:gravity="center"
+            android:text="教材" />
 
-        <com.xlf.xsrt.work.widget.PullSpinner
+        <CheckedTextView
+            android:id="@+id/director_group"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:checkMark="@drawable/selector_spinner_btn"
+            android:gravity="center"
+            android:text="目录" />
 
-        <com.xlf.xsrt.work.widget.PullSpinner
+        <CheckedTextView
+            android:id="@+id/section_group"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:checkMark="@drawable/selector_spinner_btn"
+            android:gravity="center"
+            android:text="章节" />
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -42,6 +59,17 @@
             android:background="@drawable/selector_screen_btn"
             android:button="@null" />
     </LinearLayout>
+
+    <View
+        android:id="@+id/divider_group"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcy_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </LinearLayout>

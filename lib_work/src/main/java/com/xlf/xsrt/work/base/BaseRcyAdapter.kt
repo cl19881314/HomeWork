@@ -43,5 +43,5 @@ abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
     }
 
     abstract fun initLayoutId(viewType: Int): Int
-    abstract fun setItemContent(itemView: View, any: T, positon: Int)
+    abstract fun setItemContent(itemView: View, bean: T, positon: Int)
 }
