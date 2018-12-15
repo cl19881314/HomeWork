@@ -13,12 +13,8 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        init()
-        initListener()
+        init(view)
     }
-
-    private fun initListener() {}
-
     protected abstract fun getContentViewId(): Int
-    protected abstract fun init()
+    protected abstract fun init(view : View)
 }

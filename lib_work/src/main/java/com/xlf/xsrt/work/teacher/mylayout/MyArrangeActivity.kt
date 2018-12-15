@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.teacher.mylayout.adapter.MyArrangeAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_my_arrange_layout.*
 
 /**

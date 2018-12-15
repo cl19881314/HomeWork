@@ -1,9 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xlf.xsrt.work" >
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application>
         <activity android:name=".teacher.group.GroupActivity"/>
         <activity android:name=".teacher.TeacherActivity"/>
         <activity android:name=".teacher.mylayout.MyArrangeActivity"/>
         <activity android:name=".student.StudentActivity"/>
+        <activity android:name=".detail.SubjectDetailActivity"/>
+        <activity android:name=".teacher.answer.StudentAnswerActivity"/>
+        <activity android:name=".teacher.answer.CommentDetailActivity"/>
+        <activity android:name=".teacher.answer.WriteCommentActivity"/>
+        <activity android:name=".teacher.answer.StudentAnswerDetailActivity"/>
     </application>
 </manifest>
