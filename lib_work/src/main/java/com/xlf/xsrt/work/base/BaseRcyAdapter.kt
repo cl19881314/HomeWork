@@ -5,12 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.xlf.xsrt.work.widget.xxxrecycler.XXXAdapter
 
-abstract class BaseRcyAdapter<T>(data: MutableList<T>) : XXXAdapter<BaseRcyHolder>() {
-    private var mData: MutableList<T>? = null
+abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
+    private var mData: MutableList<T>? = mutableListOf()
 
-    init {
-        this.mData = data
-    }
+
 
     fun addData(data: MutableList<T>) {
         addData(data, false)
