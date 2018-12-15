@@ -1,4 +1,4 @@
-package com.xlf.xsrt.work.teacherclient
+package com.xlf.xsrt.work.teacher.group
 
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity

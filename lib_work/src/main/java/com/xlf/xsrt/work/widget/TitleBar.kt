@@ -16,9 +16,10 @@ import java.util.concurrent.TimeUnit
 
 
 class TitleBar : RelativeLayout {
-    private var mBackImg: ImageView ? = null
-    private var mTitleTxt: TextView ? = null
-    private var mRightTxt: TextView ?= null
+    private var mTitleBarLayout: RelativeLayout? = null
+    private var mBackImg: ImageView? = null
+    private var mTitleTxt: TextView? = null
+    private var mRightTxt: TextView? = null
 
     private var listener: TitleBarClickListener? = null
 
@@ -35,9 +36,10 @@ class TitleBar : RelativeLayout {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         val view = LayoutInflater.from(context).inflate(R.layout.view_titlebar, this)
-        mBackImg = view.findViewById<View>(R.id.iv_back_basetitle) as ImageView
-        mTitleTxt = view.findViewById<View>(R.id.title) as TextView
-        mRightTxt = view.findViewById<View>(R.id.tv_right_basetitle) as TextView
+        mTitleBarLayout = view.findViewById(R.id.title_bar)
+        mBackImg = view.findViewById(R.id.iv_back_basetitle)
+        mTitleTxt = view.findViewById(R.id.tv_right_basetitle)
+        mRightTxt = view.findViewById(R.id.tv_right_basetitle)
         mBackImg!!.setOnClickListener {
             listener?.leftImgClick()
         }
@@ -62,4 +64,11 @@ class TitleBar : RelativeLayout {
         typedArray.recycle()
     }
 
+    fun getTitleBarLayout(): RelativeLayout? {
+        return mTitleBarLayout
+    }
+
+    fun getBackImageView(): ImageView? {
+        return mBackImg
+    }
 }

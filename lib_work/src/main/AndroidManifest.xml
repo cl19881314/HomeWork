@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xlf.xsrt.work" >
     <application>
-        <activity android:name=".teacherclient.GroupActivity"/>
+        <activity android:name=".teacher.group.GroupActivity"/>
+        <activity android:name=".teacher.TeacherActivity"/>
+        <activity android:name=".teacher.mylayout.MyArrangeActivity"/>
+        <activity android:name=".student.StudentActivity"/>
     </application>
 </manifest>
