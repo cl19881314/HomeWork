@@ -2,5 +2,6 @@ package com.xlf.xsrt.work.student.bean
 
 import com.xlf.xsrt.work.entry.BaseEntry
 
-class StuHomwork:BaseEntry() {
+class StuHomwork : BaseEntry() {
+    var stuAnswerId: Int? = null
 }

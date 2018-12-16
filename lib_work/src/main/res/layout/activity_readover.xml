@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.xlf.xsrt.work.widget.TitleBar
+        android:id="@+id/titlebar_readover"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        app:titleTxt="老师评论" />
+
+    <TextView
+        android:id="@+id/tv_time_readover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="2018年12月1日 99:99:99" />
+
+    <TextView
+        android:id="@+id/tv_content_readover"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+</LinearLayout>

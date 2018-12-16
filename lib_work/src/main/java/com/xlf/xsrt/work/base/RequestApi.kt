@@ -2,6 +2,7 @@ package com.xlf.xsrt.work.base
 
 import android.util.Log
 import com.xlf.xsrt.work.constant.ServiceApi
+import com.xlf.xsrt.work.entry.BaseStudentEntry
 import com.xlf.xsrt.work.teacher.group.bean.GroupeEntry
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
@@ -59,7 +60,7 @@ class RequestApi {
     /**
      * 条件查询组作业数据
      */
-    fun queryHomeworkData(userId: Int, textbookId: Int, directoryId: Int, chapterId: Int, baseFlag: Int, difficultyId: Int, page: Int):  Observable<GroupeEntry> {
+    fun queryHomeworkData(userId: Int, textbookId: Int, directoryId: Int, chapterId: Int, baseFlag: Int, difficultyId: Int, page: Int): Observable<GroupeEntry> {
         var parame = HashMap<String, String>()
         parame["userId"] = "$userId"
         parame["textbookId"] = "$textbookId"
@@ -69,6 +70,15 @@ class RequestApi {
         parame["difficultyId"] = "$difficultyId"
         parame["page"] = "$page"
         return mService.queryHomeworkData(parame)
+    }
+
+    /**
+     * 学生端 查询老师批阅
+     */
+    fun getTeacherComment(stuAnswerId: Int): Observable<BaseStudentEntry> {
+        var parame = HashMap<String, String>()
+        parame["stuAnswerId"] = "$stuAnswerId"
+        return mService.getTeacherComment(parame)
     }
 
 }
