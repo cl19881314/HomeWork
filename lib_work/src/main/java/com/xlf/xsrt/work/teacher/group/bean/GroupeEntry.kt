@@ -1,4 +1,6 @@
-package com.xlf.xsrt.work.entry
+package com.xlf.xsrt.work.teacher.group.bean
+
+import com.xlf.xsrt.work.entry.BaseEntry
 
 
 /**

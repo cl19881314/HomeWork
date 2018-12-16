@@ -1,4 +1,4 @@
-package com.xlf.xsrt.work.entry
+package com.xlf.xsrt.work.teacher.group.bean
 /**
  * 作业题
  */

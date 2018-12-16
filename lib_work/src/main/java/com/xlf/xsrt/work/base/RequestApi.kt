@@ -2,14 +2,13 @@ package com.xlf.xsrt.work.base
 
 import android.util.Log
 import com.xlf.xsrt.work.constant.ServiceApi
-import com.xlf.xsrt.work.entry.GroupeEntry
+import com.xlf.xsrt.work.teacher.group.bean.GroupeEntry
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 import kotlin.collections.HashMap
 
 class RequestApi {
@@ -49,12 +48,27 @@ class RequestApi {
     }
 
     /**
-     * 查询组作业
+     * 初始查询组作业页面数据
      */
     fun queryGroupData(userId: Int): Observable<GroupeEntry> {
         var parame = HashMap<String, String>()
         parame["userId"] = "$userId"
         return mService.queryGroupData(parame)
+    }
+
+    /**
+     * 条件查询组作业数据
+     */
+    fun queryHomeworkData(userId: Int, textbookId: Int, directoryId: Int, chapterId: Int, baseFlag: Int, difficultyId: Int, page: Int):  Observable<GroupeEntry> {
+        var parame = HashMap<String, String>()
+        parame["userId"] = "$userId"
+        parame["textbookId"] = "$textbookId"
+        parame["directoryId"] = "$directoryId"
+        parame["chapterId"] = "$chapterId"
+        parame["baseFlag"] = "$baseFlag"
+        parame["difficultyId"] = "$difficultyId"
+        parame["page"] = "$page"
+        return mService.queryHomeworkData(parame)
     }
 
 }

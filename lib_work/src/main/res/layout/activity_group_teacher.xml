@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/ll_root_group"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".teacher.group.GroupActivity">
@@ -51,13 +52,16 @@
             android:gravity="center"
             android:text="章节" />
 
-        <CheckBox
+        <CheckedTextView
+            android:id="@+id/screen_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginRight="@dimen/margin_right"
-            android:background="@drawable/selector_screen_btn"
-            android:button="@null" />
+            android:button="@null"
+            android:checkMark="@drawable/selector_screen_btn"
+            android:text="筛选"
+            android:textColor="@drawable/selector_font_popwindow" />
     </LinearLayout>
 
     <View
@@ -69,7 +73,32 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcy_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical">
+
+        <CheckBox
+            android:id="@+id/selectedAll_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/subjectNumTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="全选（当前页面）" />
+
+        <TextView
+            android:id="@+id/selectedNum_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已选（0）" />
+    </LinearLayout>
 
 
 </LinearLayout>

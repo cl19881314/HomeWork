@@ -1,7 +1,7 @@
 package com.xlf.xsrt.work.base
 
 import com.xlf.xsrt.work.entry.BaseEntry
-import com.xlf.xsrt.work.entry.GroupeEntry
+import com.xlf.xsrt.work.teacher.group.bean.GroupeEntry
 
 import io.reactivex.Observable
 import retrofit2.http.FieldMap
@@ -16,4 +16,8 @@ interface RequestService {
     @FormUrlEncoded
     @POST("teacherManage/groupHomework")
     fun queryGroupData(@FieldMap map: Map<String, String>): Observable<GroupeEntry>
+
+    @FormUrlEncoded
+    @POST("teacherManage/queryHomework")
+    fun queryHomeworkData(parame: HashMap<String, String>): Observable<GroupeEntry>
 }
