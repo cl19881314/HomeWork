@@ -83,7 +83,7 @@
         android:layout_height="0.5dp"
         android:background="#E6EAEA" />
 
-    <com.work.onlineschool.widget.calendar.WCanlendarViewPager
+    <com.xlf.xsrt.work.widget.calendar.WCanlendarViewPager
         android:id="@+id/canlendar_month"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -38,7 +38,7 @@ class TitleBar : RelativeLayout {
         val view = LayoutInflater.from(context).inflate(R.layout.view_titlebar, this)
         mTitleBarLayout = view.findViewById(R.id.title_bar)
         mBackImg = view.findViewById(R.id.iv_back_basetitle)
-        mTitleTxt = view.findViewById(R.id.tv_right_basetitle)
+        mTitleTxt = view.findViewById(R.id.tv_title_basetitle)
         mRightTxt = view.findViewById(R.id.tv_right_basetitle)
         mBackImg!!.setOnClickListener {
             listener?.leftImgClick()

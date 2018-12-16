@@ -4,13 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".StartActivity">
 
     <Button
+        android:id="@+id/btn_teacher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="登录"
         android:layout_marginTop="30dp"
-        android:onClick="logonClick"/>
+        android:text="教师端" />
+
+    <Button
+        android:id="@+id/btn_student"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="学生端" />
 
 </LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/margin_left"
+    android:paddingTop="10dp"
+    android:paddingRight="@dimen/margin_right"
+    android:paddingBottom="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/layer_bg_item_student"
+        android:padding="15dp">
+
+
+        <com.xlf.xsrt.work.widget.CircleView
+            android:id="@+id/cv_item_student"
+            android:layout_width="10dp"
+            android:layout_height="10dp" />
+
+        <TextView
+            android:id="@+id/subject_item_student"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toEndOf="@id/cv_item_student"
+            android:layout_toRightOf="@id/cv_item_student"
+            android:text="语文"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/subject_item_student"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/cv_item_student"
+            android:layout_toRightOf="@id/cv_item_student"
+            android:ellipsize="end"
+            android:maxEms="10"
+            android:maxLines="1"
+            android:text="我最快乐的童年记忆我最快乐的童年记忆我最快乐的童年记忆"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="4dp"
+            android:text="待提交"
+            android:textColor="#ff0000" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@color/popwindow_font"
+            android:text="查看批阅"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+    </RelativeLayout>
+</FrameLayout>
