@@ -5,31 +5,37 @@
     android:layout_marginLeft="@dimen/xsrt_margin_left"
     android:layout_marginRight="@dimen/xsrt_margin_right"
     android:layout_marginTop="@dimen/xsrt_margin_top"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/xsrt_item_subject_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="37dp"
+        android:gravity="center_vertical"
+        >
 
         <RadioButton
             android:id="@+id/isCollected"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:button="@drawable/xsrt_selector_raddio_btn"/>
 
         <TextView
             android:id="@+id/subjectNumTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="编号:12234545" />
+            android:text="编号:12234545"
+            android:textSize="15sp"
+            android:textColor="@color/xsrt_title1_txt_color"/>
 
         <ImageView
             android:id="@+id/collectionImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="34dp"
             android:layout_gravity="center_vertical"
             android:padding="5dp"
-            android:src="@drawable/xsrt_back" />
+            android:src="@drawable/xsrt_ic_collection_no" />
 
         <ImageView
             android:id="@+id/dellImg"
@@ -37,20 +43,29 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="5dp"
-            android:src="@drawable/xsrt_back" />
+            android:src="@drawable/xsrt_ic_del" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/xsrt_divider"/>
 
     <WebView
         android:id="@+id/showContentWeb"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/xsrt_divider"/>
     <TextView
         android:id="@+id/showDetailTxt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_height="37dp"
+        android:gravity="center"
         android:padding="5dp"
-        android:text="查看详情" />
+        android:text="查看详情"
+        android:textSize="14sp"
+        android:textColor="@color/xsrt_title1_txt_color"/>
 
 </LinearLayout>

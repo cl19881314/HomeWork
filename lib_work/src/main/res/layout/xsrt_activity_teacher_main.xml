@@ -15,9 +15,7 @@
             android:id="@+id/backImg"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/xsrt_margin_left"
-            android:paddingRight="@dimen/xsrt_margin_right"
-            android:src="@drawable/xsrt_back" />
+            android:src="@drawable/xsrt_header_back_white" />
 
         <TextView
             android:layout_width="220dp"
