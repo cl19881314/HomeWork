@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerDetailAdapter
-import com.xlf.xsrt.work.teacher.answer.fragment.StudentAnswerDetailFragment
+import com.xlf.xsrt.work.fragment.StudentAnswerDetailFragment
 import kotlinx.android.synthetic.main.xsrt_activity_answer_detail_layout.*
 
 class StudentAnswerDetailActivity : BaseActivity() {
