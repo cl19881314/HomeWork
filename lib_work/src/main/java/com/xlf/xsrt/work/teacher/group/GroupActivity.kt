@@ -2,6 +2,8 @@ package com.xlf.xsrt.work.teacher.group
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Build
 import android.support.v7.widget.GridLayoutManager
@@ -30,6 +32,7 @@ import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
 
 class GroupActivity : BaseActivity() {
+
     private var mTextPopWindow: PopupWindow? = null
     private var mDirePopWindow: PopupWindow? = null
     private var mSectionPopWindow: PopupWindow? = null
@@ -50,6 +53,10 @@ class GroupActivity : BaseActivity() {
     private val SECTION = 2//章节
     private val SCREEN = 3//筛选
 
+    private val mTeacherId by lazy {
+        intent.getIntExtra("teacherId", -1)
+    }
+
     private val mViewModel by lazy {
         ViewModelProviders.of(this).get(GroupModel::class.java)
     }
@@ -67,6 +74,14 @@ class GroupActivity : BaseActivity() {
         return R.layout.xsrt_activity_group_teacher
     }
 
+    companion object {
+        fun start(ctx: Context, teacherId: Int) {
+            val intent = Intent(ctx, GroupActivity::class.java)
+            intent.putExtra("teacherId", teacherId)
+            ctx.startActivity(intent)
+        }
+    }
+
 
     override fun init() {
         initRcyView()
@@ -74,6 +89,11 @@ class GroupActivity : BaseActivity() {
         initDirePopWindow()
         initSectionPopWindow()
         initDiffPopWindow()
+        initData()
+    }
+
+    private fun initData() {
+        mViewModel.loadGroupData(mTeacherId)//初始获取组作业数据
     }
 
     private fun initRcyView() {
@@ -127,7 +147,6 @@ class GroupActivity : BaseActivity() {
 
 
     override fun initListener() {
-
         titlebar_group.setTitleBarClickListener(object : TitleBar.TitleBarClickListener {
             override fun leftImgClick() {
                 finish()
@@ -179,7 +198,7 @@ class GroupActivity : BaseActivity() {
             showPopWindow(mDiffPopWindow!!, SCREEN)
         }
 
-        mTextAdapter?.setOnItemClickListener(object :BaseRcyAdapter.ItemClickListener{
+        mTextAdapter?.setOnItemClickListener(object : BaseRcyAdapter.ItemClickListener {
             override fun onItemClick(position: Int) {
                 mTextPopWindow?.dismiss()
                 //TODO:搜索
@@ -223,7 +242,19 @@ class GroupActivity : BaseActivity() {
     override fun doResponseData() {
         mViewModel.mGroupData.observe(this, Observer {
             if (it?.flag == RESPONSE_SUCCESS) {
-                mGroupAdapter.addData(it.homeworkBaseList!!)
+                if (it.homeworkBaseList!!.size > 0) {
+                    mGroupAdapter.addData(it.homeworkBaseList!!)
+                } else {
+                    showEmptyView()
+                }
+                //重置困难等级
+                mDiffLevels.clear()
+                mDiffLevels.addAll(it.difficultyList!!)
+                mDiffAdapter?.addData(mDiffLevels, true)
+                //重置章节数据
+                mTextBooks.clear()
+                mTextBooks.addAll(it.textBookList!!)
+                mTextAdapter?.addData(mTextBooks, true)
             }
         })
         mViewModel.mHomeworkData.observe(this, Observer {
@@ -241,6 +272,7 @@ class GroupActivity : BaseActivity() {
                 }
             }
         })
+
     }
 
     /**

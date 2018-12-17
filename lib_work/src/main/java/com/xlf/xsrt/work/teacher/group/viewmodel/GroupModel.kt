@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import com.xlf.xsrt.work.base.RequestApi
 import com.xlf.xsrt.work.teacher.group.bean.GroupeEntry
 import com.xlf.xsrt.work.teacher.group.bean.HomeworkBaseVo
+import com.xlf.xsrt.work.teacher.group.bean.UserInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -22,6 +23,12 @@ class GroupModel : ViewModel() {
      * 返回数据错误信息
      */
     var mGroupError: MutableLiveData<String> = MutableLiveData()
+
+    /**
+     * user数据
+     *
+     */
+//    var mUserData: MutableLiveData<UserInfo> = MutableLiveData()
 
     @SuppressLint("CheckResult")
     fun loadGroupData(userId: Int) {
@@ -51,4 +58,21 @@ class GroupModel : ViewModel() {
                     mGroupError.value = "网络异常，请检查网络"
                 })
     }
+//
+//    @SuppressLint("CheckResult")
+//    fun queryUserInfo(token: String) {
+//        RequestApi.getInstance().queryUserInfo(token)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({ it ->
+//                    if (it.flag == 1) {
+//                        mUserData.value = it
+//                    } else {
+//                        mGroupError.value = it.msg
+//                    }
+//
+//                }, { e ->
+//                    mGroupError.value = "网络异常，请检查网络"
+//                })
+//    }
 }
