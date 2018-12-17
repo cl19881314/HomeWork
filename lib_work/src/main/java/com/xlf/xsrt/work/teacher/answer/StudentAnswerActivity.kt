@@ -5,12 +5,12 @@ import android.support.v7.widget.RecyclerView
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerAdapter
-import kotlinx.android.synthetic.main.activity_student_answer_layout.*
+import kotlinx.android.synthetic.main.xsrt_activity_student_answer_layout.*
 
 class StudentAnswerActivity : BaseActivity(){
     private var mAdapter : StudentAnswerAdapter ?= null
     override fun getContentViewId(): Int {
-        return R.layout.activity_student_answer_layout
+        return R.layout.xsrt_activity_student_answer_layout
     }
 
     override fun init() {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="transparent">#00000000</color>
-    <color name="white">#ffffff</color>
-    <color name="divider">#ededed</color>
-    <color name="popwindow_font">#00734C</color>
-    <color name="font_normal">#515151</color>
+    <color name="xsrt_white">#ffffff</color>
+    <color name="xsrt_divider">#ededed</color>
+    <color name="xsrt_popwindow_font">#00734C</color>
+    <color name="xsrt_font_normal">#515151</color>
+    <color name="xsrt_title1_txt_color">#333333</color>
 </resources>

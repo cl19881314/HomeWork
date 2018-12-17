@@ -2,21 +2,16 @@ package com.xlf.xsrt.work.teacher.answer
 
 import android.content.Intent
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerDetailAdapter
 import com.xlf.xsrt.work.teacher.answer.fragment.StudentAnswerDetailFragment
-import kotlinx.android.synthetic.main.activity_answer_detail_layout.*
-import kotlinx.android.synthetic.main.item_student_answer_detail_layout.view.*
+import kotlinx.android.synthetic.main.xsrt_activity_answer_detail_layout.*
 
 class StudentAnswerDetailActivity : BaseActivity() {
     private var mAdapter: StudentAnswerDetailAdapter? = null
     override fun getContentViewId(): Int {
-        return R.layout.activity_answer_detail_layout
+        return R.layout.xsrt_activity_answer_detail_layout
     }
 
     override fun init() {

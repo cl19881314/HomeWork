@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.xlf.xsrt.work.R
-import com.xlf.xsrt.work.base.BaseRcyAdapter
 import com.xlf.xsrt.work.detail.SubjectDetailActivity
 import com.xlf.xsrt.work.widget.xxxrecycler.XXXAdapter
-import kotlinx.android.synthetic.main.item_subject_layout.view.*
+import kotlinx.android.synthetic.main.xsrt_item_subject_layout.view.*
 
 class MyArrangeAdapter : XXXAdapter<MyArrangeAdapter.ArrangeHolder>() {
 
@@ -18,7 +17,7 @@ class MyArrangeAdapter : XXXAdapter<MyArrangeAdapter.ArrangeHolder>() {
     }
 
     override fun onRealCreateViewHolder(parent: ViewGroup?, viewType: Int): ArrangeHolder {
-        var view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_subject_layout, parent, false)
+        var view = LayoutInflater.from(parent!!.context).inflate(R.layout.xsrt_item_subject_layout, parent, false)
         return ArrangeHolder(view)
     }
 

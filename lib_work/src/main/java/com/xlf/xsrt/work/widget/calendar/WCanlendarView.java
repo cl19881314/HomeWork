@@ -38,7 +38,7 @@ public class WCanlendarView extends FrameLayout {
     }
 
     private void init() {
-        mRootView = View.inflate(getContext(), R.layout.layout_canlendar_weekbar, null);
+        mRootView = View.inflate(getContext(), R.layout.xsrt_layout_canlendar_weekbar, null);
         mCanlendarViewPager = mRootView.findViewById(R.id.canlendar_month);
         mCanlendarViewPager.setup(mConfig);
         mCanlendarViewPager.setCurrentItem(mConfig.getmCurrentMonthViewItem());

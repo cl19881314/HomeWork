@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.teacher.answer.CommentDetailActivity
 import com.xlf.xsrt.work.teacher.answer.StudentAnswerDetailActivity
-import com.xlf.xsrt.work.teacher.answer.WriteCommentActivity
 import com.xlf.xsrt.work.widget.xxxrecycler.XXXAdapter
-import kotlinx.android.synthetic.main.item_student_answer_layout.view.*
+import kotlinx.android.synthetic.main.xsrt_item_student_answer_layout.view.*
 
 class StudentAnswerAdapter : XXXAdapter<StudentAnswerAdapter.AnswerHolder>() {
     override fun getRealItemCount(): Int {
@@ -18,7 +17,7 @@ class StudentAnswerAdapter : XXXAdapter<StudentAnswerAdapter.AnswerHolder>() {
     }
 
     override fun onRealCreateViewHolder(parent: ViewGroup?, viewType: Int): AnswerHolder {
-        var view = LayoutInflater.from(parent!!.context).inflate(R.layout.item_student_answer_layout, parent, false)
+        var view = LayoutInflater.from(parent!!.context).inflate(R.layout.xsrt_item_student_answer_layout, parent, false)
         return AnswerHolder(view)
     }
 

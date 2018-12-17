@@ -6,15 +6,15 @@ import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.teacher.answer.StudentAnswerActivity
 import com.xlf.xsrt.work.teacher.group.GroupActivity
 import com.xlf.xsrt.work.teacher.mylayout.MyArrangeActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.xsrt_activity_teacher_main.*
 
 class TeacherActivity : BaseActivity(){
     override fun getContentViewId(): Int {
-        return R.layout.activity_main
+        return R.layout.xsrt_activity_teacher_main
     }
 
     override fun init() {
-        titleBar.getBackImageView()?.setOnClickListener {
+        backImg.setOnClickListener {
             finish()
         }
         groupHomeWorkLL.setOnClickListener {

@@ -12,12 +12,12 @@
         android:id="@+id/titlebar_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTxt="组作业" />
+        app:xsrtTitleTxt="组作业" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"
-        android:background="@color/divider" />
+        android:layout_height="@dimen/xsrt_divider_height"
+        android:background="@color/xsrt_divider" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:checkMark="@drawable/selector_spinner_btn"
+            android:checkMark="@drawable/xsrt_selector_spinner_btn"
             android:gravity="center"
             android:text="教材" />
 
@@ -39,7 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:checkMark="@drawable/selector_spinner_btn"
+            android:checkMark="@drawable/xsrt_selector_spinner_btn"
             android:gravity="center"
             android:text="目录" />
 
@@ -48,7 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:checkMark="@drawable/selector_spinner_btn"
+            android:checkMark="@drawable/xsrt_selector_spinner_btn"
             android:gravity="center"
             android:text="章节" />
 
@@ -56,19 +56,19 @@
             android:id="@+id/screen_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left"
-            android:layout_marginRight="@dimen/margin_right"
+            android:layout_marginLeft="@dimen/xsrt_margin_left"
+            android:layout_marginRight="@dimen/xsrt_margin_right"
             android:button="@null"
-            android:checkMark="@drawable/selector_screen_btn"
+            android:checkMark="@drawable/xsrt_selector_screen_btn"
             android:text="筛选"
-            android:textColor="@drawable/selector_font_popwindow" />
+            android:textColor="@drawable/xsrt_selector_font_popwindow" />
     </LinearLayout>
 
     <View
         android:id="@+id/divider_group"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"
-        android:background="@color/divider" />
+        android:layout_height="@dimen/xsrt_divider_height"
+        android:background="@color/xsrt_divider" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcy_group"

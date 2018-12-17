@@ -8,6 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="this is popwindow item"
-        android:textColor="@drawable/selector_font_popwindow"
+        android:textColor="@drawable/xsrt_selector_font_popwindow"
         android:textSize="22sp" />
 </FrameLayout>

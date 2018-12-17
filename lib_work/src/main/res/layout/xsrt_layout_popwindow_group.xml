@@ -8,10 +8,10 @@
         android:id="@+id/check_popwindow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checkMark="@drawable/selector_spinner_btn"
+        android:checkMark="@drawable/xsrt_selector_spinner_btn"
         android:gravity="center_vertical"
         android:text="全部"
-        android:textColor="@drawable/selector_font_popwindow"
+        android:textColor="@drawable/xsrt_selector_font_popwindow"
         android:textSize="30sp" />
 
     <android.support.v7.widget.RecyclerView

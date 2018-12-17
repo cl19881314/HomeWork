@@ -2,15 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/margin_left"
+    android:paddingLeft="@dimen/xsrt_margin_left"
     android:paddingTop="10dp"
-    android:paddingRight="@dimen/margin_right"
+    android:paddingRight="@dimen/xsrt_margin_right"
     android:paddingBottom="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/layer_bg_item_student"
+        android:background="@drawable/xsrt_layer_bg_item_student"
         android:padding="15dp">
 
 
@@ -56,10 +56,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@color/popwindow_font"
+            android:background="@color/xsrt_popwindow_font"
             android:text="查看批阅"
             android:layout_alignParentBottom="true"
-            android:textColor="@color/white"
+            android:textColor="@color/xsrt_white"
             android:visibility="visible" />
     </RelativeLayout>
 </FrameLayout>

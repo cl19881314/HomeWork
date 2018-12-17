@@ -23,9 +23,9 @@ import com.xlf.xsrt.work.teacher.group.bean.QueryCondition
 import com.xlf.xsrt.work.teacher.group.viewmodel.GroupModel
 import com.xlf.xsrt.work.utils.ScreenUtil
 import com.xlf.xsrt.work.widget.TitleBar
-import kotlinx.android.synthetic.main.activity_group_teacher.*
-import kotlinx.android.synthetic.main.layout_popwindow_group.view.*
-import kotlinx.android.synthetic.main.layout_popwindow_screen_group.view.*
+import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
+import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
+import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
 
 class GroupActivity : BaseActivity() {
     private var mPopWindow: PopupWindow? = null
@@ -53,7 +53,7 @@ class GroupActivity : BaseActivity() {
     }
 
     override fun getContentViewId(): Int {
-        return R.layout.activity_group_teacher
+        return R.layout.xsrt_activity_group_teacher
     }
 
 
@@ -66,12 +66,12 @@ class GroupActivity : BaseActivity() {
         when (type) {
 
             SCREEN -> {
-                val windowView = LayoutInflater.from(this).inflate(R.layout.layout_popwindow_screen_group, null)
+                val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_screen_group, null)
                 initWindowView(type, windowView)
                 val popWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
                 popWindow?.isOutsideTouchable = true
                 popWindow?.isFocusable = false
-                popWindow.animationStyle = R.style.popwin_anim_style
+                popWindow.animationStyle = R.style.xsrt_popwin_anim_style
                 windowView.sure_screen_popwindow.setOnClickListener {
                     popWindow?.dismiss()
                 }
@@ -81,7 +81,7 @@ class GroupActivity : BaseActivity() {
                 showPopWindow(popWindow, type)
             }
             else -> {
-                val windowView = LayoutInflater.from(this).inflate(R.layout.layout_popwindow_group, null)
+                val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_group, null)
                 initWindowView(type, windowView)
                 val popWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
                 popWindow?.isOutsideTouchable = true

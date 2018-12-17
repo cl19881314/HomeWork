@@ -7,7 +7,7 @@ import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.student.adapter.StudentAdapter
 import com.xlf.xsrt.work.widget.TitleBar
 import com.xlf.xsrt.work.widget.calendar.WCanlendarView
-import kotlinx.android.synthetic.main.activity_student.*
+import kotlinx.android.synthetic.main.xsrt_activity_student.*
 
 class StudentActivity : BaseActivity() {
 
@@ -20,7 +20,7 @@ class StudentActivity : BaseActivity() {
     }
 
     override fun getContentViewId(): Int {
-        return R.layout.activity_student
+        return R.layout.xsrt_activity_student
     }
 
     override fun init() {

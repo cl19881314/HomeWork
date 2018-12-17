@@ -9,9 +9,9 @@
             android:id="@+id/backImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/back"
-            android:paddingLeft="@dimen/margin_left"
-            android:paddingRight="@dimen/margin_right"
+            android:src="@drawable/xsrt_back"
+            android:paddingLeft="@dimen/xsrt_margin_left"
+            android:paddingRight="@dimen/xsrt_margin_right"
             android:layout_centerVertical="true"/>
         <TextView
             android:layout_width="wrap_content"

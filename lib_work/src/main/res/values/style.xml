@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="popwin_anim_style" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/anim_screenz_popwindow_enter</item>
-        <item name="android:windowExitAnimation">@anim/anim_screen_popwindow_out</item>
+    <style name="xsrt_popwin_anim_style" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/xsrt_anim_screenz_popwindow_enter</item>
+        <item name="android:windowExitAnimation">@anim/xsrt_anim_screen_popwindow_out</item>
     </style>
 </resources>

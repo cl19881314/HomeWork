@@ -9,7 +9,7 @@
         android:id="@+id/titlebar_readover"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        app:titleTxt="老师评论" />
+        app:xsrtTitleTxt="老师评论" />
 
     <TextView
         android:id="@+id/tv_time_readover"

@@ -9,7 +9,6 @@ abstract class BaseActivity : AppCompatActivity() {
     open val RESPONSE_SUCCESS = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        removeDefaultTitle()
         setContentView(getContentViewId())
         init()
         doResponseData()
@@ -17,13 +16,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun doResponseData() {
-    }
-
-    private fun removeDefaultTitle() {
-        //去掉标题栏
-        requestWindowFeature(Window.FEATURE_NO_TITLE)
-        //去掉状态栏
-//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     open fun toast(msg: String) {

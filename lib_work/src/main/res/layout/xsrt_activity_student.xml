@@ -6,17 +6,15 @@
     android:orientation="vertical">
 
     <com.xlf.xsrt.work.widget.TitleBar
-        android:id="@+id/titleBar"
+        android:id="@+id/titlebar_student"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:rightTxt="确认" />
+        android:layout_height="44dp"
+        app:xsrtTitleTxt="作业本" />
 
-    <EditText
-        android:id="@+id/commentEdt"
+    <com.xlf.xsrt.work.widget.xxxrecycler.XXXRecyclerView
+        android:id="@+id/rcy_student"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:gravity="top"
-        android:hint="请输入您的评论..." />
+        android:background="#F8F8F8" />
 
 </LinearLayout>

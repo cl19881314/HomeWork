@@ -114,7 +114,7 @@ public class XXXRecyclerView extends RecyclerView implements HatShoe {
     }
 
     private View createDefaultLoadMoreView() {
-        return View.inflate(getContext(), R.layout.layout_loadmore, null);
+        return View.inflate(getContext(), R.layout.xsrt_layout_loadmore, null);
     }
 
     /**

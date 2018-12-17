@@ -8,7 +8,7 @@ import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.student.model.ReadOvreModel
 import com.xlf.xsrt.work.widget.TitleBar
-import kotlinx.android.synthetic.main.activity_readover.*
+import kotlinx.android.synthetic.main.xsrt_activity_readover.*
 
 class ReadOverActivity : BaseActivity() {
     private val mViewModel by lazy {
@@ -28,7 +28,7 @@ class ReadOverActivity : BaseActivity() {
     }
 
     override fun getContentViewId(): Int {
-        return R.layout.activity_readover
+        return R.layout.xsrt_activity_readover
     }
 
     override fun init() {

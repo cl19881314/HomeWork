@@ -4,11 +4,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_subject_detail_layout.*
+import kotlinx.android.synthetic.main.xsrt_activity_subject_detail_layout.*
 
 class SubjectDetailActivity : BaseActivity(){
     override fun getContentViewId(): Int {
-        return R.layout.activity_subject_detail_layout
+        return R.layout.xsrt_activity_subject_detail_layout
     }
     override fun init() {
         var settings = showContentWeb.settings

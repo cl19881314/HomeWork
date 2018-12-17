@@ -35,7 +35,7 @@ class TitleBar : RelativeLayout {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        val view = LayoutInflater.from(context).inflate(R.layout.view_titlebar, this)
+        val view = LayoutInflater.from(context).inflate(R.layout.xsrt_view_titlebar, this)
         mTitleBarLayout = view.findViewById(R.id.title_bar)
         mBackImg = view.findViewById(R.id.iv_back_basetitle)
         mTitleTxt = view.findViewById(R.id.tv_title_basetitle)
@@ -48,9 +48,9 @@ class TitleBar : RelativeLayout {
                     listener?.rightTextClick()
                 }
 
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TitleBar)
-        val titleString = typedArray.getString(R.styleable.TitleBar_titleTxt)
-        val rightString = typedArray.getString(R.styleable.TitleBar_rightTxt)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.XsrtTitleBar)
+        val titleString = typedArray.getString(R.styleable.XsrtTitleBar_xsrtTitleTxt)
+        val rightString = typedArray.getString(R.styleable.XsrtTitleBar_xsrtRightTxt)
         if (!TextUtils.isEmpty(rightString)) {
             mRightTxt!!.visibility = View.VISIBLE
             mRightTxt!!.text = rightString
