@@ -7,8 +7,7 @@ import com.xlf.xsrt.work.widget.xxxrecycler.XXXAdapter
 
 abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
     private var mData: MutableList<T>? = mutableListOf()
-
-
+    private var mItemListener: ItemClickListener? = null
 
     fun addData(data: MutableList<T>) {
         addData(data, false)
@@ -26,12 +25,17 @@ abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
         notifyDataSetChanged()
     }
 
+    fun getData(): MutableList<T>? {
+        return mData
+    }
+
     override fun getRealItemCount(): Int {
-        return if (mData == null) {
-            0
-        } else {
-            mData!!.size
-        }
+//        return if (mData == null) {
+//            0
+//        } else {
+//            mData!!.size
+//        }
+        return 5
     }
 
     override fun onRealCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseRcyHolder {
@@ -39,9 +43,20 @@ abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
     }
 
     override fun onRealBindViewHolder(holder: BaseRcyHolder?, position: Int) {
-        setItemContent(holder!!.itemView, mData!![position], position)
+        holder?.itemView!!.setOnClickListener {
+            mItemListener?.onItemClick(position)
+        }
+//        setItemContent(holder!!.itemView, mData!![position], position)
+    }
+
+    fun setOnItemClickListener(listener: ItemClickListener) {
+        mItemListener = listener
     }
 
     abstract fun initLayoutId(viewType: Int): Int
     abstract fun setItemContent(itemView: View, bean: T, positon: Int)
+
+    open interface ItemClickListener {
+        fun onItemClick(position: Int)
+    }
 }
