@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <com.xlf.xsrt.work.widget.TitleBar
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="我的布置" />
+        app:xsrtTitleTxt="我的布置" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,29 +22,55 @@
             android:text="时间选择" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/xsrt_divider" />
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/xsrt_white"
+        android:paddingBottom="17dp"
+        android:paddingLeft="@dimen/xsrt_margin_left"
+        android:paddingRight="@dimen/xsrt_margin_right"
+        android:paddingTop="17dp">
 
         <TextView
             android:id="@+id/arrangedStatusTxt"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="已布置" />
+            android:layout_height="23dp"
+            android:background="@drawable/xsrt_arranged_status_bg"
+            android:gravity="center_vertical"
+            android:text="已布置"
+            android:textColor="#00724c"
+            android:textSize="12sp"
+            android:layout_marginLeft="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
 
         <TextView
             android:id="@+id/arrangingStatusTxt"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="23dp"
+            android:background="@drawable/xsrt_arranging_status_bg"
+            android:gravity="center_vertical"
             android:text="预约布置"
-            android:visibility="gone" />
+            android:textColor="#f59937"
+            android:textSize="12sp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/timeTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="2018-12-24 15:20" />
+            tools:text="2018-12-24 15:20"
+            android:textColor="@color/xsrt_title3_txt_color"
+            android:textSize="12sp"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
     <com.xlf.xsrt.work.widget.xxxrecycler.XXXRecyclerView
@@ -51,15 +78,18 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:overScrollMode="never"/>
+        android:background="@color/xsrt_gray_bg_color"
+        android:overScrollMode="never" />
 
     <TextView
         android:id="@+id/delTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_red_light"
-        android:text="删除"
+        android:background="@color/xsrt_read_bg_color"
         android:gravity="center_horizontal"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:text="删除"
+        android:textColor="@color/xsrt_white"
+        android:textSize="15sp" />
 
 </LinearLayout>

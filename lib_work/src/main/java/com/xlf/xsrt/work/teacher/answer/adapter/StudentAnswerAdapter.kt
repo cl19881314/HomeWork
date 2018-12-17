@@ -28,6 +28,10 @@ class StudentAnswerAdapter : XXXAdapter<StudentAnswerAdapter.AnswerHolder>() {
 
     inner class AnswerHolder(var view: View) : RecyclerView.ViewHolder(view) {
         fun bindTo(postion: Int) {
+            view.nameTxt.paint.isFakeBoldText = true
+            view.errorNumTxt.paint.isFakeBoldText = true
+            view.allNumTxt.paint.isFakeBoldText = true
+
             view.toDoStausTxt.setOnClickListener {
                 var intent = Intent(view.context, StudentAnswerDetailActivity::class.java)
                 view.context.startActivity(intent)

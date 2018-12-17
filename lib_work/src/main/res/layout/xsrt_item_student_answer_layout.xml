@@ -1,46 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:layout_marginLeft="@dimen/xsrt_margin_left"
     android:layout_marginRight="@dimen/xsrt_margin_right"
     android:layout_marginTop="@dimen/xsrt_margin_top"
-    android:padding="10dp">
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@drawable/xsrt_item_subject_bg">
 
     <TextView
         android:id="@+id/nameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="张某某" />
+        android:text="张某某"
+        android:textSize="15sp"
+        android:textColor="@color/xsrt_title1_txt_color"
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:id="@+id/timeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="2018年8月30日 18:20" />
+        android:text="2018年8月30日 18:20"
+        android:textSize="10sp"
+        android:textColor="@color/xsrt_title3_txt_color"
+        android:layout_marginTop="19dp"
+        />
 
     <TextView
-        android:id="@+id/answerNumTxt"
+        android:id="@+id/errorNumTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nameTxt"
-        android:text="2/10" />
-
+        android:text="2"
+        android:textSize="15sp"
+        android:textColor="#00724c"
+        android:paddingRight="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"/>
+    <TextView
+        android:id="@+id/allNumTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameTxt"
+        android:layout_toRightOf="@+id/errorNumTxt"
+        android:text="/10"
+        android:textSize="15sp"
+        android:textColor="@color/xsrt_title3_txt_color"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"/>
     <TextView
         android:id="@+id/toDoStausTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/nameTxt"
-        android:text="待批阅" />
+        android:text="待批阅"
+        android:textSize="12sp"
+        android:textColor="@color/xsrt_yellow_bg_color"
+        android:visibility="visible"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/endStatusTxt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="28dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/toDoStausTxt"
-        android:text="查看批阅" />
+        android:background="@drawable/xsrt_gray_bg"
+        android:text="查看批阅"
+        android:textSize="12sp"
+        android:textColor="@color/xsrt_white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
 
 </RelativeLayout>

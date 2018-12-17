@@ -1,50 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="48dp"
+        android:background="@color/xsrt_white">
+
         <ImageView
             android:id="@+id/backImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/xsrt_back"
+            android:layout_centerVertical="true"
             android:paddingLeft="@dimen/xsrt_margin_left"
             android:paddingRight="@dimen/xsrt_margin_right"
-            android:layout_centerVertical="true"/>
+            android:src="@drawable/xsrt_back" />
+
         <TextView
+            android:id="@+id/tv_right_basetitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="学生作业"
             android:layout_centerInParent="true"
-            />
+            android:text="学生作业"
+            android:textColor="@color/xsrt_title1_txt_color"
+            android:textSize="18sp" />
+
         <TextView
             android:id="@+id/classNameTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="初2014级3班"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:text="初2014级3班" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/xsrt_white">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2015年5月30号"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="2015年5月30号" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="诗词背诵"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="诗词背诵" />
     </LinearLayout>
+
     <com.xlf.xsrt.work.widget.xxxrecycler.XXXRecyclerView
         android:id="@+id/showDataRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never"
+        android:background="@color/xsrt_divider"/>
 
 </LinearLayout>

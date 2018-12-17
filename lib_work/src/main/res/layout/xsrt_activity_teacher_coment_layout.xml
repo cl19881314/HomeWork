@@ -13,13 +13,25 @@
     <TextView
         android:id="@+id/timeTxt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2018年5月30号" />
+        android:layout_height="23dp"
+        android:gravity="center"
+        android:text="2018年5月30号"
+        android:paddingLeft="@dimen/xsrt_margin_left"
+        android:paddingRight="@dimen/xsrt_margin_right"
+        android:background="@drawable/xsrt_time_bg"
+        android:layout_marginLeft="@dimen/xsrt_margin_left"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="12dp"
+        android:textSize="12sp"
+        android:textColor="@color/xsrt_title1_txt_color"/>
 
     <TextView
         android:id="@+id/commentTxt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="这是老师的评论界\\n这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面这是老师的评论界面" />
+        android:layout_marginLeft="@dimen/xsrt_margin_left"
+        android:layout_marginRight="@dimen/xsrt_margin_right"
+        android:textSize="14sp"
+        android:textColor="@color/xsrt_title1_txt_color"/>
 
 </LinearLayout>

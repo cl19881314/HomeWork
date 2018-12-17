@@ -12,13 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         >
 
         <RadioButton
             android:id="@+id/isCollected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/xsrt_selector_raddio_btn"/>
+            android:background="@drawable/xsrt_selector_raddio_btn"
+            android:button="@null"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/subjectNumTxt"
@@ -31,19 +36,21 @@
 
         <ImageView
             android:id="@+id/collectionImg"
-            android:layout_width="36dp"
-            android:layout_height="34dp"
-            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:padding="5dp"
-            android:src="@drawable/xsrt_ic_collection_no" />
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/xsrt_ic_collection_no"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/dellImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="5dp"
-            android:src="@drawable/xsrt_ic_del" />
+            android:padding="10dp"
+            android:src="@drawable/xsrt_ic_del"
+            android:visibility="gone"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -53,6 +60,8 @@
     <WebView
         android:id="@+id/showContentWeb"
         android:layout_width="match_parent"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
         android:layout_height="100dp" />
     <View
         android:layout_width="match_parent"
@@ -60,12 +69,15 @@
         android:background="@color/xsrt_divider"/>
     <TextView
         android:id="@+id/showDetailTxt"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="37dp"
-        android:gravity="center"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
         android:padding="5dp"
         android:text="查看详情"
         android:textSize="14sp"
-        android:textColor="@color/xsrt_title1_txt_color"/>
+        android:textColor="@color/xsrt_title1_txt_color"
+        android:drawableRight="@drawable/xsrt_ic_right_arrow"
+        android:drawablePadding="5dp"/>
 
 </LinearLayout>

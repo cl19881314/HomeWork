@@ -5,4 +5,9 @@
     <color name="xsrt_popwindow_font">#00734C</color>
     <color name="xsrt_font_normal">#515151</color>
     <color name="xsrt_title1_txt_color">#333333</color>
+    <color name="xsrt_title2_txt_color">#666666</color>
+    <color name="xsrt_title3_txt_color">#999999</color>
+    <color name="xsrt_read_bg_color">#F53756</color>
+    <color name="xsrt_gray_bg_color">#f8f8f8</color>
+    <color name="xsrt_yellow_bg_color">#F59937</color>
 </resources>
