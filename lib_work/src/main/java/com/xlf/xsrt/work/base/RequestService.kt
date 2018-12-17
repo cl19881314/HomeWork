@@ -3,6 +3,7 @@ package com.xlf.xsrt.work.base
 import com.xlf.xsrt.work.entry.BaseEntry
 import com.xlf.xsrt.work.entry.BaseStudentEntry
 import com.xlf.xsrt.work.teacher.group.bean.GroupeEntry
+import com.xlf.xsrt.work.teacher.group.bean.UserInfo
 
 import io.reactivex.Observable
 import retrofit2.http.FieldMap
@@ -25,4 +26,8 @@ interface RequestService {
     @FormUrlEncoded
     @POST("teacher/getComment")
     fun getTeacherComment(@FieldMap parame: HashMap<String, String>): Observable<BaseStudentEntry>
+
+    @FormUrlEncoded
+    @POST("appLogin/queryLogin")
+    fun queryUserInfo(@FieldMap parame: HashMap<String, String>): Observable<UserInfo>
 }

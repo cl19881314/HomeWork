@@ -2,11 +2,14 @@ package com.xlf.xsrt.work.teacher.group
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Build
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +18,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
+import com.xlf.xsrt.work.base.BaseRcyAdapter
 import com.xlf.xsrt.work.teacher.group.bean.SysDictVo
 import com.xlf.xsrt.work.teacher.group.adapter.GroupAdapter
 import com.xlf.xsrt.work.teacher.group.adapter.PopWindowAdapter
@@ -28,7 +32,17 @@ import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
 
 class GroupActivity : BaseActivity() {
-    private var mPopWindow: PopupWindow? = null
+
+    private var mTextPopWindow: PopupWindow? = null
+    private var mDirePopWindow: PopupWindow? = null
+    private var mSectionPopWindow: PopupWindow? = null
+    private var mDiffPopWindow: PopupWindow? = null
+    private var mTextAdapter: PopWindowAdapter? = null
+    private var mDireAdapter: PopWindowAdapter? = null
+    private var mSectionAdapter: PopWindowAdapter? = null
+    private var mDiffAdapter: ScreenPopWindowAdapter? = null
+
+
     private var mTextBooks: MutableList<SysDictVo> = mutableListOf()//教材
     private var mDirectors: MutableList<SysDictVo> = mutableListOf() //目录
     private var mSections: MutableList<SysDictVo> = mutableListOf() //章节
@@ -38,6 +52,10 @@ class GroupActivity : BaseActivity() {
     private val DIRECTOR = 1//目录
     private val SECTION = 2//章节
     private val SCREEN = 3//筛选
+
+    private val mTeacherId by lazy {
+        intent.getIntExtra("teacherId", -1)
+    }
 
     private val mViewModel by lazy {
         ViewModelProviders.of(this).get(GroupModel::class.java)
@@ -56,89 +74,79 @@ class GroupActivity : BaseActivity() {
         return R.layout.xsrt_activity_group_teacher
     }
 
+    companion object {
+        fun start(ctx: Context, teacherId: Int) {
+            val intent = Intent(ctx, GroupActivity::class.java)
+            intent.putExtra("teacherId", teacherId)
+            ctx.startActivity(intent)
+        }
+    }
+
 
     override fun init() {
+        initRcyView()
+        initTxtPopWindow()
+        initDirePopWindow()
+        initSectionPopWindow()
+        initDiffPopWindow()
+        initData()
+    }
+
+    private fun initData() {
+        mViewModel.loadGroupData(mTeacherId)//初始获取组作业数据
+    }
+
+    private fun initRcyView() {
         rcy_group.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rcy_group.adapter = mGroupAdapter
     }
 
-    private fun showPopWindow(type: Int) {
-        when (type) {
-
-            SCREEN -> {
-                val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_screen_group, null)
-                initWindowView(type, windowView)
-                val popWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-                popWindow?.isOutsideTouchable = true
-                popWindow?.isFocusable = false
-                popWindow.animationStyle = R.style.xsrt_popwin_anim_style
-                windowView.sure_screen_popwindow.setOnClickListener {
-                    popWindow?.dismiss()
-                }
-                popWindow.setOnDismissListener {
-                    screen_group.isChecked = false
-                }
-                showPopWindow(popWindow, type)
-            }
-            else -> {
-                val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_group, null)
-                initWindowView(type, windowView)
-                val popWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-                popWindow?.isOutsideTouchable = true
-                popWindow?.isFocusable = false
-                showPopWindow(popWindow, type)
-            }
+    private fun initDiffPopWindow() {
+        val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_screen_group, null)
+        mDiffAdapter = ScreenPopWindowAdapter()
+        windowView.rcy_screen_popwindow.layoutManager = GridLayoutManager(this, 3)
+        windowView.rcy_screen_popwindow.adapter = mDiffAdapter
+        mDiffPopWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+        mDiffPopWindow?.isOutsideTouchable = true
+        mDiffPopWindow?.isFocusable = false
+        mDiffPopWindow?.animationStyle = R.style.xsrt_popwin_anim_style
+        windowView.sure_screen_popwindow.setOnClickListener {
+            mDiffPopWindow?.dismiss()
         }
     }
 
-    private fun initWindowView(type: Int, windowView: View) {
-
-        when (type) {
-            TEXT_BOOK -> {
-                val adapter = PopWindowAdapter()
-                windowView.rcy_popwindow.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-                windowView.rcy_popwindow.adapter = adapter
-                adapter.addData(mTextBooks, true)
-            }
-            DIRECTOR -> {
-                val adapter = PopWindowAdapter()
-                windowView.rcy_popwindow.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-                windowView.rcy_popwindow.adapter = adapter
-                adapter.addData(mDirectors, true)
-            }
-            SECTION -> {
-                val adapter = PopWindowAdapter()
-                windowView.rcy_popwindow.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-                windowView.rcy_popwindow.adapter = adapter
-                adapter.addData(mSections, true)
-            }
-            SCREEN -> {
-                val adapter = ScreenPopWindowAdapter()
-                windowView.rcy_screen_popwindow.layoutManager = GridLayoutManager(this, 3)
-                windowView.rcy_screen_popwindow.adapter = adapter
-                adapter.addData(mDiffLevels, true)
-            }
-        }
+    private fun initSectionPopWindow() {
+        val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_group, null)
+        mSectionAdapter = PopWindowAdapter()
+        windowView.rcy_popwindow.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        windowView.rcy_popwindow.adapter = mSectionAdapter
+        mSectionPopWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+        mSectionPopWindow?.isOutsideTouchable = true
+        mSectionPopWindow?.isFocusable = false
     }
+
+    private fun initDirePopWindow() {
+        val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_group, null)
+        mDireAdapter = PopWindowAdapter()
+        windowView.rcy_popwindow.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        windowView.rcy_popwindow.adapter = mDireAdapter
+        mDirePopWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+        mDirePopWindow?.isOutsideTouchable = true
+        mDirePopWindow?.isFocusable = false
+    }
+
+    private fun initTxtPopWindow() {
+        val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_group, null)
+        mTextAdapter = PopWindowAdapter()
+        windowView.rcy_popwindow.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        windowView.rcy_popwindow.adapter = mTextAdapter
+        mTextPopWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
+        mTextPopWindow?.isOutsideTouchable = true
+        mTextPopWindow?.isFocusable = false
+    }
+
 
     override fun initListener() {
-        textbook_group.setOnClickListener {
-            textbook_group.toggle()//只是改变状态
-            showPopWindow(TEXT_BOOK)
-        }
-        director_group.setOnClickListener {
-            director_group.toggle()
-            showPopWindow(DIRECTOR)
-        }
-        section_group.setOnClickListener {
-            section_group.toggle()
-            showPopWindow(SECTION)
-        }
-        screen_group.setOnClickListener {
-            screen_group.toggle()
-            showPopWindow(SCREEN)
-        }
-
         titlebar_group.setTitleBarClickListener(object : TitleBar.TitleBarClickListener {
             override fun leftImgClick() {
                 finish()
@@ -147,6 +155,58 @@ class GroupActivity : BaseActivity() {
             override fun rightTextClick() {
             }
         })
+        textbook_group.setOnClickListener {
+            if (textbook_group.isChecked) {
+                mTextPopWindow!!.dismiss()
+                textbook_group.isChecked = false
+            } else {
+                director_group.isChecked = false
+                section_group.isChecked = false
+                mTextAdapter?.addData(mTextBooks, true)
+                showPopWindow(mTextPopWindow!!, TEXT_BOOK)
+                textbook_group.isChecked = true
+            }
+        }
+        director_group.setOnClickListener {
+            if (!director_group.isChecked) {
+                director_group.toggle()
+                textbook_group.isChecked = false
+                section_group.isChecked = false
+                mDireAdapter?.addData(mDirectors, true)
+                showPopWindow(mDirePopWindow!!, DIRECTOR)
+            } else {
+                director_group.toggle()
+                mDirePopWindow?.dismiss()
+            }
+
+        }
+        section_group.setOnClickListener {
+            if (!section_group.isChecked) {
+                section_group.toggle()
+                textbook_group.isChecked = false
+                director_group.isChecked = false
+                mSectionAdapter?.addData(mSections, true)
+                showPopWindow(mSectionPopWindow!!, SECTION)
+            } else {
+                section_group.toggle()
+                mSectionPopWindow?.dismiss()
+            }
+        }
+        screen_group.setOnClickListener {
+            screen_group.toggle()
+            mDiffAdapter?.addData(mDiffLevels, true)
+            showPopWindow(mDiffPopWindow!!, SCREEN)
+        }
+
+        mTextAdapter?.setOnItemClickListener(object : BaseRcyAdapter.ItemClickListener {
+            override fun onItemClick(position: Int) {
+                mTextPopWindow?.dismiss()
+                //TODO:搜索
+//                mViewModel.queryHomeworkData()
+            }
+
+        })
+
     }
 
     private fun showPopWindow(popWindow: PopupWindow, type: Int) {
@@ -182,7 +242,19 @@ class GroupActivity : BaseActivity() {
     override fun doResponseData() {
         mViewModel.mGroupData.observe(this, Observer {
             if (it?.flag == RESPONSE_SUCCESS) {
-                mGroupAdapter.addData(it.homeworkBaseList!!)
+                if (it.homeworkBaseList!!.size > 0) {
+                    mGroupAdapter.addData(it.homeworkBaseList!!)
+                } else {
+                    showEmptyView()
+                }
+                //重置困难等级
+                mDiffLevels.clear()
+                mDiffLevels.addAll(it.difficultyList!!)
+                mDiffAdapter?.addData(mDiffLevels, true)
+                //重置章节数据
+                mTextBooks.clear()
+                mTextBooks.addAll(it.textBookList!!)
+                mTextAdapter?.addData(mTextBooks, true)
             }
         })
         mViewModel.mHomeworkData.observe(this, Observer {
@@ -200,6 +272,7 @@ class GroupActivity : BaseActivity() {
                 }
             }
         })
+
     }
 
     /**
