@@ -6,7 +6,9 @@ import android.view.Window
 import android.widget.Toast
 
 abstract class BaseActivity : AppCompatActivity() {
-    open val RESPONSE_SUCCESS = 1
+
+    val RESPONSE_SUCCESS = 1
+    protected var mUserId = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getContentViewId())

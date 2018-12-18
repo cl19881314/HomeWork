@@ -1,10 +1,14 @@
 package com.xlf.xsrt.work.base
 
+import android.text.TextUtils
 import android.util.Log
 import com.xlf.xsrt.work.constant.ServiceApi
 import com.xlf.xsrt.work.entry.BaseStudentEntry
 import com.xlf.xsrt.work.bean.GroupeEntry
+import com.xlf.xsrt.work.bean.MyArrangeBean
+import com.xlf.xsrt.work.bean.StudentAnswerBean
 import com.xlf.xsrt.work.bean.UserInfo
+import com.xlf.xsrt.work.entry.BaseEntry
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -89,6 +93,46 @@ class RequestApi {
         var parame = HashMap<String, String>()
         parame["userInfo"] = "$token"
         return mService.queryUserInfo(parame)
+    }
+
+    /**
+     * 获取教师端我的布置数据
+     */
+    fun getMyArrangeData(userId : Int, groupedHomeworkId : Int) : Observable<MyArrangeBean>{
+        var parameter = HashMap<String, Int>()
+        parameter["userId"] = userId
+        if (groupedHomeworkId != -1) {
+            parameter["groupedHomeworkId"] = groupedHomeworkId
+        }
+        return mService.getMyArrangeData(parameter)
+    }
+
+    /**
+     *  删除教师端预约布置的作业
+     */
+    fun deleteAppointmentWork(userId : Int, groupedHomeworkId : Int) : Observable<BaseEntry>{
+        var parameter = HashMap<String, Int>()
+        parameter["userId"] = userId
+        parameter["groupedHomeworkId"] = groupedHomeworkId
+        return mService.deleteAppointmentWork(parameter)
+    }
+
+    /**
+     *  教师端 获取学生作业
+     */
+    fun getStudentAnswerData(userId : Int, classId : Int, createTime : String, homeworkId : Int) : Observable<StudentAnswerBean>{
+        var parameter = HashMap<String, Any>()
+        parameter["userId"] = userId
+        if (classId != -1) {
+            parameter["classId"] = classId
+        }
+        if (!TextUtils.isEmpty(createTime)){
+            parameter["createTime"] = createTime
+        }
+        if (homeworkId != -1){
+            parameter["homeworkId"] = homeworkId
+        }
+        return mService.getStudentAnswerData(parameter)
     }
 
 }

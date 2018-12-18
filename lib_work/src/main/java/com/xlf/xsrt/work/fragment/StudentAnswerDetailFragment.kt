@@ -30,7 +30,6 @@ class StudentAnswerDetailFragment : BaseFragment() {
 
 
     override fun onDestroy() {
-        //TODO recyler webview
         try {
             if (mWebView != null) {
                 val parent = mWebView!!.parent as ViewGroup
