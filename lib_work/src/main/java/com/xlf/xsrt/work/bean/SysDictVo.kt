@@ -1,4 +1,4 @@
-package com.xlf.xsrt.work.teacher.group.bean
+package com.xlf.xsrt.work.bean
 
 class SysDictVo {
     var sysDictId: Int? = null

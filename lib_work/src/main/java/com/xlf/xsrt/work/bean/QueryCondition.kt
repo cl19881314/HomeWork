@@ -1,4 +1,4 @@
-package com.xlf.xsrt.work.teacher.group.bean
+package com.xlf.xsrt.work.bean
 
 /**
  * 封装组页面查询条件

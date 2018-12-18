@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.xsrt_activity_student_choose_answer.*
 /**
  * @author Chenhong
  * @date 2018/12/17.
- * @des
+ * @des 学生答题界面
  */
 class StudentAnswerActivity : BaseActivity(){
     private var mAdapter: StudentAnswerDetailAdapter? = null
@@ -19,7 +19,7 @@ class StudentAnswerActivity : BaseActivity(){
     }
 
     override fun init() {
-        mAdapter =  StudentAnswerDetailAdapter()
+        mAdapter =  StudentAnswerDetailAdapter(supportFragmentManager)
         answerVp.adapter = mAdapter
         getDetailData()
     }

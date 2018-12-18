@@ -3,8 +3,8 @@ package com.xlf.xsrt.work.base
 import android.util.Log
 import com.xlf.xsrt.work.constant.ServiceApi
 import com.xlf.xsrt.work.entry.BaseStudentEntry
-import com.xlf.xsrt.work.teacher.group.bean.GroupeEntry
-import com.xlf.xsrt.work.teacher.group.bean.UserInfo
+import com.xlf.xsrt.work.bean.GroupeEntry
+import com.xlf.xsrt.work.bean.UserInfo
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -8,6 +8,9 @@ import com.xlf.xsrt.work.teacher.group.GroupActivity
 import com.xlf.xsrt.work.teacher.mylayout.MyArrangeActivity
 import kotlinx.android.synthetic.main.xsrt_activity_teacher_main.*
 
+/**
+ * 教师端主界面
+ */
 class TeacherActivity : BaseActivity(){
     override fun getContentViewId(): Int {
         return R.layout.xsrt_activity_teacher_main

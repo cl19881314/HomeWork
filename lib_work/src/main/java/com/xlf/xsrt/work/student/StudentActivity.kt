@@ -9,6 +9,9 @@ import com.xlf.xsrt.work.widget.TitleBar
 import com.xlf.xsrt.work.widget.calendar.WCanlendarView
 import kotlinx.android.synthetic.main.xsrt_activity_student.*
 
+/**
+ * 学生主界面
+ */
 class StudentActivity : BaseActivity() {
 
     private val mAdapter by lazy {

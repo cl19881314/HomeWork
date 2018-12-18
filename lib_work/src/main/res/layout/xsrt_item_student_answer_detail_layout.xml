@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <WebView
         android:id="@+id/detailWeb"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/countNumTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/xsrt_margin_top"
+        android:text="20/20"
+        android:textColor="@color/xsrt_title1_txt_color"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:id="@+id/chooseAnswerLL"
+        android:layout_width="wrap_content"
+        android:layout_height="88dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="17dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/xsrt_item_subject_bg"
+        android:paddingLeft="18dp">
+
+    </LinearLayout>
 
 </LinearLayout>

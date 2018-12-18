@@ -3,6 +3,7 @@
     <color name="xsrt_white">#ffffff</color>
     <color name="xsrt_divider">#eeeeee</color>
     <color name="xsrt_popwindow_font">#00734C</color>
+    <color name="xsrt_btn_bg_color">#00724C</color>
     <color name="xsrt_font_normal">#515151</color>
     <color name="xsrt_title1_txt_color">#333333</color>
     <color name="xsrt_title2_txt_color">#666666</color>

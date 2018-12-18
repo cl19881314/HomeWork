@@ -17,9 +17,11 @@
     <TextView
         android:id="@+id/toDoCommentTxt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="批阅"
-        android:padding="10dp"
-        android:gravity="center_horizontal"/>
+        android:gravity="center"
+        android:background="@color/xsrt_btn_bg_color"
+        android:textColor="@color/xsrt_white"
+        android:textSize="15sp"/>
 
 </LinearLayout>
