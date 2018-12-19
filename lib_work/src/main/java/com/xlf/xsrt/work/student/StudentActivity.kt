@@ -18,9 +18,6 @@ class StudentActivity : BaseActivity() {
         StudentAdapter()
     }
 
-    private val mCanlendarView by lazy {
-        WCanlendarView(this)
-    }
 
     override fun getContentViewId(): Int {
         return R.layout.xsrt_activity_student
@@ -29,7 +26,6 @@ class StudentActivity : BaseActivity() {
     override fun init() {
         rcy_student.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rcy_student.adapter = mAdapter
-        rcy_student.addHeaderView(mCanlendarView)
     }
 
     override fun initListener() {
@@ -41,6 +37,17 @@ class StudentActivity : BaseActivity() {
             override fun rightTextClick() {
             }
         })
+
+        ibtn_premonth_stu.setOnClickListener { calendar_stu.moveToPreMonth() }
+        ibtn_nextmonth_stu.setOnClickListener { calendar_stu.moveToNextMonth() }
+        calendar_stu.setOnCanlendarPageSelectListener { year, month ->
+            tv_time_stu.text = "${year}年${month}月"
+            //TODO:拉取下个月数据
+        }
+        calendar_stu.setOnCanlendarItemListener { calendar, position ->
+            //TODO:拉去当天数据
+        }
+
     }
 
 }

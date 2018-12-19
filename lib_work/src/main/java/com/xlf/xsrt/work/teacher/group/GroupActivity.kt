@@ -9,6 +9,7 @@ import android.os.Build
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
@@ -25,6 +26,8 @@ import com.xlf.xsrt.work.bean.QueryCondition
 import com.xlf.xsrt.work.teacher.group.viewmodel.GroupModel
 import com.xlf.xsrt.work.utils.ScreenUtil
 import com.xlf.xsrt.work.widget.TitleBar
+import com.xlf.xsrt.work.widget.pulltextview.PullBean
+import com.xlf.xsrt.work.widget.pulltextview.PullTextView
 import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
@@ -35,15 +38,15 @@ class GroupActivity : BaseActivity() {
     private var mDirePopWindow: PopupWindow? = null
     private var mSectionPopWindow: PopupWindow? = null
     private var mDiffPopWindow: PopupWindow? = null
-    private var mTextAdapter: PopWindowAdapter? = null
-    private var mDireAdapter: PopWindowAdapter? = null
-    private var mSectionAdapter: PopWindowAdapter? = null
+    //    private var mTextAdapter: PopWindowAdapter? = null
+//    private var mDireAdapter: PopWindowAdapter? = null
+//    private var mSectionAdapter: PopWindowAdapter? = null
     private var mDiffAdapter: ScreenPopWindowAdapter? = null
 
 
-    private var mTextBooks: MutableList<SysDictVo> = mutableListOf()//教材
-    private var mDirectors: MutableList<SysDictVo> = mutableListOf() //目录
-    private var mSections: MutableList<SysDictVo> = mutableListOf() //章节
+    private var mTextBooks: MutableList<PullBean> = mutableListOf()//教材
+    private var mDirectors: MutableList<PullBean> = mutableListOf() //目录
+    private var mSections: MutableList<PullBean> = mutableListOf() //章节
     private var mDiffLevels: MutableList<SysDictVo> = mutableListOf() //困难等级
 
     private val TEXT_BOOK = 0//教材
@@ -83,9 +86,6 @@ class GroupActivity : BaseActivity() {
 
     override fun init() {
         initRcyView()
-        initTxtPopWindow()
-        initDirePopWindow()
-        initSectionPopWindow()
         initDiffPopWindow()
         initData()
     }
@@ -113,37 +113,6 @@ class GroupActivity : BaseActivity() {
         }
     }
 
-    private fun initSectionPopWindow() {
-        val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_group, null)
-        mSectionAdapter = PopWindowAdapter()
-        windowView.rcy_popwindow.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        windowView.rcy_popwindow.adapter = mSectionAdapter
-        mSectionPopWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-        mSectionPopWindow?.isOutsideTouchable = true
-        mSectionPopWindow?.isFocusable = false
-    }
-
-    private fun initDirePopWindow() {
-        val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_group, null)
-        mDireAdapter = PopWindowAdapter()
-        windowView.rcy_popwindow.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        windowView.rcy_popwindow.adapter = mDireAdapter
-        mDirePopWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-        mDirePopWindow?.isOutsideTouchable = true
-        mDirePopWindow?.isFocusable = false
-    }
-
-    private fun initTxtPopWindow() {
-        val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_group, null)
-        mTextAdapter = PopWindowAdapter()
-        windowView.rcy_popwindow.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        windowView.rcy_popwindow.adapter = mTextAdapter
-        mTextPopWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
-        mTextPopWindow?.isOutsideTouchable = true
-        mTextPopWindow?.isFocusable = false
-    }
-
-
     override fun initListener() {
         titlebar_group.setTitleBarClickListener(object : TitleBar.TitleBarClickListener {
             override fun leftImgClick() {
@@ -155,56 +124,71 @@ class GroupActivity : BaseActivity() {
         })
         textbook_group.setOnClickListener {
             if (textbook_group.isChecked) {
-                mTextPopWindow!!.dismiss()
-                textbook_group.isChecked = false
+                textbook_group.showPop()
+                if (director_group.isPopWindowShow()) {
+                    director_group.hidePop()
+                }
+                if (section_group.isPopWindowShow()) {
+                    section_group.hidePop()
+                }
             } else {
-                director_group.isChecked = false
-                section_group.isChecked = false
-                mTextAdapter?.addData(mTextBooks, true)
-                showPopWindow(mTextPopWindow!!, TEXT_BOOK)
-                textbook_group.isChecked = true
+                textbook_group.hidePop()
             }
         }
         director_group.setOnClickListener {
-            if (!director_group.isChecked) {
-                director_group.toggle()
-                textbook_group.isChecked = false
-                section_group.isChecked = false
-                mDireAdapter?.addData(mDirectors, true)
-                showPopWindow(mDirePopWindow!!, DIRECTOR)
+            if (director_group.isChecked) {
+                director_group.showPop()
+                if (textbook_group.isPopWindowShow()) {
+                    textbook_group.hidePop()
+                }
+                if (section_group.isPopWindowShow()) {
+                    section_group.hidePop()
+                }
             } else {
-                director_group.toggle()
-                mDirePopWindow?.dismiss()
+                director_group.hidePop()
             }
-
         }
         section_group.setOnClickListener {
-            if (!section_group.isChecked) {
-                section_group.toggle()
-                textbook_group.isChecked = false
-                director_group.isChecked = false
-                mSectionAdapter?.addData(mSections, true)
-                showPopWindow(mSectionPopWindow!!, SECTION)
+            if (section_group.isChecked) {
+                section_group.showPop()
+                if (textbook_group.isPopWindowShow()) {
+                    textbook_group.hidePop()
+                }
+                if (director_group.isPopWindowShow()) {
+                    director_group.hidePop()
+                }
             } else {
-                section_group.toggle()
-                mSectionPopWindow?.dismiss()
+                section_group.hidePop()
             }
         }
         screen_group.setOnClickListener {
-            screen_group.toggle()
+            if (textbook_group.isPopWindowShow()) {
+                textbook_group.hidePop()
+            }
+            if (director_group.isPopWindowShow()) {
+                director_group.hidePop()
+            }
+            if (section_group.isPopWindowShow()) {
+                section_group.hidePop()
+            }
             mDiffAdapter?.addData(mDiffLevels, true)
             showPopWindow(mDiffPopWindow!!, SCREEN)
         }
 
-        mTextAdapter?.setOnItemClickListener(object : BaseRcyAdapter.ItemClickListener {
-            override fun onItemClick(position: Int) {
-                mTextPopWindow?.dismiss()
-                //TODO:搜索
-//                mViewModel.queryHomeworkData()
+        //全选
+        selectedAll_group.setOnClickListener {
+            val data = mGroupAdapter.getData()
+            if (selectedAll_group.isChecked) {
+                for (i in 0 until data.size) {
+                    data[i].addFlag = 1
+                }
+            } else {
+                for (i in 0 until data.size) {
+                    data[i].addFlag = 0
+                }
             }
-
-        })
-
+            mGroupAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun showPopWindow(popWindow: PopupWindow, type: Int) {
@@ -249,10 +233,14 @@ class GroupActivity : BaseActivity() {
                 mDiffLevels.clear()
                 mDiffLevels.addAll(it.difficultyList!!)
                 mDiffAdapter?.addData(mDiffLevels, true)
-                //重置章节数据
+                //重置教材数据
                 mTextBooks.clear()
-                mTextBooks.addAll(it.textBookList!!)
-                mTextAdapter?.addData(mTextBooks, true)
+                for (i in 0 until it.textBookList!!.size) {
+                    val pullBean = PullBean()
+                    pullBean.content = it.textBookList!![i].sysDictName!!
+                    pullBean.searchId = it.textBookList!![i].sysDictId!!.toString()
+                }
+                textbook_group.updateData(mTextBooks, true)
             }
         })
         mViewModel.mHomeworkData.observe(this, Observer {

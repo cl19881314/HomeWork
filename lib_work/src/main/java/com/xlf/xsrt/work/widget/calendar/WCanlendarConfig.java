@@ -95,7 +95,7 @@ public class WCanlendarConfig {
         sMinYearMonth = 2;
         sMaxYear = 2200;
         sMaxYearMonth = 12;
-        mCanlendarItemHeight = 52;
+        mCanlendarItemHeight = 40;
         mCalendarPadding = 15;//两边的padding，应该与星期bar的padding保持一致
         mCurrentDate = new CalendarBean();
         Date date = new Date();

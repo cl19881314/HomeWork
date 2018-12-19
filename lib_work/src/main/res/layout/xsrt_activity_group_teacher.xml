@@ -21,60 +21,71 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal">
-
-        <com.xlf.xsrt.work.widget.pulltextview.PullTextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:checkMark="@drawable/xsrt_selector_spinner_btn" />
-
-        <com.xlf.xsrt.work.widget.pulltextview.PullTextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:checkMark="@drawable/xsrt_selector_spinner_btn" />
-
-        <com.xlf.xsrt.work.widget.pulltextview.PullTextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:checkMark="@drawable/xsrt_selector_spinner_btn" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="44dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <CheckedTextView
+        <com.xlf.xsrt.work.widget.pulltextview.PullTextView
             android:id="@+id/textbook_group"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:checkMark="@drawable/xsrt_selector_spinner_btn"
+            android:drawableRight="@drawable/xsrt_icon_spinner_down"
             android:gravity="center"
             android:text="教材" />
 
-        <CheckedTextView
+        <com.xlf.xsrt.work.widget.pulltextview.PullTextView
             android:id="@+id/director_group"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:checkMark="@drawable/xsrt_selector_spinner_btn"
+            android:drawableRight="@drawable/xsrt_icon_spinner_down"
             android:gravity="center"
             android:text="目录" />
 
-        <CheckedTextView
+        <com.xlf.xsrt.work.widget.pulltextview.PullTextView
             android:id="@+id/section_group"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:checkMark="@drawable/xsrt_selector_spinner_btn"
+            android:drawableRight="@drawable/xsrt_icon_spinner_down"
             android:gravity="center"
             android:text="章节" />
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<CheckBox-->
+        <!--android:id="@+id/textbook_group"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:checkMark="@drawable/xsrt_selector_spinner_btn"-->
+        <!--android:gravity="center"-->
+        <!--android:text="教材" />-->
+
+        <!--<CheckBox-->
+        <!--android:id="@+id/director_group"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:button="@null"-->
+        <!--android:drawableRight="@drawable/xsrt_selector_spinner_btn"-->
+        <!--android:gravity="center"-->
+        <!--android:text="目录" />-->
+
+        <!--<CheckBox-->
+        <!--android:id="@+id/section_group"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1"-->
+        <!--android:checkMark="@drawable/xsrt_selector_spinner_btn"-->
+        <!--android:gravity="center"-->
+        <!--android:text="章节" />-->
 
         <CheckedTextView
             android:id="@+id/screen_group"

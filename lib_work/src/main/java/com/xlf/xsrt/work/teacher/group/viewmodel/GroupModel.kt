@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import com.xlf.xsrt.work.base.RequestApi
 import com.xlf.xsrt.work.bean.GroupeEntry
 import com.xlf.xsrt.work.bean.HomeworkBaseVo
+import com.xlf.xsrt.work.bean.QueryCondition
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -42,8 +43,9 @@ class GroupModel : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    fun queryHomeworkData(userId: Int, textbookId: Int, directoryId: Int, chapterId: Int, baseFlag: Int, difficultyId: Int, page: Int) {
-        RequestApi.getInstance().queryHomeworkData(userId, textbookId, directoryId, chapterId, baseFlag, difficultyId, page)
+//    fun queryHomeworkData(userId: Int, textbookId: Int, directoryId: Int, chapterId: Int, baseFlag: Int, difficultyId: Int, page: Int) {
+    fun queryHomeworkData(condition: QueryCondition) {
+    RequestApi.getInstance().queryHomeworkData(condition.userId, condition.textbookId, condition.directoryId, condition.chapterId, condition.baseFlag, condition.difficultyId,condition.page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it ->

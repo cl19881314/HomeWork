@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import com.xlf.xsrt.work.widget.xxxrecycler.XXXAdapter
 
 abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
-    private var mData: MutableList<T>? = mutableListOf()
+    open var mData: MutableList<T> = mutableListOf()
     private var mItemListener: ItemClickListener? = null
 
     fun addData(data: MutableList<T>) {
@@ -14,28 +14,27 @@ abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
     }
 
     fun addData(data: MutableList<T>, clear: Boolean) {
-        if (mData != null) {
-            if (clear) {
-                mData!!.clear()
-                mData!!.addAll(data)
-            } else {
-                mData!!.addAll(data)
-            }
+
+        if (clear) {
+            mData.clear()
+            mData.addAll(data)
+        } else {
+            mData.addAll(data)
         }
+
         notifyDataSetChanged()
     }
 
-    fun getData(): MutableList<T>? {
+    fun getData(): MutableList<T> {
         return mData
     }
 
     override fun getRealItemCount(): Int {
-//        return if (mData == null) {
-//            0
-//        } else {
-//            mData!!.size
-//        }
-        return 5
+        return if (mData == null) {
+            0
+        } else {
+            mData!!.size
+        }
     }
 
     override fun onRealCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseRcyHolder {
@@ -46,7 +45,7 @@ abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
         holder?.itemView!!.setOnClickListener {
             mItemListener?.onItemClick(position)
         }
-//        setItemContent(holder!!.itemView, mData!![position], position)
+        setItemContent(holder!!.itemView, mData!![position], position)
     }
 
     fun setOnItemClickListener(listener: ItemClickListener) {

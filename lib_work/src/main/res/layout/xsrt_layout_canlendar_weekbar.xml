@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/canlendar_bar"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="30dp"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
@@ -19,8 +19,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="日"
-            android:textColor="#999999"
-            android:textSize="15sp" />
+            android:textColor="#333333"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -28,8 +28,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="一"
-            android:textColor="#999999"
-            android:textSize="15sp" />
+            android:textColor="#333333"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -37,8 +37,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="二"
-            android:textColor="#999999"
-            android:textSize="15sp" />
+            android:textColor="#333333"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -46,8 +46,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="三"
-            android:textColor="#999999"
-            android:textSize="15sp" />
+            android:textColor="#333333"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -55,8 +55,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="四"
-            android:textColor="#999999"
-            android:textSize="15sp" />
+            android:textColor="#333333"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -64,8 +64,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="五"
-            android:textColor="#999999"
-            android:textSize="15sp" />
+            android:textColor="#333333"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="0dp"
@@ -73,8 +73,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="六"
-            android:textColor="#999999"
-            android:textSize="15sp" />
+            android:textColor="#333333"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -87,6 +87,6 @@
         android:id="@+id/canlendar_month"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="17dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
 </LinearLayout>

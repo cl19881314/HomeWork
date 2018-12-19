@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/xsrt_gray_bg_color"
     android:paddingLeft="@dimen/xsrt_margin_left"
     android:paddingTop="10dp"
     android:paddingRight="@dimen/xsrt_margin_right"
@@ -9,31 +10,36 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/xsrt_layer_bg_item_student"
-        android:padding="15dp">
+        android:paddingLeft="15dp"
+        android:paddingTop="17dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="17dp">
 
 
         <com.xlf.xsrt.work.widget.CircleView
             android:id="@+id/cv_item_student"
             android:layout_width="10dp"
-            android:layout_height="10dp" />
+            android:layout_height="10dp"
+            android:layout_marginTop="10dp" />
 
         <TextView
             android:id="@+id/subject_item_student"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_toEndOf="@id/cv_item_student"
             android:layout_toRightOf="@id/cv_item_student"
             android:text="语文"
-            android:textSize="20sp" />
+            android:textColor="@color/xsrt_title1_txt_color"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/subject_item_student"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@id/cv_item_student"
             android:layout_toRightOf="@id/cv_item_student"
@@ -41,11 +47,13 @@
             android:maxEms="10"
             android:maxLines="1"
             android:text="我最快乐的童年记忆我最快乐的童年记忆我最快乐的童年记忆"
-            android:textSize="20sp" />
+            android:textColor="@color/xsrt_title3_txt_color"
+            android:textSize="12sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/subject_item_student"
             android:layout_alignParentRight="true"
             android:padding="4dp"
             android:text="待提交"
@@ -53,12 +61,12 @@
 
         <Button
             android:id="@+id/btn_checkMark_item_stu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="78dp"
+            android:layout_height="28dp"
             android:layout_alignParentRight="true"
-            android:background="@color/xsrt_popwindow_font"
+            android:layout_centerVertical="true"
+            android:background="@drawable/xsrt_green_bg_btn"
             android:text="查看批阅"
-            android:layout_alignParentBottom="true"
             android:textColor="@color/xsrt_white"
             android:visibility="visible" />
     </RelativeLayout>

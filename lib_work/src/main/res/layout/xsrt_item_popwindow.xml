@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tv_name_popwindow"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="this is popwindow item"
-    android:textSize="22sp" />
+    android:layout_height="44dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_name_popwindow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="this is popwindow item"
+        android:textSize="22sp" />
+
+    <ImageView
+        android:id="@+id/iv_selected_popwindow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/xsrt_xiala_gou" />
+</LinearLayout>
+

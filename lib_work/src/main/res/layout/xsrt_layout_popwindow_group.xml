@@ -1,20 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pull_text_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff0000"
+    android:background="#4D000000"
     android:orientation="vertical">
-
-    <CheckedTextView
-        android:id="@+id/check_popwindow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/xsrt_white"
-        android:checkMark="@drawable/xsrt_selector_spinner_btn"
-        android:gravity="center_vertical"
-        android:text="全部"
-        android:textColor="@drawable/xsrt_selector_font_popwindow"
-        android:textSize="30sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcy_popwindow"
