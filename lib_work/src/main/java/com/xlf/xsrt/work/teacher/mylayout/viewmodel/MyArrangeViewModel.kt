@@ -21,17 +21,21 @@ class MyArrangeViewModel : ViewModel() {
         RequestApi.getInstance().getMyArrangeData(userId, groupedHomeworkId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe( {
                     mGroupData.value = it
-                }
+                },{
+
+                })
     }
 
     fun deleteAppointmentWork(userId: Int, groupedHomeworkId: Int) {
         RequestApi.getInstance().deleteAppointmentWork(userId, groupedHomeworkId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe({
                     mDeleteData.value = it
-                }
+                },{
+
+                })
     }
 }

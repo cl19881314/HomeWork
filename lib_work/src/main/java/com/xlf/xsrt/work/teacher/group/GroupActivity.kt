@@ -245,7 +245,7 @@ class GroupActivity : BaseActivity() {
                 for (i in 0 until it.textBookList!!.size) {
                     val pullBean = PullBean()
                     pullBean.content = it.textBookList!![i].sysDictName!!
-                    pullBean.searchId = it.textBookList!![i].sysDictId!!.toString()
+                    pullBean.searchId = it.textBookList!![i].sysDictId!!
                 }
                 textbook_group.updateData(mTextBooks, true)
             }

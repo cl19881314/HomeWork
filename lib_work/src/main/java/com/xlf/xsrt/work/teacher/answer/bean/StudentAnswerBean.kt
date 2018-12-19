@@ -7,12 +7,13 @@ import com.xlf.xsrt.work.bean.BaseEntry
  * @date 2018/12/18.
  * @des 教师端 学生作业
  */
-class StudentAnswerBean : BaseEntry(){
-    var classList : ArrayList<ClassVo> ?= null
-    var homeworkList : ArrayList<HomeworkVo> ?= null
+class StudentAnswerBean : BaseEntry() {
+    var classList: ArrayList<ClassVo>? = null
+    var homeworkList: ArrayList<HomeworkVo>? = null
+    var stuAnswerList: ArrayList<StuAnswerVo>? = null
 
-    class ClassVo{
-        var createTime = 0
+    class ClassVo {
+        var createTime = ""
         var clssId = -1
         var className = ""
     }
@@ -20,10 +21,9 @@ class StudentAnswerBean : BaseEntry(){
     class HomeworkVo {
         var homeworkName = ""
         var homeworkId = -1
-        var stuAnswerList : ArrayList<StuAnswerVo> ? = null
     }
 
-    class StuAnswerVo{
+    class StuAnswerVo {
         var stuName = ""
         var homeworkName = ""
         var wrongCount = 0
@@ -32,5 +32,7 @@ class StudentAnswerBean : BaseEntry(){
         var state = -1
         var stuAnswerId = -1
         var homeworkId = -1
+        var answerTime = ""
+        var homeworkDetailUrlList: ArrayList<String>? = null
     }
 }

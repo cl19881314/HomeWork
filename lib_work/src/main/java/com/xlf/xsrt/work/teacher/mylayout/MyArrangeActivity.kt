@@ -2,13 +2,18 @@ package com.xlf.xsrt.work.teacher.mylayout
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
+import com.xlf.xsrt.work.bean.SysDictVo
 import com.xlf.xsrt.work.teacher.mylayout.adapter.MyArrangeAdapter
 import com.xlf.xsrt.work.teacher.mylayout.viewmodel.MyArrangeViewModel
+import com.xlf.xsrt.work.widget.pulltextview.PullBean
+import com.xlf.xsrt.work.widget.pulltextview.PullTextView
 import kotlinx.android.synthetic.main.xsrt_activity_my_arrange_layout.*
 
 /**
@@ -17,6 +22,7 @@ import kotlinx.android.synthetic.main.xsrt_activity_my_arrange_layout.*
 class MyArrangeActivity : BaseActivity() {
     private var mAdapter: MyArrangeAdapter? = null
     private var mGroupWorkId = -1
+    private var mHomeworkList: ArrayList<SysDictVo>? = null
     private val mViewModer by lazy {
         ViewModelProviders.of(this@MyArrangeActivity).get(MyArrangeViewModel::class.java)
     }
@@ -37,10 +43,21 @@ class MyArrangeActivity : BaseActivity() {
     }
 
     override fun initListener() {
-        delTxt.setOnClickListener {
-            mViewModer.deleteAppointmentWork(mUserId, mGroupWorkId)
-        }
-
+        timePullTxt.setItemClickListener(object :PullTextView.PullListItemListener{
+            override fun onItemClick(bean: PullBean, position: Int) {
+                var timeBean = mHomeworkList!![position]
+                addWorkPullData(timeBean)
+                if (timeBean.subFlag == 1) {
+                    mGroupWorkId = timeBean.subDataList!![0].sysDictId!!
+                }
+            }
+        })
+        homeWorkPullTxt.setItemClickListener(object :PullTextView.PullListItemListener{
+            override fun onItemClick(bean: PullBean, position: Int) {
+                mGroupWorkId = bean.searchId
+                mViewModer.getArrangeData(mUserId, mGroupWorkId)
+            }
+        })
         timePullTxt.setOnClickListener {
             homeWorkPullTxt.hidePop()
             if (timePullTxt.isChecked){
@@ -57,6 +74,19 @@ class MyArrangeActivity : BaseActivity() {
                 homeWorkPullTxt.hidePop()
             }
         }
+
+        delTxt.setOnClickListener {
+            AlertDialog.Builder(this@MyArrangeActivity).setTitle("提示")
+                    .setMessage("是否确认删除该预约布置")
+                    .setNegativeButton("取消") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .setPositiveButton("确认删除"){ dialog, which ->
+                        mViewModer.deleteAppointmentWork(mUserId, mGroupWorkId)
+                        dialog.dismiss()
+                    }
+                    .show()
+        }
     }
 
     override fun doResponseData() {
@@ -67,16 +97,49 @@ class MyArrangeActivity : BaseActivity() {
                 delTxt.visibility = if (it?.appointmentFlag == 1) View.VISIBLE else View.GONE
                 mAdapter!!.setArrangeData(it?.homeworkBaseList)
                 if (it?.homeworkList?.size ?: -1 > 0) {
-                    mGroupWorkId = it?.homeworkList!![0].sysDictId!!
+                    mHomeworkList = it?.homeworkList
+                    var bean = mHomeworkList!![0]
+                    addTimePullData(bean)
+                    addWorkPullData(bean)
                 }
             }
         })
 
         mViewModer.mDeleteData.observe(this, Observer {
             if (it?.flag == 1) {
+                toast("删除成功")
                 mViewModer.getArrangeData(mUserId, -1)
+            } else {
+                toast("删除失败")
             }
         })
+    }
+
+    private fun addTimePullData(bean: SysDictVo) {
+        timePullTxt.text = bean.sysDictName
+        var list =  mutableListOf<PullBean>()
+        for (time in mHomeworkList!!){
+            var data = PullBean()
+            data.searchId = time.sysDictId!!
+            data.content = time.sysDictName!!
+            list.add(data)
+        }
+        timePullTxt.updateData(list,true)
+    }
+
+    private fun addWorkPullData(bean: SysDictVo?) {
+        if (bean?.subFlag == 1){
+            var workList = bean.subDataList!!
+            homeWorkPullTxt.text = workList[0].sysDictName
+            var list =  mutableListOf<PullBean>()
+            for (time in workList){
+                var data = PullBean()
+                data.searchId = time.sysDictId!!
+                data.content = time.sysDictName!!
+                list.add(data)
+            }
+            homeWorkPullTxt.updateData(list, true)
+        }
     }
 
 }

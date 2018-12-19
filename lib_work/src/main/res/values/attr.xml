@@ -4,4 +4,8 @@
         <attr name="xsrtTitleTxt" format="string" />
         <attr name="xsrtRightTxt" format="string" />
     </declare-styleable>
+    <declare-styleable name="XsrtPullTxt">
+        <attr name="xsrtRightDrawable" format="reference" />
+        <attr name="xsrtIsBlod" format="boolean" />
+    </declare-styleable>
 </resources>

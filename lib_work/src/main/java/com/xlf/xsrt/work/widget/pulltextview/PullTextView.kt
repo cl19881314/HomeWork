@@ -2,9 +2,7 @@ package com.xlf.xsrt.work.widget.pulltextview
 
 import android.content.Context
 import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import android.support.v4.content.ContextCompat
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -23,12 +21,14 @@ class PullTextView : TextView {
     private var mPopWindow: PopupWindow? = null
     var isChecked = true
     val mutableListOf = mutableListOf<PullBean>()
-
+    private var mDrawableId = -1
+    private var mShowDefaultDrawable = true
+    private var mIsBold = true
     init {
         for (i in 0 until 8) {
             val pullBean = PullBean()
             pullBean.content = "item+$i"
-            pullBean.searchId = "$i"
+            pullBean.searchId = i
             mutableListOf.add(pullBean)
         }
     }
@@ -40,15 +40,24 @@ class PullTextView : TextView {
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        setup()
+        setup(context, attrs)
         initPopWindow()
         initListener()
         updateData(mutableListOf, true)
     }
 
-    private fun setup() {
-        //加粗
-        this.paint.isFakeBoldText = true
+    private fun setup(context: Context?, attrs: AttributeSet?) {
+        val typedArray = context!!.obtainStyledAttributes(attrs, R.styleable.XsrtPullTxt)
+        mDrawableId = typedArray.getResourceId(R.styleable.XsrtPullTxt_xsrtRightDrawable, -1)
+        mIsBold = typedArray.getBoolean(R.styleable.XsrtPullTxt_xsrtIsBlod, true)
+        if (mDrawableId != -1){
+            mShowDefaultDrawable = false
+        }
+        typedArray.recycle()
+        if (mIsBold) {
+            //加粗
+            this.paint.isFakeBoldText = true
+        }
         //设置drawpadding
         this.compoundDrawablePadding = ScreenUtil.dipToPx(context, 4).toInt()
     }
@@ -72,7 +81,6 @@ class PullTextView : TextView {
         mPopWindow = PopupWindow(windowView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT)
         mPopWindow?.isOutsideTouchable = false
         mPopWindow?.isFocusable = false
-
     }
 
     fun updateData(data: MutableList<PullBean>, clear: Boolean) {
@@ -81,7 +89,10 @@ class PullTextView : TextView {
 
     fun showPop() {
         isChecked = false
-        val drawable = ResourcesCompat.getDrawable(resources, R.drawable.xsrt_icon_spinner_up, null)
+        if (mShowDefaultDrawable){
+            mDrawableId = R.drawable.xsrt_icon_spinner_up
+        }
+        val drawable = ResourcesCompat.getDrawable(resources, mDrawableId, null)
         drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)//必须设置图片大小，否则不显示
         this.setCompoundDrawables(null, null, drawable, null)
         showPopWindow()
@@ -89,12 +100,14 @@ class PullTextView : TextView {
 
     fun hidePop() {
         isChecked = true
-        val drawable = ResourcesCompat.getDrawable(resources, R.drawable.xsrt_icon_spinner_down, null)
+        if (mShowDefaultDrawable){
+            mDrawableId = R.drawable.xsrt_icon_spinner_down
+        }
+        val drawable = ResourcesCompat.getDrawable(resources, mDrawableId, null)
         drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)//必须设置图片大小，否则不显示
         this.setCompoundDrawables(null, null, drawable, null)
         mPopWindow?.dismiss()
     }
-
     fun isPopWindowShow(): Boolean {
         return mPopWindow != null && mPopWindow!!.isShowing
     }

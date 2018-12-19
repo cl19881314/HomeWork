@@ -19,8 +19,10 @@ class TeacherCommentViewModel : ViewModel(){
         RequestApi.getInstance().getTeacherCommentData(stuAnswerId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe({
                     mCommentViewModel.value = it
-                }
+                },{
+
+                })
     }
 }

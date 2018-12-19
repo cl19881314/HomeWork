@@ -19,8 +19,10 @@ class StudentAnswerViewModel : ViewModel(){
         RequestApi.getInstance().getStudentAnswerData(userId,classId,createTime,homeworkId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe({
                     mAnswerViewModel.value = it
-                }
+                },{
+
+                })
     }
 }
