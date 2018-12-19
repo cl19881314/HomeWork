@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <com.xlf.xsrt.work.widget.TitleBar
+        android:id="@+id/titlebar_selected_homework"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/xsrt_titlebar_height" />
+        android:layout_height="@dimen/xsrt_titlebar_height"
+        app:xsrtTitleTxt="已选作业" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="作业名称" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/xsrt_margin_right"
+            android:drawableRight="@drawable/xsrt_ic_right_arrow"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:text="2018年12月13日" />
+
+    </LinearLayout>
 
 </LinearLayout>

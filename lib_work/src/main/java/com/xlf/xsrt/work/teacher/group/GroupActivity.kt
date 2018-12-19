@@ -194,7 +194,7 @@ class GroupActivity : BaseActivity() {
         }
         //已选作业
         selectedNum_group.setOnClickListener {
-
+            SelectedHomeWorkActivity.start(this)
         }
     }
 
