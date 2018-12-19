@@ -1,7 +1,5 @@
 package com.xlf.xsrt.work.bean
 
-import com.xlf.xsrt.work.entry.BaseEntry
-
 
 /**
  * 组作业界面实体类

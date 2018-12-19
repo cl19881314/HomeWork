@@ -24,9 +24,10 @@ public class WMonthView extends View implements View.OnClickListener {
     private Paint mCurMonthTextPaint;
     private Paint mCurMonthTextPaintSelected;
     private Paint mCurDayTextPaint;
-    private Paint mSelectTextPaint;
-    private Paint mSchemeTextPaint;
+    private Paint mSelectTPaint;
+    private Paint mSchemePaint;
     private Paint mSelectCurrentDay;
+    private Paint mCurCircleDayPaint;
     /**
      * 日历项
      */
@@ -84,23 +85,26 @@ public class WMonthView extends View implements View.OnClickListener {
         mCurDayTextPaint.setFakeBoldText(true);
         mCurDayTextPaint.setTextSize(WCanlendarUtil.dipToPx(context, 15));//设置字体大小
 
-        mSelectTextPaint = new Paint();
-        mSelectTextPaint.setAntiAlias(true);
-        mSelectTextPaint.setColor(Color.parseColor("#94D1B0"));
-        mSelectTextPaint.setStyle(Paint.Style.FILL);
-        mSelectTextPaint.setStrokeWidth(WCanlendarUtil.dipToPx(context, 1));
+        mSelectTPaint = new Paint();
+        mSelectTPaint.setAntiAlias(true);
+        mSelectTPaint.setColor(Color.parseColor("#F59937"));
+        mSelectTPaint.setStyle(Paint.Style.FILL);
 
         mSelectCurrentDay = new Paint();
         mSelectCurrentDay.setAntiAlias(true);
-        mSelectCurrentDay.setColor(Color.parseColor("#0ABAB3"));
-        mSelectCurrentDay.setStyle(Paint.Style.STROKE);
-        mSelectCurrentDay.setStrokeWidth(WCanlendarUtil.dipToPx(context, 1));
+        mSelectCurrentDay.setColor(Color.parseColor("#00724C"));
+        mSelectCurrentDay.setStyle(Paint.Style.FILL);
 
-        mSchemeTextPaint = new Paint();
-        mSchemeTextPaint.setAntiAlias(true);
-        mSchemeTextPaint.setColor(Color.parseColor("#0ABAB3"));
-        mSchemeTextPaint.setStyle(Paint.Style.FILL);
-        mSchemeTextPaint.setStrokeWidth(WCanlendarUtil.dipToPx(context, 1));
+        mSchemePaint = new Paint();
+        mSchemePaint.setAntiAlias(true);
+        mSchemePaint.setStyle(Paint.Style.FILL);
+
+
+        mCurCircleDayPaint = new Paint();
+        mCurCircleDayPaint.setAntiAlias(true);
+        mCurCircleDayPaint.setColor(Color.parseColor("#00724C"));
+        mCurCircleDayPaint.setStyle(Paint.Style.STROKE);
+        mCurCircleDayPaint.setStrokeWidth(WCanlendarUtil.dipToPx(context, 2));
 
         setOnClickListener(this);
     }
@@ -185,7 +189,7 @@ public class WMonthView extends View implements View.OnClickListener {
         boolean hasScheme = calendar.isScheme();
         boolean isSelected = calendar.equals(mConfig.getmSelectDay());//当前点击项
         if (hasScheme) {
-            onDrawScheme(canvas, x, y);
+            onDrawScheme(canvas, calendar, x, y);
         }
         if (isSelected) {
             onDrawSelected(canvas, calendar, x, y);
@@ -196,46 +200,32 @@ public class WMonthView extends View implements View.OnClickListener {
     private void onDrawSelected(Canvas canvas, CalendarBean calendar, int x, int y) {
         int cx = x + mItemWidth / 2;
         int cy = y + mItemHeight / 2;
-        float startX = cx - WCanlendarUtil.dipToPx(mContext, 18);
-        float startY = cy - WCanlendarUtil.dipToPx(mContext, 18);
-        float endX = cx + WCanlendarUtil.dipToPx(mContext, 18);
-        float endY = cy + WCanlendarUtil.dipToPx(mContext, 18);
-        float cr = WCanlendarUtil.dipToPx(mContext, 6);
-        Path path = new Path();
-        RectF rect = new RectF(startX, startY, endX, endY);
-        path.addRoundRect(rect, cr, cr, Path.Direction.CW);
         if (calendar.isCurrentDay()) {
-            canvas.drawPath(path, mSchemeTextPaint);
+            canvas.drawCircle(cx, cy, WCanlendarUtil.dipToPx(mContext, 17), mSelectCurrentDay);
         } else {
-            canvas.drawPath(path, mSelectTextPaint);
+            canvas.drawCircle(cx, cy, WCanlendarUtil.dipToPx(mContext, 17), mSelectTPaint);
         }
     }
 
-    private void onDrawScheme(Canvas canvas, int x, int y) {
+    private void onDrawScheme(Canvas canvas, CalendarBean calendar, int x, int y) {
         int cx = x + mItemWidth / 2;
-        int cy = y + mItemHeight / 2;
-        float startX = cx - WCanlendarUtil.dipToPx(mContext, 12);
-        float endX = cx + WCanlendarUtil.dipToPx(mContext, 12);
-        float endY = cy + WCanlendarUtil.dipToPx(mContext, 20);
-        canvas.drawLine(startX, endY, endX, endY, mSchemeTextPaint);
+        int cy = (int) (y + mItemHeight - WCanlendarUtil.dipToPx(mContext, 5));
+        if (calendar.getTimeState() == 0) {//有未提交
+            mSchemePaint.setColor(Color.parseColor("#F53756"));
+        } else {//全都都已提交
+            mSchemePaint.setColor(Color.parseColor("#C5C5C5"));
+        }
+        canvas.drawCircle(cx, cy, WCanlendarUtil.dipToPx(mContext, 2), mSchemePaint);
     }
 
     private void onDrawText(Canvas canvas, CalendarBean calendar, int x, int y, Boolean isSelected) {
         float baselineY = mTextBaseline + y;
         int cx = x + mItemWidth / 2;
-        canvas.drawText(String.valueOf(calendar.getDay()), cx, baselineY,
+        canvas.drawText(calendar.isCurrentDay() ? "今" : String.valueOf(calendar.getDay()), cx, baselineY,
                 isSelected ? mCurMonthTextPaintSelected : calendar.isCurrentDay() ? mCurDayTextPaint : mCurMonthTextPaint);
         if (calendar.isCurrentDay()) {
             int cy = y + mItemHeight / 2;
-            float startX = cx - WCanlendarUtil.dipToPx(mContext, 18);
-            float startY = cy - WCanlendarUtil.dipToPx(mContext, 18);
-            float endX = cx + WCanlendarUtil.dipToPx(mContext, 18);
-            float endY = cy + WCanlendarUtil.dipToPx(mContext, 18);
-            float cr = WCanlendarUtil.dipToPx(mContext, 6);
-            Path path = new Path();
-            RectF rect = new RectF(startX, startY, endX, endY);
-            path.addRoundRect(rect, cr, cr, Path.Direction.CW);
-            canvas.drawPath(path, mSelectCurrentDay);
+            canvas.drawCircle(cx, cy, WCanlendarUtil.dipToPx(mContext, 17), mCurCircleDayPaint);
         }
     }
 
@@ -304,6 +294,7 @@ public class WMonthView extends View implements View.OnClickListener {
             for (CalendarBean a : mItems) {
                 if (a.equals(schems)) {
                     a.setScheme(true);
+                    a.setTimeState(schems.getTimeState());
                 }
             }
         }

@@ -1,6 +1,6 @@
 package com.xlf.xsrt.work.teacher.answer.bean
 
-import com.xlf.xsrt.work.entry.BaseEntry
+import com.xlf.xsrt.work.bean.BaseEntry
 
 /**
  * @author Chenhong

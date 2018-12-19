@@ -1,4 +1,4 @@
-package com.xlf.xsrt.work.entry
+package com.xlf.xsrt.work.bean
 
 import com.xlf.xsrt.work.student.bean.TeacherComtentVo
 

@@ -31,6 +31,17 @@ public class CalendarBean {
      */
     private boolean isScheme;
 
+
+    private int timeState = -1;//某天作业状态0，有未提交，1全部提交
+
+    public void setTimeState(int timeState) {
+        this.timeState = timeState;
+    }
+
+    public int getTimeState() {
+        return timeState;
+    }
+
     public boolean isScheme() {
         return isScheme;
     }

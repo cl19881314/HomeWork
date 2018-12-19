@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:id="@+id/screen_root_pop_group"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="#4D000000"
     android:paddingLeft="100dp">
 
     <LinearLayout

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.xlf.xsrt.work.base.RequestApi
-import com.xlf.xsrt.work.entry.BaseStudentEntry
+import com.xlf.xsrt.work.bean.BaseStudentEntry
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

@@ -3,12 +3,13 @@ package com.xlf.xsrt.work.base
 import android.text.TextUtils
 import android.util.Log
 import com.xlf.xsrt.work.constant.ServiceApi
-import com.xlf.xsrt.work.entry.BaseStudentEntry
+import com.xlf.xsrt.work.bean.BaseStudentEntry
 import com.xlf.xsrt.work.bean.GroupeEntry
 import com.xlf.xsrt.work.bean.MyArrangeBean
 import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import com.xlf.xsrt.work.bean.UserInfo
-import com.xlf.xsrt.work.entry.BaseEntry
+import com.xlf.xsrt.work.bean.BaseEntry
+import com.xlf.xsrt.work.student.bean.StuHomwork
 import com.xlf.xsrt.work.teacher.answer.bean.TeacherCommentBean
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
@@ -107,7 +108,7 @@ class RequestApi {
     /**
      * 获取教师端我的布置数据
      */
-    fun getMyArrangeData(userId : Int, groupedHomeworkId : Int) : Observable<MyArrangeBean>{
+    fun getMyArrangeData(userId: Int, groupedHomeworkId: Int): Observable<MyArrangeBean> {
         var parameter = HashMap<String, Int>()
         parameter["userId"] = userId
         if (groupedHomeworkId != -1) {
@@ -119,7 +120,7 @@ class RequestApi {
     /**
      *  删除教师端预约布置的作业
      */
-    fun deleteAppointmentWork(userId : Int, groupedHomeworkId : Int) : Observable<BaseEntry>{
+    fun deleteAppointmentWork(userId: Int, groupedHomeworkId: Int): Observable<BaseEntry> {
         var parameter = HashMap<String, Int>()
         parameter["userId"] = userId
         parameter["groupedHomeworkId"] = groupedHomeworkId
@@ -129,16 +130,16 @@ class RequestApi {
     /**
      *  教师端 获取学生作业
      */
-    fun getStudentAnswerData(userId : Int, classId : Int, createTime : String, homeworkId : Int) : Observable<StudentAnswerBean>{
+    fun getStudentAnswerData(userId: Int, classId: Int, createTime: String, homeworkId: Int): Observable<StudentAnswerBean> {
         var parameter = HashMap<String, Any>()
         parameter["userId"] = userId
         if (classId != -1) {
             parameter["classId"] = classId
         }
-        if (!TextUtils.isEmpty(createTime)){
+        if (!TextUtils.isEmpty(createTime)) {
             parameter["createTime"] = createTime
         }
-        if (homeworkId != -1){
+        if (homeworkId != -1) {
             parameter["homeworkId"] = homeworkId
         }
         return mService.getStudentAnswerData(parameter)
@@ -147,7 +148,7 @@ class RequestApi {
     /**
      * 教师批阅内容
      */
-    fun getTeacherCommentData(stuAnswerId : Int) : Observable<TeacherCommentBean>{
+    fun getTeacherCommentData(stuAnswerId: Int): Observable<TeacherCommentBean> {
         var parameter = HashMap<String, Int>()
         parameter["stuAnswerId"] = stuAnswerId
         return mService.getTeacherCommentData(parameter)
@@ -156,7 +157,7 @@ class RequestApi {
     /**
      * 添加教师批阅
      */
-    fun setTeacherCommentData(stuAnswerId : Int, comment : String) : Observable<BaseEntry>{
+    fun setTeacherCommentData(stuAnswerId: Int, comment: String): Observable<BaseEntry> {
         var parameter = HashMap<String, Any>()
         parameter["stuAnswerId"] = stuAnswerId
         parameter["comment"] = comment
@@ -166,11 +167,31 @@ class RequestApi {
     /**
      * 教师端学生作业详情
      */
-    fun getStuAnswerDetailData(stuAnswerId : Int, comment : String) : Observable<BaseEntry>{
+    fun getStuAnswerDetailData(stuAnswerId: Int, comment: String): Observable<BaseEntry> {
         var parameter = HashMap<String, Any>()
         parameter["stuAnswerId"] = stuAnswerId
         parameter["comment"] = comment
         return mService.setTeacherCommentData(parameter)
+    }
+
+    /**
+     * 学生端 获取日历首页数据
+     */
+    fun getStuHomeworkByDate(userId: Int, createTime: String): Observable<StuHomwork> {
+        var parameter = HashMap<String, String>()
+        parameter["userId"] = userId.toString()
+        parameter["createTime"] = createTime
+        return mService.getStuHomeworkByDate(parameter)
+    }
+
+    /**
+     * 学生端 获取日历当天数据
+     */
+    fun getHomeworkByDay(userId: Int, createTime: String): Observable<StuHomwork> {
+        var parameter = HashMap<String, String>()
+        parameter["userId"] = userId.toString()
+        parameter["createTime"] = createTime
+        return mService.getHomeworkByDay(parameter)
     }
 
 }
