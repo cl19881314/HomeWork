@@ -9,18 +9,13 @@ import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
 import android.view.WindowManager
 import android.widget.*
-import com.jakewharton.rxbinding2.widget.RxCompoundButton.toggle
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseRcyAdapter
 import com.xlf.xsrt.work.utils.ScreenUtil
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
-import android.text.TextPaint
 
 
 class PullTextView : TextView {
@@ -59,7 +54,7 @@ class PullTextView : TextView {
     }
 
     private fun initListener() {
-        mAdapter?.setOnItemClickListener(object : BaseRcyAdapter.ItemClickListener {
+        mAdapter.setOnItemClickListener(object : BaseRcyAdapter.ItemClickListener {
             override fun onItemClick(position: Int) {
                 if (!mAdapter.getData()[position].selected) {
                     mAdapter.setItemSelected(position)
@@ -81,7 +76,7 @@ class PullTextView : TextView {
     }
 
     fun updateData(data: MutableList<PullBean>, clear: Boolean) {
-        mAdapter?.addData(data, clear)
+        mAdapter.addData(data, clear)
     }
 
     fun showPop() {
@@ -106,7 +101,7 @@ class PullTextView : TextView {
 
     private fun showPopWindow() {
         if (Build.VERSION.SDK_INT < 24) {
-            mPopWindow!!.showAsDropDown(this)
+            mPopWindow!!.showAsDropDown(this, 0, ScreenUtil.dipToPx(context, 1).toInt())
         } else {
             val location = IntArray(2)
             this.getLocationOnScreen(location)
@@ -121,7 +116,7 @@ class PullTextView : TextView {
                 val height = this.resources.displayMetrics.heightPixels - visibleFrame.bottom
                 mPopWindow!!.height = height
             }
-            mPopWindow!!.showAsDropDown(this, location[0], location[1] + this.height)
+            mPopWindow!!.showAsDropDown(this, location[0], location[1] + this.height + ScreenUtil.dipToPx(context, 1).toInt())
         }
     }
 

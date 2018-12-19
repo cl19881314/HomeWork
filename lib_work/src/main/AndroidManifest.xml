@@ -12,5 +12,6 @@
         <activity android:name=".teacher.answer.WriteCommentActivity"/>
         <activity android:name=".teacher.answer.StudentAnswerDetailActivity"/>
         <activity android:name=".student.StudentToAnswerActivity"/>
+        <activity android:name=".teacher.group.SelectedHomeWorkActivity"/>
     </application>
 </manifest>
