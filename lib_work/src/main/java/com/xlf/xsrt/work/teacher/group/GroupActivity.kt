@@ -111,6 +111,9 @@ class GroupActivity : BaseActivity() {
         windowView.sure_screen_popwindow.setOnClickListener {
             mDiffPopWindow?.dismiss()
         }
+        windowView.screen_root_pop_group.setOnClickListener {
+            mDiffPopWindow?.dismiss()
+        }
     }
 
     override fun initListener() {
@@ -188,6 +191,10 @@ class GroupActivity : BaseActivity() {
                 }
             }
             mGroupAdapter.notifyDataSetChanged()
+        }
+        //已选作业
+        selectedNum_group.setOnClickListener {
+
         }
     }
 

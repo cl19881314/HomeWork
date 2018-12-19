@@ -31,5 +31,17 @@ open class ScreenUtil {
             wm.defaultDisplay.getMetrics(outMetrics)
             return outMetrics.heightPixels
         }
+
+        /**
+         * dp 转px
+         *
+         * @param context
+         * @param dpValue
+         * @return
+         */
+        fun dipToPx(context: Context, dpValue: Int): Float {
+            val scale = context.resources.displayMetrics.density
+            return (dpValue * scale + 0.5f).toInt().toFloat()
+        }
     }
 }

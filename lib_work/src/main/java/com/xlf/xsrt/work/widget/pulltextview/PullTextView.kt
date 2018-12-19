@@ -20,6 +20,8 @@ import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseRcyAdapter
 import com.xlf.xsrt.work.utils.ScreenUtil
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
+import android.text.TextPaint
+
 
 class PullTextView : TextView {
     private var mListener: PullListItemListener? = null
@@ -43,9 +45,17 @@ class PullTextView : TextView {
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        setup()
         initPopWindow()
         initListener()
         updateData(mutableListOf, true)
+    }
+
+    private fun setup() {
+        //加粗
+        this.paint.isFakeBoldText = true
+        //设置drawpadding
+        this.compoundDrawablePadding = ScreenUtil.dipToPx(context, 4).toInt()
     }
 
     private fun initListener() {
