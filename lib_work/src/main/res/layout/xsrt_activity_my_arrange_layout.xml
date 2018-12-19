@@ -14,17 +14,44 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="44dp"
+        android:background="@color/xsrt_white"
+        android:gravity="center_vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="时间选择" />
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
 
-        <TextView
+            <com.xlf.xsrt.work.widget.pulltextview.PullTextView
+                android:id="@+id/timePullTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/xsrt_icon_spinner_down"
+                android:gravity="center"
+                android:textColor="@color/xsrt_title1_txt_color"
+                android:textSize="15sp"
+                android:text="2018年08月13日" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="作业选择"/>
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <com.xlf.xsrt.work.widget.pulltextview.PullTextView
+                android:id="@+id/homeWorkPullTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawableRight="@drawable/xsrt_icon_spinner_down"
+                android:gravity="center"
+                android:textColor="@color/xsrt_title1_txt_color"
+                android:textSize="15sp"
+                android:text="诗词的背诵" />
+        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -86,6 +113,6 @@
         android:text="删除"
         android:textColor="@color/xsrt_white"
         android:textSize="15sp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </LinearLayout>

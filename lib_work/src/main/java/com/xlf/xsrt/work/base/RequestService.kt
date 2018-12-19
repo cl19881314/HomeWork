@@ -4,8 +4,10 @@ import com.xlf.xsrt.work.entry.BaseEntry
 import com.xlf.xsrt.work.entry.BaseStudentEntry
 import com.xlf.xsrt.work.bean.GroupeEntry
 import com.xlf.xsrt.work.bean.MyArrangeBean
-import com.xlf.xsrt.work.bean.StudentAnswerBean
+import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import com.xlf.xsrt.work.bean.UserInfo
+import com.xlf.xsrt.work.teacher.answer.bean.StuAnswerDetailBean
+import com.xlf.xsrt.work.teacher.answer.bean.TeacherCommentBean
 
 import io.reactivex.Observable
 import retrofit2.http.FieldMap
@@ -44,4 +46,16 @@ interface RequestService {
     @FormUrlEncoded
     @POST("teacher/getStuHomework")
     fun getStudentAnswerData(@FieldMap parameter: HashMap<String, Any>): Observable<StudentAnswerBean>
+
+    @FormUrlEncoded
+    @POST("teacher/getComment")
+    fun getTeacherCommentData(@FieldMap parameter: HashMap<String, Int>): Observable<TeacherCommentBean>
+
+    @FormUrlEncoded
+    @POST("teacher/setComment")
+    fun setTeacherCommentData(@FieldMap parameter: HashMap<String, Any>): Observable<BaseEntry>
+
+    @FormUrlEncoded
+    @POST("teacher/stuAnswerDetail")
+    fun getStuAnswerDetailData(@FieldMap parameter: HashMap<String, Any>): Observable<StuAnswerDetailBean>
 }

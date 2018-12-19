@@ -80,16 +80,12 @@ class PullTextView : TextView {
 
     }
 
-    fun toggle() {
-        isChecked = !isChecked
-    }
-
     fun updateData(data: MutableList<PullBean>, clear: Boolean) {
         mAdapter?.addData(data, clear)
     }
 
     fun showPop() {
-        toggle()
+        isChecked = false
         val drawable = ResourcesCompat.getDrawable(resources, R.drawable.xsrt_icon_spinner_up, null)
         drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)//必须设置图片大小，否则不显示
         this.setCompoundDrawables(null, null, drawable, null)
@@ -97,7 +93,7 @@ class PullTextView : TextView {
     }
 
     fun hidePop() {
-        toggle()
+        isChecked = true
         val drawable = ResourcesCompat.getDrawable(resources, R.drawable.xsrt_icon_spinner_down, null)
         drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)//必须设置图片大小，否则不显示
         this.setCompoundDrawables(null, null, drawable, null)

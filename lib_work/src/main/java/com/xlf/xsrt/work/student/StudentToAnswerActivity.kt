@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.xsrt_activity_student_choose_answer.*
  * @date 2018/12/17.
  * @des 学生答题界面
  */
-class StudentAnswerActivity : BaseActivity(){
+class StudentToAnswerActivity : BaseActivity(){
     private var mAdapter: StudentAnswerDetailAdapter? = null
     override fun getContentViewId(): Int {
         return R.layout.xsrt_activity_student_choose_answer

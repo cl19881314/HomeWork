@@ -21,13 +21,17 @@
 
     <LinearLayout
         android:id="@+id/chooseAnswerLL"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="17dp"
         android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/xsrt_item_subject_bg"
-        android:paddingLeft="18dp">
+        android:paddingLeft="18dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
     </LinearLayout>
 

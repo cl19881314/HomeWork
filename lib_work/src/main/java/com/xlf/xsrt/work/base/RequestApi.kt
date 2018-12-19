@@ -6,9 +6,10 @@ import com.xlf.xsrt.work.constant.ServiceApi
 import com.xlf.xsrt.work.entry.BaseStudentEntry
 import com.xlf.xsrt.work.bean.GroupeEntry
 import com.xlf.xsrt.work.bean.MyArrangeBean
-import com.xlf.xsrt.work.bean.StudentAnswerBean
+import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import com.xlf.xsrt.work.bean.UserInfo
 import com.xlf.xsrt.work.entry.BaseEntry
+import com.xlf.xsrt.work.teacher.answer.bean.TeacherCommentBean
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -141,6 +142,35 @@ class RequestApi {
             parameter["homeworkId"] = homeworkId
         }
         return mService.getStudentAnswerData(parameter)
+    }
+
+    /**
+     * 教师批阅内容
+     */
+    fun getTeacherCommentData(stuAnswerId : Int) : Observable<TeacherCommentBean>{
+        var parameter = HashMap<String, Int>()
+        parameter["stuAnswerId"] = stuAnswerId
+        return mService.getTeacherCommentData(parameter)
+    }
+
+    /**
+     * 添加教师批阅
+     */
+    fun setTeacherCommentData(stuAnswerId : Int, comment : String) : Observable<BaseEntry>{
+        var parameter = HashMap<String, Any>()
+        parameter["stuAnswerId"] = stuAnswerId
+        parameter["comment"] = comment
+        return mService.setTeacherCommentData(parameter)
+    }
+
+    /**
+     * 教师端学生作业详情
+     */
+    fun getStuAnswerDetailData(stuAnswerId : Int, comment : String) : Observable<BaseEntry>{
+        var parameter = HashMap<String, Any>()
+        parameter["stuAnswerId"] = stuAnswerId
+        parameter["comment"] = comment
+        return mService.setTeacherCommentData(parameter)
     }
 
 }

@@ -10,6 +10,9 @@ import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerAdapter
 import com.xlf.xsrt.work.teacher.answer.viewmodel.StudentAnswerViewModel
 import kotlinx.android.synthetic.main.xsrt_activity_student_answer_layout.*
 
+/**
+ * 学生作业
+ */
 class StudentAnswerActivity : BaseActivity(){
     private var mAdapter : StudentAnswerAdapter ?= null
 
@@ -21,7 +24,7 @@ class StudentAnswerActivity : BaseActivity(){
     }
 
     override fun init() {
-        mDataViewModel.getStudentAnswerData(mUserId, -1,"", -1)
+        //mDataViewModel.getStudentAnswerData(mUserId, -1,"", -1)
         mAdapter = StudentAnswerAdapter()
         showDataRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         showDataRv.adapter = mAdapter
@@ -30,7 +33,7 @@ class StudentAnswerActivity : BaseActivity(){
     override fun doResponseData() {
         mDataViewModel.mAnswerViewModel.observe(this, Observer{
             if (it?.flag == 1){
-
+                mAdapter!!.setAnswerData(it?.homeworkList!![0].stuAnswerList)
             }
         })
     }

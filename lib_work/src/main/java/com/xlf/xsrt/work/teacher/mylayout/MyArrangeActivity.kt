@@ -33,7 +33,33 @@ class MyArrangeActivity : BaseActivity() {
         showDataRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         showDataRv.adapter = mAdapter
         showDataRv.isLoadable = false
-        mViewModer.getArrangeData(mUserId, -1)
+        //mViewModer.getArrangeData(mUserId, -1)
+    }
+
+    override fun initListener() {
+        delTxt.setOnClickListener {
+            mViewModer.deleteAppointmentWork(mUserId, mGroupWorkId)
+        }
+
+        timePullTxt.setOnClickListener {
+            homeWorkPullTxt.hidePop()
+            if (timePullTxt.isChecked){
+                timePullTxt.showPop()
+            } else {
+                timePullTxt.hidePop()
+            }
+        }
+        homeWorkPullTxt.setOnClickListener {
+            timePullTxt.hidePop()
+            if (homeWorkPullTxt.isChecked){
+                homeWorkPullTxt.showPop()
+            } else {
+                homeWorkPullTxt.hidePop()
+            }
+        }
+    }
+
+    override fun doResponseData() {
         mViewModer.mGroupData.observe(this, Observer{
             if (it?.flag == 1){
                 arrangedStatusTxt.visibility = if (it?.appointmentFlag == 0) View.VISIBLE else View.GONE
@@ -43,8 +69,6 @@ class MyArrangeActivity : BaseActivity() {
                 if (it?.homeworkList?.size ?: -1 > 0) {
                     mGroupWorkId = it?.homeworkList!![0].sysDictId!!
                 }
-            } else if (it?.flag == 0){
-//                toast("")
             }
         })
 
@@ -53,10 +77,6 @@ class MyArrangeActivity : BaseActivity() {
                 mViewModer.getArrangeData(mUserId, -1)
             }
         })
-
-        delTxt.setOnClickListener {
-            mViewModer.deleteAppointmentWork(mUserId, mGroupWorkId)
-        }
     }
 
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/optionLL"
+    android:gravity="center"
+    >
+    <TextView
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:text="A"
+        android:textSize="16sp"
+        android:textColor="@color/xsrt_btn_bg_color"
+        android:gravity="center"
+        android:background="@drawable/xsrt_answer_normal"
+        android:id="@+id/optionTxt"
+        />
+
+</LinearLayout>
