@@ -46,7 +46,8 @@
         android:orientation="horizontal"
         android:paddingBottom="5dp">
 
-        <TextView
+        <Button
+            android:id="@+id/btn_subscribe_selected_homework"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/xsrt_margin_left"
@@ -57,7 +58,8 @@
             android:text="预约布置"
             android:textColor="@color/xsrt_popwindow_font" />
 
-        <TextView
+        <Button
+            android:id="@+id/btn_sure_selected_homework"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"

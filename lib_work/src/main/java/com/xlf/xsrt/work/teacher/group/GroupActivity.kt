@@ -18,6 +18,7 @@ import android.widget.PopupWindow
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.base.BaseRcyAdapter
+import com.xlf.xsrt.work.bean.HomeworkBaseVo
 import com.xlf.xsrt.work.bean.SysDictVo
 import com.xlf.xsrt.work.teacher.group.adapter.GroupAdapter
 import com.xlf.xsrt.work.teacher.group.adapter.PopWindowAdapter
@@ -34,25 +35,15 @@ import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
 
 class GroupActivity : BaseActivity() {
 
-    private var mTextPopWindow: PopupWindow? = null
-    private var mDirePopWindow: PopupWindow? = null
-    private var mSectionPopWindow: PopupWindow? = null
     private var mDiffPopWindow: PopupWindow? = null
-    //    private var mTextAdapter: PopWindowAdapter? = null
-//    private var mDireAdapter: PopWindowAdapter? = null
-//    private var mSectionAdapter: PopWindowAdapter? = null
     private var mDiffAdapter: ScreenPopWindowAdapter? = null
-
 
     private var mTextBooks: MutableList<PullBean> = mutableListOf()//教材
     private var mDirectors: MutableList<PullBean> = mutableListOf() //目录
     private var mSections: MutableList<PullBean> = mutableListOf() //章节
     private var mDiffLevels: MutableList<SysDictVo> = mutableListOf() //困难等级
 
-    private val TEXT_BOOK = 0//教材
-    private val DIRECTOR = 1//目录
-    private val SECTION = 2//章节
-    private val SCREEN = 3//筛选
+    private var mSelectedHomeWorks: ArrayList<HomeworkBaseVo> = ArrayList() //选择预添加的作业
 
     private val mTeacherId by lazy {
         intent.getIntExtra("teacherId", -1)
@@ -175,7 +166,7 @@ class GroupActivity : BaseActivity() {
                 section_group.hidePop()
             }
             mDiffAdapter?.addData(mDiffLevels, true)
-            showPopWindow(mDiffPopWindow!!, SCREEN)
+            mDiffPopWindow!!.showAtLocation(ll_root_group, Gravity.END, 0, 0)
         }
 
         //全选
@@ -194,37 +185,8 @@ class GroupActivity : BaseActivity() {
         }
         //已选作业
         selectedNum_group.setOnClickListener {
-            SelectedHomeWorkActivity.start(this)
+            SelectedHomeWorkActivity.start(this, mSelectedHomeWorks)
         }
-    }
-
-    private fun showPopWindow(popWindow: PopupWindow, type: Int) {
-        when (type) {
-            SCREEN -> {
-                popWindow!!.showAtLocation(ll_root_group, Gravity.END, 0, 0)
-            }
-            else -> {
-                if (Build.VERSION.SDK_INT < 24) {
-                    popWindow!!.showAsDropDown(divider_group)
-                } else {
-                    val location = IntArray(2)
-                    divider_group.getLocationOnScreen(location)
-                    if (Build.VERSION.SDK_INT == 25) {
-                        var tempheight = popWindow!!.height
-                        if (tempheight == WindowManager.LayoutParams.MATCH_PARENT || ScreenUtil.getScreenHeight(this) <= tempheight) {
-                            popWindow!!.height = ScreenUtil.getScreenHeight(this) - location[1] - divider_group.height;
-                        }
-                    } else {
-                        val visibleFrame = Rect()
-                        divider_group.getGlobalVisibleRect(visibleFrame)
-                        val height = divider_group.resources.displayMetrics.heightPixels - visibleFrame.bottom
-                        popWindow!!.height = height
-                    }
-                    popWindow!!.showAsDropDown(divider_group, location[0], location[1] + divider_group.height)
-                }
-            }
-        }
-
     }
 
 
@@ -274,6 +236,5 @@ class GroupActivity : BaseActivity() {
     private fun showEmptyView() {
 
     }
-
 
 }
