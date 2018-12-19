@@ -1,11 +1,7 @@
 package com.xlf.xsrt.work.base
 
-import com.xlf.xsrt.work.bean.BaseEntry
-import com.xlf.xsrt.work.bean.BaseStudentEntry
-import com.xlf.xsrt.work.bean.GroupeEntry
-import com.xlf.xsrt.work.bean.MyArrangeBean
+import com.xlf.xsrt.work.bean.*
 import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
-import com.xlf.xsrt.work.bean.UserInfo
 import com.xlf.xsrt.work.student.bean.StuHomwork
 import com.xlf.xsrt.work.teacher.answer.bean.StuAnswerDetailBean
 import com.xlf.xsrt.work.teacher.answer.bean.TeacherCommentBean
@@ -34,7 +30,7 @@ interface RequestService {
 
     @FormUrlEncoded
     @POST("appLogin/queryLogin")
-    fun queryUserInfo(@FieldMap parame: HashMap<String, String>): Observable<UserInfo>
+    fun queryUserInfo(@FieldMap parame: HashMap<String, String>): Observable<UserInfoVo>
 
     @FormUrlEncoded
     @POST("teacherManage/myPublishHomework")

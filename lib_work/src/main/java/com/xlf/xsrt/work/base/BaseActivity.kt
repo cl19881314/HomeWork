@@ -8,7 +8,11 @@ import android.widget.Toast
 abstract class BaseActivity : AppCompatActivity() {
 
     val RESPONSE_SUCCESS = 1
-    protected var mUserId = -1
+
+    open val mUserId by lazy {
+        intent.getIntExtra("userId", -1)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(getContentViewId())

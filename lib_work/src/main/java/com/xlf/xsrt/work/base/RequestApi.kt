@@ -2,13 +2,9 @@ package com.xlf.xsrt.work.base
 
 import android.text.TextUtils
 import android.util.Log
+import com.xlf.xsrt.work.bean.*
 import com.xlf.xsrt.work.constant.ServiceApi
-import com.xlf.xsrt.work.bean.BaseStudentEntry
-import com.xlf.xsrt.work.bean.GroupeEntry
-import com.xlf.xsrt.work.bean.MyArrangeBean
 import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
-import com.xlf.xsrt.work.bean.UserInfo
-import com.xlf.xsrt.work.bean.BaseEntry
 import com.xlf.xsrt.work.student.bean.StuHomwork
 import com.xlf.xsrt.work.teacher.answer.bean.TeacherCommentBean
 import io.reactivex.Observable
@@ -99,7 +95,7 @@ class RequestApi {
     /**
      * 查询教师或者学生信息
      */
-    fun queryUserInfo(token: String): Observable<UserInfo> {
+    fun queryUserInfo(token: String): Observable<UserInfoVo> {
         var parame = HashMap<String, String>()
         parame["userInfo"] = "$token"
         return mService.queryUserInfo(parame)

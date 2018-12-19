@@ -3,6 +3,7 @@ package com.xlf.xsrt.work.student
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
@@ -28,6 +29,14 @@ class StudentActivity : BaseActivity() {
     }
     private val mAdapter by lazy {
         StudentAdapter()
+    }
+
+    companion object {
+        fun start(ctx: Context, userId: Int) {
+            val intent = Intent(ctx, StudentActivity::class.java)
+            intent.putExtra("userId", userId)
+            ctx.startActivity(intent)
+        }
     }
 
     override fun getContentViewId(): Int {

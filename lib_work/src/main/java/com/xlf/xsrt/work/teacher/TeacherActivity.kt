@@ -1,8 +1,10 @@
 package com.xlf.xsrt.work.teacher
 
+import android.content.Context
 import android.content.Intent
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
+import com.xlf.xsrt.work.student.StudentActivity
 import com.xlf.xsrt.work.teacher.answer.StudentAnswerActivity
 import com.xlf.xsrt.work.teacher.group.GroupActivity
 import com.xlf.xsrt.work.teacher.mylayout.MyArrangeActivity
@@ -11,7 +13,17 @@ import kotlinx.android.synthetic.main.xsrt_activity_teacher_main.*
 /**
  * 教师端主界面
  */
-class TeacherActivity : BaseActivity(){
+class TeacherActivity : BaseActivity() {
+
+
+    companion object {
+        fun start(ctx: Context, userId: Int) {
+            val intent = Intent(ctx, TeacherActivity::class.java)
+            intent.putExtra("userId", userId)
+            ctx.startActivity(intent)
+        }
+    }
+
     override fun getContentViewId(): Int {
         return R.layout.xsrt_activity_teacher_main
     }
@@ -21,8 +33,7 @@ class TeacherActivity : BaseActivity(){
             finish()
         }
         groupHomeWorkLL.setOnClickListener {
-            var intent = Intent(this@TeacherActivity, GroupActivity::class.java)
-            startActivity(intent)
+            GroupActivity.start(this, mUserId)
         }
 
         myArrangeLL.setOnClickListener {
