@@ -14,8 +14,6 @@ import io.reactivex.schedulers.Schedulers
  */
 class StuAnswerDetailViewModel : ViewModel() {
     var mAddCommentViewModel = MutableLiveData<BaseEntry>()
-
-
     fun addComment(stuAnswerId: Int, comment: String) {
         RequestApi.getInstance().setTeacherCommentData(stuAnswerId, comment)
                 .subscribeOn(Schedulers.io())

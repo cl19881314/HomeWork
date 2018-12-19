@@ -20,14 +20,14 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal">
 
             <com.xlf.xsrt.work.widget.pulltextview.PullTextView
                 android:id="@+id/timePullTxt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
                 android:gravity="center"
                 android:textColor="@color/xsrt_title1_txt_color"
@@ -37,14 +37,14 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal">
 
             <com.xlf.xsrt.work.widget.pulltextview.PullTextView
                 android:id="@+id/homeWorkPullTxt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
                 android:gravity="center"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -29,18 +29,23 @@
         <com.xlf.xsrt.work.widget.pulltextview.PullTextView
             android:id="@+id/classNamePullTxt"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/xsrt_margin_right"
             android:drawableRight="@drawable/xsrt_header_class_arrow"
-            app:xsrtRightDrawable="@drawable/xsrt_header_class_arrow"
-            app:xsrtIsBlod="false"
             android:gravity="center"
+            android:text="诗词的背诵"
             android:textColor="@color/xsrt_title1_txt_color"
             android:textSize="15sp"
-            android:text="诗词的背诵"
-            android:layout_marginRight="@dimen/xsrt_margin_right"/>
+            app:xsrtIsBlod="false"
+            app:xsrtRightDrawable="@drawable/xsrt_header_class_arrow" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/xsrt_divider" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,37 +55,37 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal">
 
             <com.xlf.xsrt.work.widget.pulltextview.PullTextView
                 android:id="@+id/timePullTxt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
                 android:gravity="center"
+                android:text="2018年08月13日"
                 android:textColor="@color/xsrt_title1_txt_color"
-                android:textSize="15sp"
-                android:text="2018年08月13日" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal">
 
             <com.xlf.xsrt.work.widget.pulltextview.PullTextView
                 android:id="@+id/homeWorkPullTxt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
                 android:gravity="center"
+                android:text="诗词的背诵"
                 android:textColor="@color/xsrt_title1_txt_color"
-                android:textSize="15sp"
-                android:text="诗词的背诵" />
+                android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -88,7 +93,7 @@
         android:id="@+id/showDataRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:background="@color/xsrt_divider"/>
+        android:background="@color/xsrt_divider"
+        android:overScrollMode="never" />
 
 </LinearLayout>

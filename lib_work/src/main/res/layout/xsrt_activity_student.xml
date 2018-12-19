@@ -64,6 +64,7 @@
     <com.xlf.xsrt.work.widget.xxxrecycler.XXXRecyclerView
         android:id="@+id/rcy_student"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:overScrollMode="never"/>
 
 </LinearLayout>

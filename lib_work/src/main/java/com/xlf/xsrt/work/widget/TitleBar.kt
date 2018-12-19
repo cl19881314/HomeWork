@@ -71,4 +71,8 @@ class TitleBar : RelativeLayout {
     fun getBackImageView(): ImageView? {
         return mBackImg
     }
+
+    fun setTitleTxt(txt : String){
+        mTitleTxt?.text = txt
+    }
 }

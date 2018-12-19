@@ -41,8 +41,8 @@ class StudentAnswerActivity : BaseActivity() {
             if (it?.flag == 1) {
                 mAdapter!!.setAnswerData(it?.stuAnswerList)
                 if (it?.classList?.size ?: -1 > 0) {
-                    addClassPullData(it?.classList)
-                    addTimePullData(it?.classList)
+                    addClassPullData(it?.classList!!)
+                    addTimePullData(it?.classList!!)
                 }
                 if (it?.homeworkList?.size ?: -1 > 0) {
                     addWorkPullData(it?.homeworkList!!)
@@ -52,6 +52,7 @@ class StudentAnswerActivity : BaseActivity() {
     }
 
     private fun addWorkPullData(homeworkList: ArrayList<StudentAnswerBean.HomeworkVo>) {
+        homeWorkPullTxt.text = homeworkList[0].homeworkName
         var list = mutableListOf<PullBean>()
         for (bean in homeworkList!!) {
             var data = PullBean()
@@ -62,7 +63,8 @@ class StudentAnswerActivity : BaseActivity() {
         homeWorkPullTxt.updateData(list, true)
     }
 
-    private fun addTimePullData(classList: ArrayList<StudentAnswerBean.ClassVo>?) {
+    private fun addTimePullData(classList: ArrayList<StudentAnswerBean.ClassVo>) {
+        timePullTxt.text = classList[0].createTime
         var list = mutableListOf<PullBean>()
         for (i in classList!!.indices) {
             var data = PullBean()
@@ -73,7 +75,8 @@ class StudentAnswerActivity : BaseActivity() {
         timePullTxt.updateData(list, true)
     }
 
-    private fun addClassPullData(classList: ArrayList<StudentAnswerBean.ClassVo>?) {
+    private fun addClassPullData(classList: ArrayList<StudentAnswerBean.ClassVo>) {
+        classNamePullTxt.text = classList[0].className
         var list = mutableListOf<PullBean>()
         for (classBean in classList!!) {
             var data = PullBean()

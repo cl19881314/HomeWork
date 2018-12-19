@@ -1,14 +1,11 @@
 package com.xlf.xsrt.work.fragment
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.LinearLayout
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseFragment
-import kotlinx.android.synthetic.main.xsrt_item_answer_option.view.*
 import kotlinx.android.synthetic.main.xsrt_item_student_answer_detail_layout.*
 
 class StudentAnswerDetailFragment : BaseFragment() {
@@ -27,26 +24,9 @@ class StudentAnswerDetailFragment : BaseFragment() {
                 return true
             }
         }
-        detailWeb!!.loadUrl("https://www.baidu.com")
-        for (i in 0..4) {
-            var optionView = LayoutInflater.from(activity).inflate(R.layout.xsrt_item_answer_option, null, false)
-            var txt = (i + 65).toChar()
-            optionView.optionTxt.text = txt.toString()
-            var params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            params.weight = 1f
-            optionView.layoutParams = params
-            optionView.optionTxt.setOnClickListener {
+        var url = arguments?.getString("url")
+        detailWeb!!.loadUrl(url)
 
-            }
-            if (i == 1){
-                optionView.optionTxt.setBackgroundResource(R.drawable.xsrt_answer_choosed)
-                optionView.optionTxt.setTextColor(resources.getColor(R.color.xsrt_white))
-            } else {
-                optionView.optionTxt.setBackgroundResource(R.drawable.xsrt_answer_normal)
-                optionView.optionTxt.setTextColor(resources.getColor(R.color.xsrt_btn_bg_color))
-            }
-            chooseAnswerLL.addView(optionView)
-        }
     }
 
 

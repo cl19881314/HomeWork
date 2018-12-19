@@ -52,6 +52,10 @@ class StudentAnswerAdapter : XXXAdapter<StudentAnswerAdapter.AnswerHolder>() {
 
             view.toDoStausTxt.setOnClickListener {
                 var intent = Intent(view.context, StudentAnswerDetailActivity::class.java)
+                intent.putExtra("stuAnswerId", bean.stuAnswerId)
+                intent.putExtra("stuName", bean.stuName)
+                intent.putStringArrayListExtra("urlList", bean.homeworkDetailUrlList)
+                intent.putExtra("showTodo", bean.state != 1)
                 view.context.startActivity(intent)
             }
             view.endStatusTxt.setOnClickListener {
