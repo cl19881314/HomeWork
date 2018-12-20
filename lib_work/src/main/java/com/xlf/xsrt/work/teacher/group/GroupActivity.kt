@@ -24,6 +24,7 @@ import com.xlf.xsrt.work.teacher.group.adapter.GroupAdapter
 import com.xlf.xsrt.work.teacher.group.adapter.PopWindowAdapter
 import com.xlf.xsrt.work.teacher.group.adapter.ScreenPopWindowAdapter
 import com.xlf.xsrt.work.bean.QueryCondition
+import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.teacher.group.viewmodel.GroupModel
 import com.xlf.xsrt.work.utils.ScreenUtil
 import com.xlf.xsrt.work.widget.TitleBar
@@ -45,10 +46,6 @@ class GroupActivity : BaseActivity() {
 
     private var mSelectedHomeWorks: ArrayList<HomeworkBaseVo> = ArrayList() //选择预添加的作业
 
-    private val mTeacherId by lazy {
-        intent.getIntExtra("teacherId", -1)
-    }
-
     private val mViewModel by lazy {
         ViewModelProviders.of(this).get(GroupModel::class.java)
     }
@@ -67,9 +64,8 @@ class GroupActivity : BaseActivity() {
     }
 
     companion object {
-        fun start(ctx: Context, teacherId: Int) {
+        fun start(ctx: Context) {
             val intent = Intent(ctx, GroupActivity::class.java)
-            intent.putExtra("teacherId", teacherId)
             ctx.startActivity(intent)
         }
     }
@@ -82,7 +78,7 @@ class GroupActivity : BaseActivity() {
     }
 
     private fun initData() {
-        mViewModel.loadGroupData(mTeacherId)//初始获取组作业数据
+        mViewModel.loadGroupData(UserInfoConstant.getUserId())//初始获取组作业数据
     }
 
     private fun initRcyView() {

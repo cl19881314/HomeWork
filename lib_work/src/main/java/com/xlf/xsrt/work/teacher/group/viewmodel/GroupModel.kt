@@ -28,10 +28,10 @@ class GroupModel : ViewModel() {
      * user数据
      *
      */
-//    var mUserData: MutableLiveData<UserInfo> = MutableLiveData()
+//    var mUserData: MutableLiveData<UserInfoConstant> = MutableLiveData()
 
     @SuppressLint("CheckResult")
-    fun loadGroupData(userId: Int) {
+    fun loadGroupData(userId : Int) {
         RequestApi.getInstance().queryGroupData(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

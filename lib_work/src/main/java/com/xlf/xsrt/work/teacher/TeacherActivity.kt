@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
-import com.xlf.xsrt.work.student.StudentActivity
 import com.xlf.xsrt.work.teacher.answer.StudentAnswerActivity
 import com.xlf.xsrt.work.teacher.group.GroupActivity
 import com.xlf.xsrt.work.teacher.mylayout.MyArrangeActivity
@@ -17,9 +16,8 @@ class TeacherActivity : BaseActivity() {
 
 
     companion object {
-        fun start(ctx: Context, userId: Int) {
+        fun start(ctx: Context) {
             val intent = Intent(ctx, TeacherActivity::class.java)
-            intent.putExtra("userId", userId)
             ctx.startActivity(intent)
         }
     }
@@ -33,7 +31,7 @@ class TeacherActivity : BaseActivity() {
             finish()
         }
         groupHomeWorkLL.setOnClickListener {
-            GroupActivity.start(this, mUserId)
+            GroupActivity.start(this)
         }
 
         myArrangeLL.setOnClickListener {

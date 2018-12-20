@@ -29,7 +29,7 @@ interface RequestService {
     fun queryHomeworkData(@FieldMap parame: HashMap<String, String>): Observable<GroupeEntry>
 
     @FormUrlEncoded
-    @POST("teacher/getComment")
+    @POST("teacherManage/getComment")
     fun getTeacherComment(@FieldMap parame: HashMap<String, String>): Observable<BaseStudentEntry>
 
     @FormUrlEncoded
@@ -45,19 +45,19 @@ interface RequestService {
     fun deleteAppointmentWork(@FieldMap parameter: HashMap<String, Int>): Observable<BaseEntry>
 
     @FormUrlEncoded
-    @POST("teacher/getStuHomework")
+    @POST("teacherManage/getStuHomework")
     fun getStudentAnswerData(@FieldMap parameter: HashMap<String, Any>): Observable<StudentAnswerBean>
 
     @FormUrlEncoded
-    @POST("teacher/getComment")
+    @POST("teacherManage/getComment")
     fun getTeacherCommentData(@FieldMap parameter: HashMap<String, Int>): Observable<TeacherCommentBean>
 
     @FormUrlEncoded
-    @POST("teacher/setComment")
+    @POST("teacherManage/setComment")
     fun setTeacherCommentData(@FieldMap parameter: HashMap<String, Any>): Observable<BaseEntry>
 
     @FormUrlEncoded
-    @POST("teacher/stuAnswerDetail")
+    @POST("teacherManage/stuAnswerDetail")
     fun getStuAnswerDetailData(@FieldMap parameter: HashMap<String, Any>): Observable<StuAnswerDetailBean>
 
     @FormUrlEncoded

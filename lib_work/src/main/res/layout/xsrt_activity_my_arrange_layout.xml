@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:textColor="@color/xsrt_title1_txt_color"
                 android:textSize="15sp"
-                android:text="2018年08月13日" />
+                tools:text="2018年08月13日" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,7 +50,7 @@
                 android:gravity="center"
                 android:textColor="@color/xsrt_title1_txt_color"
                 android:textSize="15sp"
-                android:text="诗词的背诵" />
+                android:text="--" />
         </LinearLayout>
     </LinearLayout>
 

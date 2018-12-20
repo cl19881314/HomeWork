@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
+import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerAdapter
 import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import com.xlf.xsrt.work.teacher.answer.viewmodel.StudentAnswerViewModel
@@ -30,7 +31,7 @@ class StudentAnswerActivity : BaseActivity() {
     }
 
     override fun init() {
-        //mDataViewModel.getStudentAnswerData(mUserId, -1,"", -1)
+        mDataViewModel.getStudentAnswerData(UserInfoConstant.getUserId(), -1,"", -1)
         mAdapter = StudentAnswerAdapter()
         showDataRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         showDataRv.adapter = mAdapter
@@ -94,21 +95,21 @@ class StudentAnswerActivity : BaseActivity() {
         classNamePullTxt.setItemClickListener(object : PullTextView.PullListItemListener {
             override fun onItemClick(bean: PullBean, position: Int) {
                 mClassId = bean.searchId
-                mDataViewModel.getStudentAnswerData(mUserId, mClassId, mTimeId, mWorkId)
+                mDataViewModel.getStudentAnswerData(UserInfoConstant.getUserId(), mClassId, mTimeId, mWorkId)
             }
 
         })
         timePullTxt.setItemClickListener(object : PullTextView.PullListItemListener {
             override fun onItemClick(bean: PullBean, position: Int) {
                 mTimeId = bean.content
-                mDataViewModel.getStudentAnswerData(mUserId, mClassId, mTimeId, mWorkId)
+                mDataViewModel.getStudentAnswerData(UserInfoConstant.getUserId(), mClassId, mTimeId, mWorkId)
             }
 
         })
         homeWorkPullTxt.setItemClickListener(object : PullTextView.PullListItemListener {
             override fun onItemClick(bean: PullBean, position: Int) {
                 mWorkId = bean.searchId
-                mDataViewModel.getStudentAnswerData(mUserId, mClassId, mTimeId, mWorkId)
+                mDataViewModel.getStudentAnswerData(UserInfoConstant.getUserId(), mClassId, mTimeId, mWorkId)
             }
         })
 

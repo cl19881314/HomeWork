@@ -32,9 +32,8 @@ class StudentActivity : BaseActivity() {
     }
 
     companion object {
-        fun start(ctx: Context, userId: Int) {
+        fun start(ctx: Context) {
             val intent = Intent(ctx, StudentActivity::class.java)
-            intent.putExtra("userId", userId)
             ctx.startActivity(intent)
         }
     }

@@ -12,16 +12,16 @@ import io.reactivex.schedulers.Schedulers
  * @date 2018/12/18.
  * @des 学生作业
  */
-class StudentAnswerViewModel : ViewModel(){
+class StudentAnswerViewModel : ViewModel() {
     var mAnswerViewModel = MutableLiveData<StudentAnswerBean>()
 
-    fun getStudentAnswerData(userId : Int, classId : Int, createTime : String, homeworkId : Int){
-        RequestApi.getInstance().getStudentAnswerData(userId,classId,createTime,homeworkId)
+    fun getStudentAnswerData(userId: Int, classId: Int, createTime: String, homeworkId: Int) {
+        RequestApi.getInstance().getStudentAnswerData(userId,classId, createTime, homeworkId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     mAnswerViewModel.value = it
-                },{
+                }, {
 
                 })
     }

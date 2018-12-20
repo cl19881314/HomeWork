@@ -23,7 +23,7 @@ class RequestApi {
         val loggingInterceptor = HttpLoggingInterceptor { message ->
             if (message == null)
                 return@HttpLoggingInterceptor
-            Log.d("tag", message)
+            Log.d("retrofit", message)
         }
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val client = OkHttpClient.Builder()

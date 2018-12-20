@@ -10,6 +10,7 @@ import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.bean.SysDictVo
+import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.teacher.mylayout.adapter.MyArrangeAdapter
 import com.xlf.xsrt.work.teacher.mylayout.viewmodel.MyArrangeViewModel
 import com.xlf.xsrt.work.widget.pulltextview.PullBean
@@ -39,7 +40,7 @@ class MyArrangeActivity : BaseActivity() {
         showDataRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         showDataRv.adapter = mAdapter
         showDataRv.isLoadable = false
-        //mViewModer.getArrangeData(mUserId, -1)
+        mViewModer.getArrangeData(UserInfoConstant.getUserId(), -1)
     }
 
     override fun initListener() {
@@ -55,7 +56,7 @@ class MyArrangeActivity : BaseActivity() {
         homeWorkPullTxt.setItemClickListener(object :PullTextView.PullListItemListener{
             override fun onItemClick(bean: PullBean, position: Int) {
                 mGroupWorkId = bean.searchId
-                mViewModer.getArrangeData(mUserId, mGroupWorkId)
+                mViewModer.getArrangeData(UserInfoConstant.getUserId(), mGroupWorkId)
             }
         })
         timePullTxt.setOnClickListener {
@@ -82,7 +83,7 @@ class MyArrangeActivity : BaseActivity() {
                         dialog.dismiss()
                     }
                     .setPositiveButton("确认删除"){ dialog, which ->
-                        mViewModer.deleteAppointmentWork(mUserId, mGroupWorkId)
+                        mViewModer.deleteAppointmentWork(UserInfoConstant.getUserId(), mGroupWorkId)
                         dialog.dismiss()
                     }
                     .show()
@@ -108,7 +109,7 @@ class MyArrangeActivity : BaseActivity() {
         mViewModer.mDeleteData.observe(this, Observer {
             if (it?.flag == 1) {
                 toast("删除成功")
-                mViewModer.getArrangeData(mUserId, -1)
+                mViewModer.getArrangeData(UserInfoConstant.getUserId(), -1)
             } else {
                 toast("删除失败")
             }
