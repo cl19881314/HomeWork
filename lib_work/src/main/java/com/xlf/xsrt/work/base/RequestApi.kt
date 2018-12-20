@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 class RequestApi {
@@ -27,9 +28,11 @@ class RequestApi {
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val client = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+                .readTimeout(65, TimeUnit.SECONDS)
+                .writeTimeout(65, TimeUnit.SECONDS)
                 .build()
         val retrofit = Retrofit.Builder()
-                .baseUrl(ServiceApi.IP + "/")
+                .baseUrl(ServiceApi.IP)
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -49,6 +52,16 @@ class RequestApi {
             }
             return mInstance!!
         }
+    }
+
+    /**
+     * 测试用到的登陆接口
+     */
+    fun login(user : String, pwd : String) : Observable<LoginBean>{
+        var parame = HashMap<String, String>()
+        parame["username"] = user
+        parame["password"] = pwd
+        return mService.login(parame)
     }
 
     /**
@@ -95,7 +108,7 @@ class RequestApi {
     /**
      * 查询教师或者学生信息
      */
-    fun queryUserInfo(token: String): Observable<UserInfoVo> {
+    fun queryUserInfo(token: String): Observable<UserInfo> {
         var parame = HashMap<String, String>()
         parame["userInfo"] = "$token"
         return mService.queryUserInfo(parame)

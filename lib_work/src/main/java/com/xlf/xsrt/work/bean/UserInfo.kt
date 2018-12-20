@@ -1,6 +1,6 @@
 package com.xlf.xsrt.work.bean
 
-class UserInfoVo : BaseEntry() {
+class UserInfo : BaseEntry() {
     var userInfoVo: UserInfoVo? = null
 
     class UserInfoVo {

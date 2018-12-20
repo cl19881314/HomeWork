@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".StartActivity">
+    <EditText
+        android:id="@+id/userEdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="用户账号"
+        android:text="xzyt1"/>
+    <EditText
+        android:id="@+id/pwdEdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="用户密码"
+        android:text="123qwe"/>
+
+    <Button
+        android:id="@+id/logonBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登陆"
+        />
 
     <Button
         android:id="@+id/btn_teacher"

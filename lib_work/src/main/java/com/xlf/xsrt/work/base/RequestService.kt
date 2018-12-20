@@ -17,6 +17,10 @@ interface RequestService {
     fun register(@FieldMap map: Map<String, String>): Observable<BaseEntry>
 
     @FormUrlEncoded
+    @POST("appLogin/queryToken")
+    fun login(@FieldMap map: Map<String, String>): Observable<LoginBean>
+
+    @FormUrlEncoded
     @POST("teacherManage/groupHomework")
     fun queryGroupData(@FieldMap map: Map<String, String>): Observable<GroupeEntry>
 
@@ -30,7 +34,7 @@ interface RequestService {
 
     @FormUrlEncoded
     @POST("appLogin/queryLogin")
-    fun queryUserInfo(@FieldMap parame: HashMap<String, String>): Observable<UserInfoVo>
+    fun queryUserInfo(@FieldMap parame: HashMap<String, String>): Observable<UserInfo>
 
     @FormUrlEncoded
     @POST("teacherManage/myPublishHomework")

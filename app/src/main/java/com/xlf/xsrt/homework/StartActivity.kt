@@ -3,6 +3,7 @@ package com.xlf.xsrt.homework
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.xlf.xsrt.work.base.RequestApi
 import com.xlf.xsrt.work.student.StudentActivity
 import com.xlf.xsrt.work.teacher.TeacherActivity
 import com.xlf.xsrt.work.utils.LoginUtil
@@ -22,6 +23,11 @@ class StartActivity : AppCompatActivity() {
             //            var intent = Intent(this, StudentActivity::class.java)
 //            startActivity(intent)
             LoginUtil.enterHomeWork(this, "token1")
+        }
+        logonBtn.setOnClickListener {
+            var user = userEdt.text.toString()
+            var pwd = pwdEdt.text.toString()
+            LoginUtil.login(this@StartActivity, user, pwd)
         }
     }
 
