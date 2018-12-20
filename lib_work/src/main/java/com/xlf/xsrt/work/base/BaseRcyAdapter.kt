@@ -25,6 +25,11 @@ abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
         notifyDataSetChanged()
     }
 
+    fun clearData() {
+        mData.clear()
+        notifyDataSetChanged()
+    }
+
     fun getData(): MutableList<T> {
         return mData
     }

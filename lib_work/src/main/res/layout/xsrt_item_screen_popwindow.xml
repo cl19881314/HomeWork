@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tv_name_screen_popwindow"
-    android:layout_width="wrap_content"
+    android:id="@+id/ck_name_screen_popwindow"
+    android:layout_width="94dp"
     android:layout_height="32dp"
     android:layout_marginBottom="10dp"
     android:background="@drawable/xsrt_selector_bt_screen_btn"

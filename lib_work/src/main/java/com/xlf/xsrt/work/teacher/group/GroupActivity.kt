@@ -32,6 +32,7 @@ import com.xlf.xsrt.work.widget.pulltextview.PullBean
 import com.xlf.xsrt.work.widget.pulltextview.PullTextView
 import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
+import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
 
 class GroupActivity : BaseActivity() {
@@ -79,9 +80,7 @@ class GroupActivity : BaseActivity() {
 
     private fun initData() {
         mViewModel.loadGroupData(UserInfoConstant.getUserId())//初始获取组作业数据
-        mQueryCondition.userId = UserInfoConstant.getUserId()
-        mQueryCondition.page = 0
-        mQueryCondition.baseFlag = 1
+        mQueryCondition.userId = UserInfoConstant.getUserId().toString()
     }
 
     private fun initRcyView() {
@@ -98,11 +97,37 @@ class GroupActivity : BaseActivity() {
         mDiffPopWindow?.isOutsideTouchable = true
         mDiffPopWindow?.isFocusable = false
         mDiffPopWindow?.animationStyle = R.style.xsrt_popwin_anim_style
+        //初始化
+        windowView.rbtn_base_screen.isChecked = true//默认基础库为true
+        //初始化筛选中的点击事件
+        windowView.rgp_screen.setOnCheckedChangeListener { group, checkedId ->
+            when (checkedId) {
+                R.id.rbtn_base_screen -> mQueryCondition.baseFlag = "1"//基础题库
+                R.id.rbtn_collect_screen -> mQueryCondition.baseFlag = "0"//我的收藏
+            }
+        }
+        mDiffAdapter?.setOnItemClickListener(object : BaseRcyAdapter.ItemClickListener {
+            override fun onItemClick(position: Int) {
+                mQueryCondition.difficultyId = mDiffAdapter!!.getData()[position].sysDictId!!.toString()
+                mDiffAdapter?.setIitemChecked(position)
+            }
+
+        })
+        //清除选项
+        windowView.clear_screen_popwindow.setOnClickListener {
+            windowView.rbtn_base_screen.isChecked = true
+            mDiffAdapter?.unCheckedAll()
+            mQueryCondition.baseFlag = "1"
+            mQueryCondition.difficultyId = ""
+        }
         windowView.sure_screen_popwindow.setOnClickListener {
             mDiffPopWindow?.dismiss()
         }
         windowView.screen_root_pop_group.setOnClickListener {
             mDiffPopWindow?.dismiss()
+        }
+        mDiffPopWindow?.setOnDismissListener {
+            mViewModel.queryHomeworkData(mQueryCondition)
         }
     }
 
@@ -171,21 +196,14 @@ class GroupActivity : BaseActivity() {
         textbook_group.setItemClickListener(object : PullTextView.PullListItemListener {
             override fun onItemClick(bean: PullBean, position: Int) {
                 //重置目录数据
-                mDirectors.clear()
-                mDirectors.addAll(mTextBooks[position].subDataList!!)
-                val data = mutableListOf<PullBean>()
-                for (item in mDirectors) {
-                    val pullBean = PullBean()
-                    pullBean.content = item.sysDictName!!
-                    pullBean.searchId = item.sysDictId!!
-                    data.add(pullBean)
-                }
-                director_group.updateData(data, true)
+                resetDirectorData(position)
+                //重置章节数据，默认为第一条目录数据
+                setDefaultSectionData()
                 //清除目录和章节查询条件
-                mQueryCondition.directoryId = ""
-                mQueryCondition.chapterId = ""
+                mQueryCondition.directoryId = mDirectors[0].sysDictId.toString()
+                mQueryCondition.chapterId = mSections[0].sysDictId.toString()
                 //加入教材筛选条件
-                mQueryCondition.textbookId = bean.selected.toString()
+                mQueryCondition.textbookId = bean.searchId.toString()
                 //查询数据 更新界面
                 mViewModel.queryHomeworkData(mQueryCondition)
             }
@@ -194,20 +212,11 @@ class GroupActivity : BaseActivity() {
         director_group.setItemClickListener(object : PullTextView.PullListItemListener {
             override fun onItemClick(bean: PullBean, position: Int) {
                 //重置章节数据
-                mSections.clear()
-                mSections.addAll(mDirectors[position].subDataList!!)
-                val data = mutableListOf<PullBean>()
-                for (item in mSections) {
-                    val pullBean = PullBean()
-                    pullBean.content = item.sysDictName!!
-                    pullBean.searchId = item.sysDictId!!
-                    data.add(pullBean)
-                }
-                section_group.updateData(data, true)
+                resetSectionData(position)
                 //章节查询条件
-                mQueryCondition.chapterId = ""
+                mQueryCondition.chapterId = mSections[0].sysDictId.toString()
                 //加入目录筛选条件
-                mQueryCondition.directoryId = bean.selected.toString()
+                mQueryCondition.directoryId = bean.searchId.toString()
                 //查询数据 更新界面
                 mViewModel.queryHomeworkData(mQueryCondition)
             }
@@ -216,7 +225,7 @@ class GroupActivity : BaseActivity() {
         section_group.setItemClickListener(object : PullTextView.PullListItemListener {
             override fun onItemClick(bean: PullBean, position: Int) {
                 //加入章节筛选条件
-                mQueryCondition.chapterId = bean.selected.toString()
+                mQueryCondition.chapterId = bean.searchId.toString()
                 //查询数据 更新界面
                 mViewModel.queryHomeworkData(mQueryCondition)
             }
@@ -242,6 +251,46 @@ class GroupActivity : BaseActivity() {
         }
     }
 
+    /**
+     * 重置章节数据
+     * @param position 目录位置
+     */
+    fun resetSectionData(position: Int) {
+        mSections.clear()
+        mSections.addAll(mDirectors[position].subDataList!!)
+        val data = mutableListOf<PullBean>()
+        for (i in mSections.indices) {
+            val pullBean = PullBean()
+            pullBean.content = mSections[i].sysDictName!!
+            pullBean.searchId = mSections[i].sysDictId!!
+            if (i == 0) {
+                pullBean.selected = true
+            }
+            data.add(pullBean)
+        }
+        section_group.updateData(data, true)
+    }
+
+    /**
+     * 重置目录数据
+     * @param position 教材位置
+     */
+    fun resetDirectorData(position: Int) {
+        mDirectors.clear()
+        mDirectors.addAll(mTextBooks[position].subDataList!!)
+        val data = mutableListOf<PullBean>()
+        for (i in mDirectors.indices) {
+            val pullBean = PullBean()
+            pullBean.content = mDirectors[i].sysDictName!!
+            pullBean.searchId = mDirectors[i].sysDictId!!
+            if (i == 0) {
+                pullBean.selected = true
+            }
+            data.add(pullBean)
+        }
+        director_group.updateData(data, true)
+    }
+
 
     override fun doResponseData() {
         mViewModel.mGroupData.observe(this, Observer {
@@ -255,17 +304,28 @@ class GroupActivity : BaseActivity() {
                 mDiffLevels.clear()
                 mDiffLevels.addAll(it.difficultyList!!)
                 mDiffAdapter?.addData(mDiffLevels, true)
-                //重置教材数据
+                //初始化教材数据
                 mTextBooks.clear()
                 mTextBooks.addAll(it.textBookList!!)
                 val data = mutableListOf<PullBean>()
-                for (item in mTextBooks) {
+                for (i in mTextBooks.indices) {
                     val pullBean = PullBean()
-                    pullBean.content = item.sysDictName!!
-                    pullBean.searchId = item.sysDictId!!
+                    pullBean.content = mTextBooks[i].sysDictName!!
+                    pullBean.searchId = mTextBooks[i].sysDictId!!
+                    if (i == 0) {
+                        pullBean.selected = true
+                    }
                     data.add(pullBean)
                 }
                 textbook_group.updateData(data, true)
+                //初始化目录数据
+                setDefaultDirecData()
+                //初始化章节数据
+                setDefaultSectionData()
+                //初始化默认查询条件
+                mQueryCondition.textbookId = mTextBooks[0].sysDictId.toString()
+                mQueryCondition.directoryId = mDirectors[0].sysDictId.toString()
+                mQueryCondition.chapterId = mSections[0].sysDictId.toString()
             }
         })
         mViewModel.mHomeworkData.observe(this, Observer {
@@ -284,6 +344,45 @@ class GroupActivity : BaseActivity() {
             }
         })
 
+    }
+
+    /**
+     * 设置默认目录，为教材第一个数据
+     */
+    fun setDefaultDirecData() {
+        mDirectors.clear()
+        mDirectors.addAll(mTextBooks[0].subDataList!!)
+        val diredata = mutableListOf<PullBean>()
+        for (i in mDirectors.indices) {
+            val pullBean = PullBean()
+            pullBean.content = mDirectors[i].sysDictName!!
+            pullBean.searchId = mDirectors[i].sysDictId!!
+            if (i == 0) {
+                pullBean.selected = true
+            }
+            diredata.add(pullBean)
+        }
+        director_group.updateData(diredata, true)
+    }
+
+    /**
+     * 设置默认章节，为目录第一个数据
+     */
+
+    fun setDefaultSectionData() {
+        mSections.clear()
+        mSections.addAll(mDirectors[0].subDataList!!)
+        val sectiondata = mutableListOf<PullBean>()
+        for (i in mSections.indices) {
+            val pullBean = PullBean()
+            pullBean.content = mSections[i].sysDictName!!
+            pullBean.searchId = mSections[i].sysDictId!!
+            if (i == 0) {
+                pullBean.selected = true
+            }
+            sectiondata.add(pullBean)
+        }
+        section_group.updateData(sectiondata, true)
     }
 
     /**

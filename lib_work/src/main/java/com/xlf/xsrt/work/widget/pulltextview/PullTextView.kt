@@ -78,6 +78,10 @@ class PullTextView : TextView {
         mAdapter.addData(data, clear)
     }
 
+    fun clearData() {
+        mAdapter.clearData()
+    }
+
     fun showPop() {
         isChecked = false
         if (mShowDefaultDrawable) {

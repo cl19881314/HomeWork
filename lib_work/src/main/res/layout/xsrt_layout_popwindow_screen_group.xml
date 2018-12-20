@@ -3,12 +3,12 @@
     android:id="@+id/screen_root_pop_group"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4D000000"
-    android:paddingLeft="100dp">
+    android:background="#4D000000">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="314dp"
         android:layout_height="match_parent"
+        android:layout_gravity="right"
         android:background="@color/xsrt_white"
         android:orientation="vertical">
 
@@ -35,6 +35,7 @@
             android:textSize="15sp" />
 
         <RadioGroup
+            android:id="@+id/rgp_screen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -43,7 +44,7 @@
 
             <RadioButton
                 android:id="@+id/rbtn_base_screen"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="32dp"
                 android:background="@drawable/xsrt_selector_bt_screen_btn"
                 android:button="@null"
@@ -57,7 +58,7 @@
 
             <RadioButton
                 android:id="@+id/rbtn_collect_screen"
-                android:layout_width="wrap_content"
+                android:layout_width="94dp"
                 android:layout_height="32dp"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/xsrt_selector_bt_screen_btn"
@@ -91,15 +92,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <Button
                 android:id="@+id/clear_screen_popwindow"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
                 android:layout_weight="1"
+                android:background="#EDEDED"
                 android:gravity="center"
-                android:text="清除选项" />
+                android:text="清除选项"
+                android:textColor="@color/xsrt_title1_txt_color"
+                android:textSize="15sp" />
 
-            <TextView
+            <Button
                 android:id="@+id/sure_screen_popwindow"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
@@ -107,7 +111,8 @@
                 android:background="@color/xsrt_popwindow_font"
                 android:gravity="center"
                 android:text="确定"
-                android:textColor="@color/xsrt_white" />
+                android:textColor="#FEFEFE"
+                android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
 
