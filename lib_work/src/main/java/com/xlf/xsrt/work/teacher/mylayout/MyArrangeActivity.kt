@@ -39,7 +39,7 @@ class MyArrangeActivity : BaseActivity() {
         showDataRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         showDataRv.adapter = mAdapter
         showDataRv.isLoadable = false
-        //mViewModer.getArrangeData(mUserId, -1)
+        mViewModer.getArrangeData(mUserId, -1)
     }
 
     override fun initListener() {
