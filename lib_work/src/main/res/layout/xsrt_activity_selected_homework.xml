@@ -17,6 +17,7 @@
         android:orientation="horizontal">
 
         <TextView
+
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -24,6 +25,7 @@
             android:text="作业名称" />
 
         <TextView
+            android:id="@+id/grouphomework_name_select"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/xsrt_margin_right"

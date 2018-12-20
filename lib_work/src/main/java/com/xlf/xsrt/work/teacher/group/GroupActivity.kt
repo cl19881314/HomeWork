@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
@@ -46,7 +47,7 @@ class GroupActivity : BaseActivity() {
     private var mDiffLevels: MutableList<SysDictVo> = mutableListOf() //困难等级
 
     private var mSelectedHomeWorks: ArrayList<HomeworkBaseVo> = ArrayList() //选择预添加的作业
-
+    private var groupedHomeworkId = -1
     private val mViewModel by lazy {
         ViewModelProviders.of(this).get(GroupModel::class.java)
     }
@@ -231,6 +232,13 @@ class GroupActivity : BaseActivity() {
             }
         })
 
+        mGroupAdapter.setOnItemClickListener(object : BaseRcyAdapter.ItemClickListener {
+            override fun onItemClick(position: Int) {
+                //TODO:添加作业
+            }
+
+        })
+
         //全选
         selectedAll_group.setOnClickListener {
             val data = mGroupAdapter.getData()
@@ -247,15 +255,25 @@ class GroupActivity : BaseActivity() {
         }
         //已选作业
         selectedNum_group.setOnClickListener {
-            SelectedHomeWorkActivity.start(this, mSelectedHomeWorks)
+            SelectedHomeWorkActivity.start(this, groupedHomeworkId)
         }
+        //提交作业
+        commit_group.setOnClickListener {
+            val buffer = StringBuffer()
+            for (item in mSelectedHomeWorks) {
+                buffer.append("${item.homeworkId},")
+            }
+            val homeworkIds = buffer.toString()
+            mViewModel.addOrCancleHomework(UserInfoConstant.getUserId(), 1, groupedHomeworkId, homeworkIds.substring(0, homeworkIds.length - 1))
+        }
+
     }
 
     /**
      * 重置章节数据
      * @param position 目录位置
      */
-    fun resetSectionData(position: Int) {
+    private fun resetSectionData(position: Int) {
         mSections.clear()
         mSections.addAll(mDirectors[position].subDataList!!)
         val data = mutableListOf<PullBean>()
@@ -275,7 +293,7 @@ class GroupActivity : BaseActivity() {
      * 重置目录数据
      * @param position 教材位置
      */
-    fun resetDirectorData(position: Int) {
+    private fun resetDirectorData(position: Int) {
         mDirectors.clear()
         mDirectors.addAll(mTextBooks[position].subDataList!!)
         val data = mutableListOf<PullBean>()
@@ -326,6 +344,9 @@ class GroupActivity : BaseActivity() {
                 mQueryCondition.textbookId = mTextBooks[0].sysDictId.toString()
                 mQueryCondition.directoryId = mDirectors[0].sysDictId.toString()
                 mQueryCondition.chapterId = mSections[0].sysDictId.toString()
+
+
+                groupedHomeworkId = it.groupedHomeworkId!!
             }
         })
         mViewModel.mHomeworkData.observe(this, Observer {
@@ -333,6 +354,7 @@ class GroupActivity : BaseActivity() {
                 if (it == null || it.size == 0) {
                     showEmptyView()
                 } else {
+                    hideEmptyView()
                     mGroupAdapter.addData(it, true)
                 }
             } else {
@@ -344,12 +366,15 @@ class GroupActivity : BaseActivity() {
             }
         })
 
+        mViewModel.mSelectedNum.observe(this, Observer {
+            selectedNum_group.text = "已选（$it）"
+        })
     }
 
     /**
      * 设置默认目录，为教材第一个数据
      */
-    fun setDefaultDirecData() {
+    private fun setDefaultDirecData() {
         mDirectors.clear()
         mDirectors.addAll(mTextBooks[0].subDataList!!)
         val diredata = mutableListOf<PullBean>()
@@ -369,7 +394,7 @@ class GroupActivity : BaseActivity() {
      * 设置默认章节，为目录第一个数据
      */
 
-    fun setDefaultSectionData() {
+    private fun setDefaultSectionData() {
         mSections.clear()
         mSections.addAll(mDirectors[0].subDataList!!)
         val sectiondata = mutableListOf<PullBean>()
@@ -385,11 +410,12 @@ class GroupActivity : BaseActivity() {
         section_group.updateData(sectiondata, true)
     }
 
-    /**
-     * Todo：空数据页面
-     */
     private fun showEmptyView() {
+        empty_group.visibility = View.VISIBLE
+    }
 
+    private fun hideEmptyView() {
+        empty_group.visibility = View.GONE
     }
 
 }

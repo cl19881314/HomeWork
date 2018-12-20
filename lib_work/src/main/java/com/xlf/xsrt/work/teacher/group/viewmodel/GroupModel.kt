@@ -7,6 +7,7 @@ import com.xlf.xsrt.work.base.RequestApi
 import com.xlf.xsrt.work.bean.GroupeEntry
 import com.xlf.xsrt.work.bean.HomeworkBaseVo
 import com.xlf.xsrt.work.bean.QueryCondition
+import com.xlf.xsrt.work.teacher.group.bean.AddRespondeBean
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -25,17 +26,23 @@ class GroupModel : ViewModel() {
     var mGroupError: MutableLiveData<String> = MutableLiveData()
 
     /**
+     * 返回数据错误信息
+     */
+    var mSelectedNum: MutableLiveData<Int> = MutableLiveData()
+
+    /**
      * user数据
      *
      */
 //    var mUserData: MutableLiveData<UserInfoConstant> = MutableLiveData()
 
     @SuppressLint("CheckResult")
-    fun loadGroupData(userId : Int) {
+    fun loadGroupData(userId: Int) {
         RequestApi.getInstance().queryGroupData(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it ->
+                    mSelectedNum.value = it.groupedCount
                     mGroupData.value = it
                 }, { e ->
                     mGroupError.value = "网络异常，请检查网络"
@@ -43,9 +50,8 @@ class GroupModel : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-//    fun queryHomeworkData(userId: Int, textbookId: Int, directoryId: Int, chapterId: Int, baseFlag: Int, difficultyId: Int, page: Int) {
     fun queryHomeworkData(condition: QueryCondition) {
-    RequestApi.getInstance().queryHomeworkData(condition.userId, condition.textbookId, condition.directoryId, condition.chapterId, condition.baseFlag, condition.difficultyId,condition.page)
+        RequestApi.getInstance().queryHomeworkData(condition.userId, condition.textbookId, condition.directoryId, condition.chapterId, condition.baseFlag, condition.difficultyId, condition.page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it ->
@@ -59,21 +65,21 @@ class GroupModel : ViewModel() {
                     mGroupError.value = "网络异常，请检查网络"
                 })
     }
-//
-//    @SuppressLint("CheckResult")
-//    fun queryUserInfo(token: String) {
-//        RequestApi.getInstance().queryUserInfo(token)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe({ it ->
-//                    if (it.flag == 1) {
-//                        mUserData.value = it
-//                    } else {
-//                        mGroupError.value = it.msg
-//                    }
-//
-//                }, { e ->
-//                    mGroupError.value = "网络异常，请检查网络"
-//                })
-//    }
+
+    @SuppressLint("CheckResult")
+    fun addOrCancleHomework(teacherId: Int, addFlag: Int, groupedHomework: Int, homeworkIds: String) {
+        RequestApi.getInstance().addOrCancleHomework(teacherId, addFlag, groupedHomework, homeworkIds)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ it ->
+                    if (it.flag == 1) {
+                        mSelectedNum.value = it.groupedCount
+                    } else {
+                        mGroupError.value = it.msg
+                    }
+                }, { e ->
+                    mGroupError.value = "网络异常，请检查网络"
+                })
+
+    }
 }

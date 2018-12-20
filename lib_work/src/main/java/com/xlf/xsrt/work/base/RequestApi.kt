@@ -7,6 +7,8 @@ import com.xlf.xsrt.work.constant.ServiceApi
 import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import com.xlf.xsrt.work.student.bean.StuHomwork
 import com.xlf.xsrt.work.teacher.answer.bean.TeacherCommentBean
+import com.xlf.xsrt.work.teacher.group.bean.AddRespondeBean
+import com.xlf.xsrt.work.teacher.group.bean.GroupHomeWorkBean
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -194,6 +196,43 @@ class RequestApi {
         parameter["userId"] = userId.toString()
         parameter["createTime"] = createTime
         return mService.getHomeworkByDay(parameter)
+    }
+
+    /**
+     * 教师端 添加 移除作业
+     * @param teacherId
+     * @param addFlag
+     * @param groupedHomework
+     * @param homeworkIds
+     *
+     */
+    fun addOrCancleHomework(teacherId: Int, addFlag: Int, groupedHomework: Int, homeworkIds: String): Observable<AddRespondeBean> {
+        var parameter = HashMap<String, String>()
+        parameter["userId"] = teacherId.toString()
+        parameter["addFlag"] = addFlag.toString()
+        parameter["groupedHomework"] = groupedHomework.toString()
+        parameter["homeworkIds"] = homeworkIds.toString()
+        return mService.addOrCancleHomework(parameter)
+
+    }
+
+    /**
+     * 查询已选作业
+     */
+    fun querySelectHomework(userId: Int, groupHomeworkId: Int): Observable<GroupHomeWorkBean> {
+        var parameter = HashMap<String, String>()
+        parameter["userId"] = userId.toString()
+        parameter["groupedHomeworkId"] = groupHomeworkId.toString()
+        return mService.querySelectHomework(parameter)
+    }
+
+    fun pushHomeWork(teacherId: Int, appointmentTime: String, groupedHomeworkId: Int, groupedHomeworkId1: Int, homeworkName: String):  Observable<BaseEntry> {
+        var parameter = HashMap<String, String>()
+        parameter["teacherId"] = teacherId.toString()
+        parameter["appointmentTime"] = appointmentTime
+        parameter["groupedHomeworkId"] = groupedHomeworkId.toString()
+        parameter["homeworkName"] = homeworkName
+        return mService.pushHomeWork(parameter)
     }
 
 }

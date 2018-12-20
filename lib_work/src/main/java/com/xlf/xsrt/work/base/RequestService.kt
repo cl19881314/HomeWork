@@ -5,6 +5,8 @@ import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import com.xlf.xsrt.work.student.bean.StuHomwork
 import com.xlf.xsrt.work.teacher.answer.bean.StuAnswerDetailBean
 import com.xlf.xsrt.work.teacher.answer.bean.TeacherCommentBean
+import com.xlf.xsrt.work.teacher.group.bean.AddRespondeBean
+import com.xlf.xsrt.work.teacher.group.bean.GroupHomeWorkBean
 
 import io.reactivex.Observable
 import retrofit2.http.FieldMap
@@ -67,6 +69,18 @@ interface RequestService {
     @FormUrlEncoded
     @POST("studentManage/stuIndexStateCurrentTime")
     fun getHomeworkByDay(@FieldMap parameter: HashMap<String, String>): Observable<StuHomwork>
+
+    @FormUrlEncoded
+    @POST("teacherManage/addOrCancel")
+    fun addOrCancleHomework(@FieldMap parameter: HashMap<String, String>): Observable<AddRespondeBean>
+
+    @FormUrlEncoded
+    @POST("teacherManage/queryGroupedHomework")
+    fun querySelectHomework(@FieldMap parameter: HashMap<String, String>): Observable<GroupHomeWorkBean>
+
+    @FormUrlEncoded
+    @POST("teacherManage/publishHomeWork")
+    fun pushHomeWork(@FieldMap parameter: HashMap<String, String>): Observable<BaseEntry>
 
 
 }
