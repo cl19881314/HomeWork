@@ -9,3 +9,5 @@
 /captures
 .externalNativeBuild
 .idea
+ServiceApi
+/lib_work/src/main/java/com/xlf/xsrt/work/constant
