@@ -8,7 +8,7 @@ class QueryCondition {
     var textbookId = ""
     var directoryId = ""
     var chapterId = ""
-    var baseFlag = ""
-    var difficultyId = ""
+    var baseFlag = 1 //默认是基础题库  0 我的收藏 1 基础题库
+    var difficultyId = -1
     var page = 0
 }

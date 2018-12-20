@@ -57,7 +57,7 @@ class RequestApi {
     /**
      * 测试用到的登陆接口
      */
-    fun login(user : String, pwd : String) : Observable<LoginBean>{
+    fun login(user: String, pwd: String): Observable<LoginBean> {
         var parame = HashMap<String, String>()
         parame["username"] = user
         parame["password"] = pwd
@@ -77,7 +77,7 @@ class RequestApi {
      * 条件查询组作业数据
      */
 //    fun queryHomeworkData(userId: Int, textbookId: Int, directoryId: Int, chapterId: Int, baseFlag: Int, difficultyId: Int, page: Int): Observable<GroupeEntry> {
-    fun queryHomeworkData(userId: Int, textbookId: String, directoryId: String, chapterId: String, baseFlag: String, difficultyId: String, page: Int): Observable<GroupeEntry> {
+    fun queryHomeworkData(userId: Int, textbookId: String, directoryId: String, chapterId: String, baseFlag: Int, difficultyId: Int, page: Int): Observable<GroupeEntry> {
         var parame = HashMap<String, String>()
 //        parame["userId"] = "$userId"
 //        parame["textbookId"] = "$textbookId"
@@ -90,8 +90,8 @@ class RequestApi {
         parame["textbookId"] = textbookId
         parame["directoryId"] = directoryId
         parame["chapterId"] = chapterId
-        parame["baseFlag"] = baseFlag
-        parame["difficultyId"] = difficultyId
+        parame["baseFlag"] = baseFlag.toString()
+        parame["difficultyId"] = difficultyId.toString()
         parame["page"] = "$page"
         return mService.queryHomeworkData(parame)
     }

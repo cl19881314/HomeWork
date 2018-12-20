@@ -23,6 +23,7 @@ class LoginUtil {
             getUserMsg(ctx, token)
         }
 
+        @SuppressLint("CheckResult")
         fun login(ctx: Context, user: String, pwd: String) {
             RequestApi.getInstance().login(user, pwd).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -36,6 +37,7 @@ class LoginUtil {
         }
 
 
+        @SuppressLint("CheckResult")
         private fun getUserMsg(ctx: Context, token: String) {
             RequestApi.getInstance().queryUserInfo(token)
                     .subscribeOn(Schedulers.io())

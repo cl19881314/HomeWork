@@ -20,18 +20,9 @@ class PullTextView : TextView {
     private var mListener: PullListItemListener? = null
     private var mPopWindow: PopupWindow? = null
     var isChecked = true
-    val mutableListOf = mutableListOf<PullBean>()
     private var mDrawableId = -1
     private var mShowDefaultDrawable = true
     private var mIsBold = true
-    init {
-        for (i in 0 until 8) {
-            val pullBean = PullBean()
-            pullBean.content = "item+$i"
-            pullBean.searchId = i
-            mutableListOf.add(pullBean)
-        }
-    }
 
     private val mAdapter by lazy {
         PullTextViewAdapter()
@@ -43,14 +34,13 @@ class PullTextView : TextView {
         setup(context, attrs)
         initPopWindow()
         initListener()
-        updateData(mutableListOf, true)
     }
 
     private fun setup(context: Context?, attrs: AttributeSet?) {
         val typedArray = context!!.obtainStyledAttributes(attrs, R.styleable.XsrtPullTxt)
         mDrawableId = typedArray.getResourceId(R.styleable.XsrtPullTxt_xsrtRightDrawable, -1)
         mIsBold = typedArray.getBoolean(R.styleable.XsrtPullTxt_xsrtIsBlod, true)
-        if (mDrawableId != -1){
+        if (mDrawableId != -1) {
             mShowDefaultDrawable = false
         }
         typedArray.recycle()
@@ -69,6 +59,7 @@ class PullTextView : TextView {
                     mAdapter.setItemSelected(position)
                 }
                 mListener?.onItemClick(mAdapter.getData()[position], position)
+                hidePop()
             }
         })
     }
@@ -89,7 +80,7 @@ class PullTextView : TextView {
 
     fun showPop() {
         isChecked = false
-        if (mShowDefaultDrawable){
+        if (mShowDefaultDrawable) {
             mDrawableId = R.drawable.xsrt_icon_spinner_up
         }
         val drawable = ResourcesCompat.getDrawable(resources, mDrawableId, null)
@@ -100,7 +91,7 @@ class PullTextView : TextView {
 
     fun hidePop() {
         isChecked = true
-        if (mShowDefaultDrawable){
+        if (mShowDefaultDrawable) {
             mDrawableId = R.drawable.xsrt_icon_spinner_down
         }
         val drawable = ResourcesCompat.getDrawable(resources, mDrawableId, null)
@@ -108,6 +99,7 @@ class PullTextView : TextView {
         this.setCompoundDrawables(null, null, drawable, null)
         mPopWindow?.dismiss()
     }
+
     fun isPopWindowShow(): Boolean {
         return mPopWindow != null && mPopWindow!!.isShowing
     }

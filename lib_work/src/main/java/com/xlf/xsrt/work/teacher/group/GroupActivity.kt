@@ -39,9 +39,9 @@ class GroupActivity : BaseActivity() {
     private var mDiffPopWindow: PopupWindow? = null
     private var mDiffAdapter: ScreenPopWindowAdapter? = null
 
-    private var mTextBooks: MutableList<PullBean> = mutableListOf()//教材
-    private var mDirectors: MutableList<PullBean> = mutableListOf() //目录
-    private var mSections: MutableList<PullBean> = mutableListOf() //章节
+    private var mTextBooks: MutableList<SysDictVo> = mutableListOf()//教材
+    private var mDirectors: MutableList<SysDictVo> = mutableListOf() //目录
+    private var mSections: MutableList<SysDictVo> = mutableListOf() //章节
     private var mDiffLevels: MutableList<SysDictVo> = mutableListOf() //困难等级
 
     private var mSelectedHomeWorks: ArrayList<HomeworkBaseVo> = ArrayList() //选择预添加的作业
@@ -79,6 +79,9 @@ class GroupActivity : BaseActivity() {
 
     private fun initData() {
         mViewModel.loadGroupData(UserInfoConstant.getUserId())//初始获取组作业数据
+        mQueryCondition.userId = UserInfoConstant.getUserId()
+        mQueryCondition.page = 0
+        mQueryCondition.baseFlag = 1
     }
 
     private fun initRcyView() {
@@ -165,6 +168,60 @@ class GroupActivity : BaseActivity() {
             mDiffPopWindow!!.showAtLocation(ll_root_group, Gravity.END, 0, 0)
         }
 
+        textbook_group.setItemClickListener(object : PullTextView.PullListItemListener {
+            override fun onItemClick(bean: PullBean, position: Int) {
+                //重置目录数据
+                mDirectors.clear()
+                mDirectors.addAll(mTextBooks[position].subDataList!!)
+                val data = mutableListOf<PullBean>()
+                for (item in mDirectors) {
+                    val pullBean = PullBean()
+                    pullBean.content = item.sysDictName!!
+                    pullBean.searchId = item.sysDictId!!
+                    data.add(pullBean)
+                }
+                director_group.updateData(data, true)
+                //清除目录和章节查询条件
+                mQueryCondition.directoryId = ""
+                mQueryCondition.chapterId = ""
+                //加入教材筛选条件
+                mQueryCondition.textbookId = bean.selected.toString()
+                //查询数据 更新界面
+                mViewModel.queryHomeworkData(mQueryCondition)
+            }
+
+        })
+        director_group.setItemClickListener(object : PullTextView.PullListItemListener {
+            override fun onItemClick(bean: PullBean, position: Int) {
+                //重置章节数据
+                mSections.clear()
+                mSections.addAll(mDirectors[position].subDataList!!)
+                val data = mutableListOf<PullBean>()
+                for (item in mSections) {
+                    val pullBean = PullBean()
+                    pullBean.content = item.sysDictName!!
+                    pullBean.searchId = item.sysDictId!!
+                    data.add(pullBean)
+                }
+                section_group.updateData(data, true)
+                //章节查询条件
+                mQueryCondition.chapterId = ""
+                //加入目录筛选条件
+                mQueryCondition.directoryId = bean.selected.toString()
+                //查询数据 更新界面
+                mViewModel.queryHomeworkData(mQueryCondition)
+            }
+
+        })
+        section_group.setItemClickListener(object : PullTextView.PullListItemListener {
+            override fun onItemClick(bean: PullBean, position: Int) {
+                //加入章节筛选条件
+                mQueryCondition.chapterId = bean.selected.toString()
+                //查询数据 更新界面
+                mViewModel.queryHomeworkData(mQueryCondition)
+            }
+        })
+
         //全选
         selectedAll_group.setOnClickListener {
             val data = mGroupAdapter.getData()
@@ -200,12 +257,15 @@ class GroupActivity : BaseActivity() {
                 mDiffAdapter?.addData(mDiffLevels, true)
                 //重置教材数据
                 mTextBooks.clear()
-                for (i in 0 until it.textBookList!!.size) {
+                mTextBooks.addAll(it.textBookList!!)
+                val data = mutableListOf<PullBean>()
+                for (item in mTextBooks) {
                     val pullBean = PullBean()
-                    pullBean.content = it.textBookList!![i].sysDictName!!
-                    pullBean.searchId = it.textBookList!![i].sysDictId!!
+                    pullBean.content = item.sysDictName!!
+                    pullBean.searchId = item.sysDictId!!
+                    data.add(pullBean)
                 }
-                textbook_group.updateData(mTextBooks, true)
+                textbook_group.updateData(data, true)
             }
         })
         mViewModel.mHomeworkData.observe(this, Observer {

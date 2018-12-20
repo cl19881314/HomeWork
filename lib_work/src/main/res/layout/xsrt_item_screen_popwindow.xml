@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="120dp"
+<CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tv_name_screen_popwindow"
-    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_height="32dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/xsrt_selector_bt_screen_btn"
+    android:button="@null"
     android:gravity="center"
-    android:padding="5dp"
+    android:paddingLeft="17dp"
+    android:paddingRight="17dp"
     android:text="screen"
-    android:textSize="20sp" />
+    android:textColor="@drawable/xsrt_selector_font_popwindow"
+    android:textSize="14sp" />

@@ -52,7 +52,7 @@
                 android:layout_gravity="center"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
                 android:gravity="center"
-                android:text="教材" />
+                android:text="目录" />
         </FrameLayout>
 
         <FrameLayout
@@ -67,7 +67,7 @@
                 android:layout_gravity="center"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
                 android:gravity="center"
-                android:text="目录" />
+                android:text="章节" />
         </FrameLayout>
 
         <TextView
@@ -93,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:overScrollMode="never"/>
+        android:overScrollMode="never" />
 
     <LinearLayout
         android:layout_width="match_parent"
