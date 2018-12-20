@@ -3,7 +3,6 @@ package com.xlf.xsrt.work.teacher.answer
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.fragment.StudentAnswerDetailFragment
@@ -11,7 +10,7 @@ import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerDetailAdapter
 import kotlinx.android.synthetic.main.xsrt_activity_answer_detail_layout.*
 
 /**
- * 学生答题界面
+ * 老师待批阅界面
  */
 class StudentAnswerDetailActivity : BaseActivity() {
     private var mAdapter: StudentAnswerDetailAdapter? = null
@@ -25,10 +24,10 @@ class StudentAnswerDetailActivity : BaseActivity() {
         mStuAnswerId = intent.getIntExtra("stuAnswerId", -1)
         mUrlList = intent.getStringArrayListExtra("urlList")
         var showTodo = intent.getBooleanExtra("showTodo", false)
-        toDoCommentTxt.visibility = if (showTodo) View.VISIBLE else View.GONE
+//        toDoCommentTxt.visibility = if (showTodo) View.VISIBLE else View.GONE
 
         var stuName = intent.getStringExtra("stuName")
-        titleBar.setTitleTxt(stuName)
+        titleBar.setTitleTxt("$stuName")
         mAdapter = StudentAnswerDetailAdapter(supportFragmentManager)
         detailViewPager.adapter = mAdapter
         getDetailData()
@@ -55,7 +54,14 @@ class StudentAnswerDetailActivity : BaseActivity() {
         toDoCommentTxt.setOnClickListener {
             var intent = Intent(this@StudentAnswerDetailActivity, WriteCommentActivity::class.java)
             intent.putExtra("stuAnswerId", mStuAnswerId)
-            startActivity(intent)
+            startActivityForResult(intent, 100)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 100 && resultCode == RESULT_OK){
+            finish()
         }
     }
 

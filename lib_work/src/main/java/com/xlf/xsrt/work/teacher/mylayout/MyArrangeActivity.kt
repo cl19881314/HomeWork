@@ -41,6 +41,7 @@ class MyArrangeActivity : BaseActivity() {
         showDataRv.adapter = mAdapter
         showDataRv.isLoadable = false
         mViewModer.getArrangeData(UserInfoConstant.getUserId(), -1)
+//        mViewModer.getArrangeData(13, -1)
     }
 
     override fun initListener() {
@@ -98,16 +99,16 @@ class MyArrangeActivity : BaseActivity() {
                 arrangingStatusTxt.visibility = if (it?.appointmentFlag == 1) View.VISIBLE else View.GONE
                 delTxt.visibility = if (it?.appointmentFlag == 1) View.VISIBLE else View.GONE
                 if (it?.homeworkBaseList?.size ?: -1 > 0) {
-//                    showDataRv.visibility = View.VISIBLE
-//                    emptyLayout.visibility = View.GONE
-//                    noDataTxt.visibility = View.GONE
+                    showDataRv.visibility = View.VISIBLE
+                    emptyLayout.visibility = View.GONE
+                    noDataTxt.visibility = View.GONE
                     mAdapter!!.setArrangeData(it?.homeworkBaseList)
                 } else {
-//                    showDataRv.visibility = View.GONE
-//                    arrangedStatusTxt.visibility = View.GONE
-//                    arrangingStatusTxt.visibility = View.GONE
-//                    noDataTxt.visibility = View.VISIBLE
-//                    emptyLayout.visibility = View.VISIBLE
+                    showDataRv.visibility = View.GONE
+                    arrangedStatusTxt.visibility = View.GONE
+                    arrangingStatusTxt.visibility = View.GONE
+                    noDataTxt.visibility = View.VISIBLE
+                    emptyLayout.visibility = View.VISIBLE
                 }
                 if (it?.homeworkList?.size ?: -1 > 0) {
                     mHomeworkList = it?.homeworkList
@@ -131,10 +132,14 @@ class MyArrangeActivity : BaseActivity() {
     private fun addTimePullData(bean: SysDictVo) {
         timePullTxt.text = bean.sysDictName
         var list =  mutableListOf<PullBean>()
-        for (time in mHomeworkList!!){
+        for (i in mHomeworkList!!.indices){
+            var time = mHomeworkList!![i]
             var data = PullBean()
             data.searchId = time.sysDictId!!
             data.content = time.sysDictName!!
+            if (i == 0) {
+                data.selected = true
+            }
             list.add(data)
         }
         timePullTxt.updateData(list,true)
@@ -145,10 +150,14 @@ class MyArrangeActivity : BaseActivity() {
             var workList = bean.subDataList!!
             homeWorkPullTxt.text = workList[0].sysDictName
             var list =  mutableListOf<PullBean>()
-            for (time in workList){
+            for (i in workList.indices){
+                var time = workList[i]
                 var data = PullBean()
                 data.searchId = time.sysDictId!!
                 data.content = time.sysDictName!!
+                if (i == 0){
+                    data.selected = true
+                }
                 list.add(data)
             }
             homeWorkPullTxt.updateData(list, true)

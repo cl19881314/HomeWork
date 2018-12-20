@@ -26,7 +26,7 @@ class StudentAnswerAdapter : XXXAdapter<StudentAnswerAdapter.AnswerHolder>() {
     }
 
     override fun onRealBindViewHolder(holder: AnswerHolder?, position: Int) {
-//        holder!!.bindTo(position)
+        holder!!.bindTo(position)
     }
 
     fun setAnswerData(stuAnswerList: ArrayList<StudentAnswerBean.StuAnswerVo>?) {
@@ -40,28 +40,29 @@ class StudentAnswerAdapter : XXXAdapter<StudentAnswerAdapter.AnswerHolder>() {
 
     inner class AnswerHolder(var view: View) : RecyclerView.ViewHolder(view) {
         fun bindTo(position: Int) {
-            var bean = mData[position]
+            /*var bean = mData[position]
             view.nameTxt.paint.isFakeBoldText = true
             view.errorNumTxt.paint.isFakeBoldText = true
             view.allNumTxt.paint.isFakeBoldText = true
 
             view.nameTxt.text = bean.stuName
             view.errorNumTxt.text = bean.wrongCount.toString()
-            view.allNumTxt.text = bean.totalCount.toString()
+            view.allNumTxt.text = "/${bean.totalCount}"
+            view.timeTxt.text = bean.answerTime
             view.toDoStausTxt.visibility = if (bean.state == 0) View.VISIBLE else View.GONE
             view.endStatusTxt.visibility = if (bean.state == 0) View.GONE else View.VISIBLE
-
-            view.toDoStausTxt.setOnClickListener {
+            */
+            view.itemAnswerLayout.setOnClickListener {
                 var intent = Intent(view.context, StudentAnswerDetailActivity::class.java)
-                intent.putExtra("stuAnswerId", bean.stuAnswerId)
-                intent.putExtra("stuName", bean.stuName)
-                intent.putStringArrayListExtra("urlList", bean.homeworkDetailUrlList)
-                intent.putExtra("showTodo", bean.state != 1)
+//                intent.putExtra("stuAnswerId", bean.stuAnswerId)
+//                intent.putExtra("stuName", bean.stuName)
+//                intent.putStringArrayListExtra("urlList", bean.homeworkDetailUrlList)
+//                intent.putExtra("showTodo", bean.state != 1)
                 view.context.startActivity(intent)
             }
             view.endStatusTxt.setOnClickListener {
                 var intent = Intent(view.context, CommentDetailActivity::class.java)
-                intent.putExtra("stuAnswerId", bean.stuAnswerId)
+//                intent.putExtra("stuAnswerId", bean.stuAnswerId)
                 view.context.startActivity(intent)
             }
         }

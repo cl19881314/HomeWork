@@ -13,7 +13,7 @@ class GroupAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
 
     override fun setItemContent(itemView: View, bean: HomeworkBaseVo, positon: Int) {
         itemView.isCollected.isChecked = bean.collectFlag == 1
-        itemView.subjectNumTxt.text = "编号${bean.homeworkNo}"
+        itemView.subjectNumTxt.text = "编号${bean.homeworkId}"
     }
 
 

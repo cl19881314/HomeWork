@@ -5,15 +5,16 @@
     android:id="@+id/optionLL"
     android:gravity="center"
     >
-    <TextView
+    <CheckBox
+        android:id="@+id/optionTxt"
         android:layout_width="37dp"
         android:layout_height="37dp"
         android:text="A"
         android:textSize="16sp"
-        android:textColor="@color/xsrt_btn_bg_color"
+        android:button="@null"
         android:gravity="center"
-        android:background="@drawable/xsrt_answer_normal"
-        android:id="@+id/optionTxt"
+        android:background="@drawable/xsrt_answer_option_bg_selector"
+        android:textColor="@drawable/xsrt_answer_option_color_selector"
         />
 
 </LinearLayout>

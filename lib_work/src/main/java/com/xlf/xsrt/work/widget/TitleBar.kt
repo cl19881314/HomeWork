@@ -75,4 +75,8 @@ class TitleBar : RelativeLayout {
     fun setTitleTxt(txt : String){
         mTitleTxt?.text = txt
     }
+
+    fun setRightTextClor(color : Int){
+        mRightTxt?.setTextColor(color)
+    }
 }

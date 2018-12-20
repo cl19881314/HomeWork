@@ -7,7 +7,8 @@
     android:layout_marginTop="@dimen/xsrt_margin_top"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:background="@drawable/xsrt_item_subject_bg">
+    android:background="@drawable/xsrt_item_subject_bg"
+    android:id="@+id/itemAnswerLayout">
 
     <TextView
         android:id="@+id/nameTxt"

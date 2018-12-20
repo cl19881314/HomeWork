@@ -1,5 +1,6 @@
 package com.xlf.xsrt.work.teacher.answer
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.text.TextUtils
@@ -35,6 +36,11 @@ class WriteCommentActivity : BaseActivity(){
 
         RxTextView.textChanges(commentEdt).observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    if (it.isNotEmpty()){
+                        titleBar.setRightTextClor(resources.getColor(R.color.xsrt_btn_bg_color))
+                    } else {
+                        titleBar.setRightTextClor(resources.getColor(R.color.xsrt_title3_txt_color))
+                    }
                     if (it.length >= 200){
                         toast("最多输入200个字")
                     }
@@ -45,6 +51,7 @@ class WriteCommentActivity : BaseActivity(){
         mDataViewModel.mAddCommentViewModel.observe(this, Observer {
             if (it?.flag == 1){
                 toast("发布批阅成功")
+                setResult(Activity.RESULT_OK)
                 finish()
             } else {
                 toast("发布批阅失败")
@@ -61,7 +68,7 @@ class WriteCommentActivity : BaseActivity(){
         if (content.length > 200){
 
         }
-        mDataViewModel.addComment(mStuAnswerId, content)
+        //mDataViewModel.addComment(mStuAnswerId, content)
     }
 
 }

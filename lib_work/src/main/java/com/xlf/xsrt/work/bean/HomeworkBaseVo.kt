@@ -8,7 +8,7 @@ import android.os.Parcelable
  */
 class HomeworkBaseVo() : Parcelable {
     var homeworkId: Int? = null
-    var homeworkNo: Int? = null
+//    var homeworkNo: Int? = null
     var homeworkContentUrl: String? = null//题内容的url
     var homeworkDetailUrl: String? = null//题详情的url
     var collectFlag: Int? = null //是否被收藏 1是 0 否
@@ -16,7 +16,7 @@ class HomeworkBaseVo() : Parcelable {
 
     constructor(parcel: Parcel) : this() {
         homeworkId = parcel.readValue(Int::class.java.classLoader) as? Int
-        homeworkNo = parcel.readValue(Int::class.java.classLoader) as? Int
+//        homeworkNo = parcel.readValue(Int::class.java.classLoader) as? Int
         homeworkContentUrl = parcel.readString()
         homeworkDetailUrl = parcel.readString()
         collectFlag = parcel.readValue(Int::class.java.classLoader) as? Int
@@ -25,7 +25,7 @@ class HomeworkBaseVo() : Parcelable {
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(homeworkId)
-        parcel.writeValue(homeworkNo)
+//        parcel.writeValue(homeworkNo)
         parcel.writeString(homeworkContentUrl)
         parcel.writeString(homeworkDetailUrl)
         parcel.writeValue(collectFlag)

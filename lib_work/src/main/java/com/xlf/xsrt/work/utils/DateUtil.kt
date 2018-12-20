@@ -41,5 +41,15 @@ class DateUtil {
             val sdf = SimpleDateFormat(YYYY_MM)
             return sdf.format(date)
         }
+
+        /**
+         *  xxxx年xx月xx日转换
+         *  返回 yyyy-MM-dd格式
+         *
+         */
+        fun chainToString2(date: String): String {
+            var time = date.replace("年","-").replace("月","-").replace("日","")
+            return time
+        }
     }
 }
