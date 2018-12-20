@@ -134,7 +134,7 @@ class RequestApi {
      */
     fun getStudentAnswerData(userId: Int, classId: Int, createTime: String, homeworkId: Int): Observable<StudentAnswerBean> {
         var parameter = HashMap<String, Any>()
-        parameter["userId"] = userId
+        parameter["teacherId"] = userId
         if (classId != -1) {
             parameter["classId"] = classId
         }

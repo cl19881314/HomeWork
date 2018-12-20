@@ -27,7 +27,8 @@ class MyArrangeAdapter : XXXAdapter<MyArrangeAdapter.ArrangeHolder>() {
     }
 
     override fun getRealItemCount(): Int {
-        return mData.size
+//        return mData.size
+        return 10
     }
 
     override fun onRealCreateViewHolder(parent: ViewGroup?, viewType: Int): ArrangeHolder {
@@ -36,7 +37,7 @@ class MyArrangeAdapter : XXXAdapter<MyArrangeAdapter.ArrangeHolder>() {
     }
 
     override fun onRealBindViewHolder(holder: ArrangeHolder?, position: Int) {
-        holder!!.bindTo(position)
+        //holder!!.bindTo(position)
     }
 
 
@@ -47,6 +48,7 @@ class MyArrangeAdapter : XXXAdapter<MyArrangeAdapter.ArrangeHolder>() {
             view.showDetailTxt.setOnClickListener {
                 var intent = Intent(itemView.context, SubjectDetailActivity::class.java)
                 intent.putExtra("url", bean.homeworkDetailUrl)
+                intent.putExtra("num", bean.homeworkNo)
                 itemView.context.startActivity(intent)
             }
 

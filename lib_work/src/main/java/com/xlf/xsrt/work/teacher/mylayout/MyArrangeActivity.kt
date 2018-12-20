@@ -2,7 +2,6 @@ package com.xlf.xsrt.work.teacher.mylayout
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.content.DialogInterface
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -16,6 +15,7 @@ import com.xlf.xsrt.work.teacher.mylayout.viewmodel.MyArrangeViewModel
 import com.xlf.xsrt.work.widget.pulltextview.PullBean
 import com.xlf.xsrt.work.widget.pulltextview.PullTextView
 import kotlinx.android.synthetic.main.xsrt_activity_my_arrange_layout.*
+import kotlinx.android.synthetic.main.xsrt_item_empty_layout.*
 
 /**
  * 我的布置
@@ -50,6 +50,7 @@ class MyArrangeActivity : BaseActivity() {
                 addWorkPullData(timeBean)
                 if (timeBean.subFlag == 1) {
                     mGroupWorkId = timeBean.subDataList!![0].sysDictId!!
+                    mViewModer.getArrangeData(UserInfoConstant.getUserId(), mGroupWorkId)
                 }
             }
         })
@@ -96,7 +97,18 @@ class MyArrangeActivity : BaseActivity() {
                 arrangedStatusTxt.visibility = if (it?.appointmentFlag == 0) View.VISIBLE else View.GONE
                 arrangingStatusTxt.visibility = if (it?.appointmentFlag == 1) View.VISIBLE else View.GONE
                 delTxt.visibility = if (it?.appointmentFlag == 1) View.VISIBLE else View.GONE
-                mAdapter!!.setArrangeData(it?.homeworkBaseList)
+                if (it?.homeworkBaseList?.size ?: -1 > 0) {
+//                    showDataRv.visibility = View.VISIBLE
+//                    emptyLayout.visibility = View.GONE
+//                    noDataTxt.visibility = View.GONE
+                    mAdapter!!.setArrangeData(it?.homeworkBaseList)
+                } else {
+//                    showDataRv.visibility = View.GONE
+//                    arrangedStatusTxt.visibility = View.GONE
+//                    arrangingStatusTxt.visibility = View.GONE
+//                    noDataTxt.visibility = View.VISIBLE
+//                    emptyLayout.visibility = View.VISIBLE
+                }
                 if (it?.homeworkList?.size ?: -1 > 0) {
                     mHomeworkList = it?.homeworkList
                     var bean = mHomeworkList!![0]

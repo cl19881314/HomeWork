@@ -9,12 +9,13 @@ import com.xlf.xsrt.work.bean.BaseEntry
  */
 class StudentAnswerBean : BaseEntry() {
     var classList: ArrayList<ClassVo>? = null
+    var createTimeList: ArrayList<ClassVo>? = null
     var homeworkList: ArrayList<HomeworkVo>? = null
     var stuAnswerList: ArrayList<StuAnswerVo>? = null
 
     class ClassVo {
         var createTime = ""
-        var clssId = -1
+        var classId = -1
         var className = ""
     }
 

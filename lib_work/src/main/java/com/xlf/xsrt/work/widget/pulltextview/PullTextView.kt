@@ -59,6 +59,7 @@ class PullTextView : TextView {
                     mAdapter.setItemSelected(position)
                 }
                 mListener?.onItemClick(mAdapter.getData()[position], position)
+                this@PullTextView.text = mAdapter.getData()[position].content
                 hidePop()
             }
         })

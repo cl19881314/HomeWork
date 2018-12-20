@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/titleLayout"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@color/xsrt_white">
@@ -35,7 +35,7 @@
             android:layout_marginRight="@dimen/xsrt_margin_right"
             android:drawableRight="@drawable/xsrt_header_class_arrow"
             android:gravity="center"
-            android:text="诗词的背诵"
+            android:text="- -"
             android:textColor="@color/xsrt_title1_txt_color"
             android:textSize="15sp"
             app:xsrtIsBlod="false"
@@ -43,13 +43,17 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:layout_below="@+id/titleLayout"
         android:background="@color/xsrt_divider" />
 
     <LinearLayout
+        android:id="@+id/timeWorkLl"
         android:layout_width="match_parent"
         android:layout_height="44dp"
+        android:layout_below="@+id/divider"
         android:background="@color/xsrt_white"
         android:gravity="center_vertical">
 
@@ -65,7 +69,7 @@
                 android:layout_height="match_parent"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
                 android:gravity="center"
-                android:text="2018年08月13日"
+                android:text="- -"
                 android:textColor="@color/xsrt_title1_txt_color"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -83,7 +87,7 @@
                 android:layout_alignParentRight="true"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
                 android:gravity="center"
-                android:text="诗词的背诵"
+                android:text="- -"
                 android:textColor="@color/xsrt_title1_txt_color"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -93,7 +97,14 @@
         android:id="@+id/showDataRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/timeWorkLl"
         android:background="@color/xsrt_divider"
         android:overScrollMode="never" />
 
-</LinearLayout>
+    <include
+        layout="@layout/xsrt_item_empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/timeWorkLl"
+        android:visibility="gone"/>
+</RelativeLayout>

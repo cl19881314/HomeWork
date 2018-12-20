@@ -16,7 +16,8 @@ class StudentAnswerAdapter : XXXAdapter<StudentAnswerAdapter.AnswerHolder>() {
 
     private var mData = ArrayList<StudentAnswerBean.StuAnswerVo>()
     override fun getRealItemCount(): Int {
-        return mData.size
+//        return mData.size
+        return 10
     }
 
     override fun onRealCreateViewHolder(parent: ViewGroup?, viewType: Int): AnswerHolder {
@@ -25,7 +26,7 @@ class StudentAnswerAdapter : XXXAdapter<StudentAnswerAdapter.AnswerHolder>() {
     }
 
     override fun onRealBindViewHolder(holder: AnswerHolder?, position: Int) {
-        holder!!.bindTo(position)
+//        holder!!.bindTo(position)
     }
 
     fun setAnswerData(stuAnswerList: ArrayList<StudentAnswerBean.StuAnswerVo>?) {

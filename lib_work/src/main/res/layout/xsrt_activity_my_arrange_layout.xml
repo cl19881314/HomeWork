@@ -32,7 +32,7 @@
                 android:gravity="center"
                 android:textColor="@color/xsrt_title1_txt_color"
                 android:textSize="15sp"
-                tools:text="2018年08月13日" />
+                tools:text="- -" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,7 +50,7 @@
                 android:gravity="center"
                 android:textColor="@color/xsrt_title1_txt_color"
                 android:textSize="15sp"
-                android:text="--" />
+                android:text="- -" />
         </LinearLayout>
     </LinearLayout>
 
@@ -93,6 +93,16 @@
             android:textColor="#f59937"
             android:textSize="12sp"
             android:visibility="gone" />
+        <TextView
+            android:id="@+id/noDataTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:text="暂无"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:textSize="12sp"
+            android:textColor="@color/xsrt_title3_txt_color"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <com.xlf.xsrt.work.widget.xxxrecycler.XXXRecyclerView
@@ -115,4 +125,10 @@
         android:textSize="15sp"
         android:visibility="gone" />
 
+    <include
+        layout="@layout/xsrt_item_empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/timeWorkLl"
+        android:visibility="gone"/>
 </LinearLayout>

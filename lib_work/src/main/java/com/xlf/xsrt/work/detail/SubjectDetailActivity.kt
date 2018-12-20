@@ -16,6 +16,9 @@ class SubjectDetailActivity : BaseActivity(){
     }
     override fun init() {
         var url = intent.getStringExtra("url")
+        var num = intent.getStringExtra("num")
+        titleBar.setTitleTxt("编号:$num")
+
         var settings = showContentWeb.settings
         settings.javaScriptEnabled = true
         settings.setSupportZoom(false)
