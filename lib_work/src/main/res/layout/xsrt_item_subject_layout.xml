@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/xsrt_margin_left"
     android:layout_marginTop="@dimen/xsrt_margin_top"
     android:layout_marginRight="@dimen/xsrt_margin_right"
     android:background="@drawable/xsrt_item_subject_bg"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="5dp">
 
     <LinearLayout
         android:id="@+id/questionTitleLL"
@@ -56,8 +57,7 @@
         android:id="@+id/divider1"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/xsrt_divider"
-        android:layout_below="@+id/questionTitleLL"/>
+        android:background="@color/xsrt_divider"/>
 
     <WebView
         android:id="@+id/showContentWeb"
@@ -66,17 +66,14 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginBottom="2dp"
-        android:scrollbars="none"
-        android:layout_below="@+id/divider1"
-        android:layout_above="@+id/divider2"/>
+        android:scrollbars="none"/>
 
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginTop="2dp"
-        android:background="@color/xsrt_divider"
-        android:layout_above="@+id/showDetailTxt"/>
+        android:background="@color/xsrt_divider"/>
 
     <TextView
         android:id="@+id/showDetailTxt"
@@ -89,8 +86,6 @@
         android:padding="5dp"
         android:text="查看详情"
         android:textColor="@color/xsrt_title1_txt_color"
-        android:textSize="14sp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:textSize="14sp"/>
 
-</RelativeLayout>
+</LinearLayout>

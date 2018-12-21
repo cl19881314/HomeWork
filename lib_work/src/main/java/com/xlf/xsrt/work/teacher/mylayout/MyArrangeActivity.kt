@@ -114,6 +114,7 @@ class MyArrangeActivity : BaseActivity() {
                 if (it?.homeworkList?.size ?: -1 > 0) {
                     mHomeworkList = it?.homeworkList
                     var bean = mHomeworkList!![0]
+                    mGroupWorkId = bean.sysDictId!!
                     addTimePullData(bean)
                     addWorkPullData(bean)
                 }
