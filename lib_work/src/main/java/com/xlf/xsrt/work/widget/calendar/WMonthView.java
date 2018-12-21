@@ -201,15 +201,15 @@ public class WMonthView extends View implements View.OnClickListener {
         int cx = x + mItemWidth / 2;
         int cy = y + mItemHeight / 2;
         if (calendar.isCurrentDay()) {
-            canvas.drawCircle(cx, cy, WCanlendarUtil.dipToPx(mContext, 17), mSelectCurrentDay);
+            canvas.drawCircle(cx, cy, WCanlendarUtil.dipToPx(mContext, 15), mSelectCurrentDay);
         } else {
-            canvas.drawCircle(cx, cy, WCanlendarUtil.dipToPx(mContext, 17), mSelectTPaint);
+            canvas.drawCircle(cx, cy, WCanlendarUtil.dipToPx(mContext, 15), mSelectTPaint);
         }
     }
 
     private void onDrawScheme(Canvas canvas, CalendarBean calendar, int x, int y) {
         int cx = x + mItemWidth / 2;
-        int cy = (int) (y + mItemHeight - WCanlendarUtil.dipToPx(mContext, 5));
+        int cy = (int) (y + mItemHeight - WCanlendarUtil.dipToPx(mContext, 2));
         if (calendar.getTimeState() == 0) {//有未提交
             mSchemePaint.setColor(Color.parseColor("#F53756"));
         } else {//全都都已提交
@@ -225,7 +225,7 @@ public class WMonthView extends View implements View.OnClickListener {
                 isSelected ? mCurMonthTextPaintSelected : calendar.isCurrentDay() ? mCurDayTextPaint : mCurMonthTextPaint);
         if (calendar.isCurrentDay()) {
             int cy = y + mItemHeight / 2;
-            canvas.drawCircle(cx, cy, WCanlendarUtil.dipToPx(mContext, 17), mCurCircleDayPaint);
+            canvas.drawCircle(cx, cy, WCanlendarUtil.dipToPx(mContext, 13), mCurCircleDayPaint);
         }
     }
 

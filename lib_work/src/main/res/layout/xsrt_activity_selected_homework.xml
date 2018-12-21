@@ -34,7 +34,7 @@
             android:drawableRight="@drawable/xsrt_ic_right_arrow"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
-            android:text="2018年12月13日"
+            android:text=""
             android:textColor="@color/xsrt_title1_txt_color"
             android:textSize="15sp" />
 

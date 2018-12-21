@@ -59,7 +59,7 @@ interface RequestService {
     fun getStuAnswerDetailData(@FieldMap parameter: HashMap<String, Any>): Observable<StuAnswerDetailBean>
 
     @FormUrlEncoded
-    @POST("student/stuIndex")
+    @POST("studentManage/stuIndex")
     fun getStuHomeworkByDate(@FieldMap parameter: HashMap<String, String>): Observable<StuHomwork>
 
     @FormUrlEncoded

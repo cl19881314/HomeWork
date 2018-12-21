@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/xsrt_white"
+    android:background="@color/xsrt_divider"
     android:orientation="vertical">
 
     <com.xlf.xsrt.work.widget.TitleBar
         android:id="@+id/titlebar_student"
         android:layout_width="match_parent"
         android:layout_height="@dimen/xsrt_titlebar_height"
+        android:background="@color/xsrt_white"
         app:xsrtTitleTxt="作业本" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/xsrt_titlebar_height"
+        android:background="@color/xsrt_white"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -50,21 +52,39 @@
     <com.xlf.xsrt.work.widget.calendar.WCanlendarView
         android:id="@+id/calendar_stu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/xsrt_white" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:background="@color/xsrt_gray_bg_color"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/xsrt_margin_left"
-        android:text="作业"
-        android:textColor="@color/xsrt_title3_txt_color" />
-
-    <com.xlf.xsrt.work.widget.xxxrecycler.XXXRecyclerView
-        android:id="@+id/rcy_student"
+    <RelativeLayout
+        android:id="@+id/rl_student"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"/>
+        android:background="@color/xsrt_gray_bg_color">
+
+        <TextView
+            android:id="@+id/tv_student"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/xsrt_margin_left"
+            android:text="作业"
+            android:textColor="@color/xsrt_title3_txt_color" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcy_student"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_student"
+            android:overScrollMode="never"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+
+    <include
+        android:id="@+id/empty_student"
+        layout="@layout/xsrt_item_empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible" />
 
 </LinearLayout>

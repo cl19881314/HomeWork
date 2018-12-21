@@ -70,7 +70,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
         val nowYear = calendar.get(Calendar.YEAR)
         calendar.set(Calendar.YEAR, nowYear + 20)
         val end = DateUtil.dateToString(calendar.time, "yyyy-MM-dd HH:mm")
-        grouphomework_name_select.text = DateUtil.chainToString2(start)
+//        grouphomework_name_select.text = DateUtil.chainToString2(start)//不用给默认当前时间
         mCustomDatePicker = CustomDatePicker(this, { time ->
             //预约作业
             val timeOfLong = DateUtil.string2date(time, "yyyy-MM-dd HH:mm")?.time
@@ -207,7 +207,6 @@ class SelectedHomeWorkActivity : BaseActivity() {
                 .setView(rootview)
                 .create()
         dialog.setOnShowListener {
-            Log.d("chufei", "setOnShowListener")
             Observable.timer(1, TimeUnit.SECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe { v ->

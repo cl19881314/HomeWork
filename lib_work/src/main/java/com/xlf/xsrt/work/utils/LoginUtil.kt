@@ -49,7 +49,7 @@ class LoginUtil {
                         if (it.flag == 1) {
                             if (it.userInfoVo!!.userType == 1) {//学生
                                 StudentActivity.start(ctx)
-                            } else if (it.userInfoVo!!.userType == 2) {
+                            } else if (it.userInfoVo!!.userType == 2) {//老师
                                 TeacherActivity.start(ctx)
                             }
                             UserInfoConstant.setUserId(it.userInfoVo!!.userId)

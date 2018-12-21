@@ -7,8 +7,10 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
+import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.student.adapter.StudentAdapter
 import com.xlf.xsrt.work.student.model.StudentModel
 import com.xlf.xsrt.work.utils.DateUtil
@@ -44,6 +46,8 @@ class StudentActivity : BaseActivity() {
     override fun init() {
         rcy_student.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rcy_student.adapter = mAdapter
+        mViewModel.getStuHomeworkByDate(UserInfoConstant.getUserId(), queryTime)
+        mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), queryTime)
     }
 
     override fun initListener() {
@@ -62,17 +66,15 @@ class StudentActivity : BaseActivity() {
             tv_time_stu.text = "${year}年${month}月"
             val instance = Calendar.getInstance()
             instance.set(year, month - 1, 1)
-            val date = DateUtil.dateToString(instance.time,"yyyy-MM")
-            //TODO:拉取选中页月数据
-            mViewModel.getStuHomeworkByDate(-1, date)
+            val date = DateUtil.dateToString(instance.time, "yyyy-MM")
+            mViewModel.getStuHomeworkByDate(UserInfoConstant.getUserId(), date)
         }
         calendar_stu.setOnCanlendarItemListener { calendar, position ->
-            //TODO:拉去当天数据
             //获取数据 刷新recyvleview
             val instance = Calendar.getInstance()
             instance.set(calendar.year, calendar.month - 1, calendar.day)
-            val date = DateUtil.dateToString(instance.time,"yyyy-MM-dd")
-            mViewModel.getHomeworkByDay(-1, date)
+            val date = DateUtil.dateToString(instance.time, "yyyy-MM-dd")
+            mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), date)
         }
 
     }
@@ -84,7 +86,7 @@ class StudentActivity : BaseActivity() {
         mViewModel.mMonthHomeworkData.observe(this, Observer {
             //更新日历当日时间
             val today = CalendarBean()
-            val current = DateUtil.string2date(it!!.currentTime,"yyyy-MM-dd")
+            val current = DateUtil.string2date(it!!.currentTime, "yyyy-MM-dd")
             val instance = Calendar.getInstance()
             instance.time = current
             today.year = instance.get(Calendar.YEAR)
@@ -97,14 +99,14 @@ class StudentActivity : BaseActivity() {
             val courseInfos = mutableListOf<CalendarBean>()
             for (i in 0 until it.homeworkTimeList!!.size) {
                 val courseInfosVo = it.homeworkTimeList!![i]
-                val date = DateUtil.string2date(courseInfosVo.createTime,"yyyy-MM-dd")
+                val date = DateUtil.string2date(courseInfosVo.createTime, "yyyy-MM-dd")
                 val instance = Calendar.getInstance()
                 instance.time = date
                 val calendar = CalendarBean()
                 calendar.year = instance.get(Calendar.YEAR)
                 calendar.month = instance.get(Calendar.MONTH) + 1
                 calendar.day = instance.get(Calendar.DAY_OF_MONTH)
-                calendar.setTimeState(courseInfosVo.timeState)
+                calendar.timeState = courseInfosVo.timeState
                 courseInfos.add(calendar)
             }
             calendar_stu.setSchemeDate(courseInfos)//绘制刷新
@@ -115,6 +117,7 @@ class StudentActivity : BaseActivity() {
 
         mViewModel.mDayHomeworkData.observe(this, Observer {
             if (it!!.homeworkList != null && it.homeworkList!!.size > 0) {
+                hideNoDataView()
                 mAdapter.addData(it.homeworkList!!, true)
             } else {
                 showNoDataView()
@@ -123,8 +126,13 @@ class StudentActivity : BaseActivity() {
     }
 
     private fun showNoDataView() {
+        rl_student.visibility = View.GONE
+        empty_student.visibility = View.VISIBLE
+    }
 
-
+    private fun hideNoDataView() {
+        rl_student.visibility = View.VISIBLE
+        empty_student.visibility = View.GONE
     }
 
 }
