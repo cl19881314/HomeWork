@@ -26,14 +26,14 @@ class StudentAnswerModel : ViewModel(){
                 })
     }
 
-    fun getAnalysis(){
-   /*     RequestApi.getInstance().submitStudentAnswer(userId, groupId, answer)
+    fun getAnalysis(userId : Int, homeworkId : Int){
+        RequestApi.getInstance().getAnaysyPage(userId, homeworkId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     mStudentModel.value = it
                 },{
                     mErrorData.value = "网络异常，请检查网络"
-                })*/
+                })
     }
 }

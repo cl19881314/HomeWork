@@ -235,9 +235,16 @@ class RequestApi {
      */
     fun submitStudentAnswer(userId: Int, groupId: Int, studentAnswers : String): Observable<BaseEntry> {
         var parameter = HashMap<String, Any>()
-        parameter["userId"] = userId.toString()
+        parameter["userId"] = userId
         parameter["groupedHomeworkId"] = groupId
         parameter["studentAnswers"] = studentAnswers
+        return mService.submitStudentAnswer(parameter)
+    }
+
+    fun getAnaysyPage(userId: Int, homeworkId : Int): Observable<BaseEntry> {
+        var parameter = HashMap<String, Any>()
+        parameter["userId"] = userId
+        parameter["homeworkId"] = homeworkId
         return mService.submitStudentAnswer(parameter)
     }
 
