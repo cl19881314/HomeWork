@@ -57,6 +57,9 @@ class WriteCommentActivity : BaseActivity(){
                 toast("发布批阅失败")
             }
         })
+        mDataViewModel.mErrorData.observe(this, Observer {
+            toast(it!!)
+        })
     }
 
     private fun addComment(){
@@ -68,7 +71,7 @@ class WriteCommentActivity : BaseActivity(){
         if (content.length > 200){
 
         }
-        //mDataViewModel.addComment(mStuAnswerId, content)
+        mDataViewModel.addComment(mStuAnswerId, content)
     }
 
 }

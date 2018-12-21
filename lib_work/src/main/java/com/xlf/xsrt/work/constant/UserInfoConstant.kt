@@ -8,11 +8,11 @@ package com.xlf.xsrt.work.constant
 object UserInfoConstant{
     private var mUserId = -1
     fun getUserId() : Int{
-        if (mUserId != -1 || mUserId != 0){
+        if (mUserId != -1){
             return mUserId
         }
-            //TODO 读取sp
-            return  1
+        //TODO 读取sp
+        return  5
     }
 
     fun setUserId(userId : Int){

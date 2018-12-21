@@ -9,6 +9,7 @@
     android:paddingBottom="10dp">
 
     <RelativeLayout
+        android:id="@+id/answerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/xsrt_layer_bg_item_student"
@@ -36,6 +37,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/homeWorkNameTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/subject_item_student"
@@ -51,20 +53,23 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/showDetailTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/subject_item_student"
             android:layout_alignParentRight="true"
             android:padding="4dp"
             android:text="待提交"
-            android:textColor="#ff0000" />
+            android:textSize="12sp"/>
 
         <Button
             android:id="@+id/btn_checkMark_item_stu"
-            android:layout_width="78dp"
+            android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
             android:background="@drawable/xsrt_green_bg_btn"
             android:text="查看批阅"
             android:textColor="@color/xsrt_white"

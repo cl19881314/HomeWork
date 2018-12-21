@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/xsrt_margin_left"
@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/questionTitleLL"
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:gravity="center_vertical"
@@ -52,9 +53,11 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/divider1"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/xsrt_divider" />
+        android:background="@color/xsrt_divider"
+        android:layout_below="@+id/questionTitleLL"/>
 
     <WebView
         android:id="@+id/showContentWeb"
@@ -62,12 +65,18 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
-        android:scrollbars="none" />
+        android:layout_marginBottom="2dp"
+        android:scrollbars="none"
+        android:layout_below="@+id/divider1"
+        android:layout_above="@+id/divider2"/>
 
     <View
+        android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/xsrt_divider" />
+        android:layout_marginTop="2dp"
+        android:background="@color/xsrt_divider"
+        android:layout_above="@+id/showDetailTxt"/>
 
     <TextView
         android:id="@+id/showDetailTxt"
@@ -80,6 +89,8 @@
         android:padding="5dp"
         android:text="查看详情"
         android:textColor="@color/xsrt_title1_txt_color"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
-</LinearLayout>
+</RelativeLayout>

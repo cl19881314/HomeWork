@@ -79,4 +79,8 @@ class TitleBar : RelativeLayout {
     fun setRightTextClor(color : Int){
         mRightTxt?.setTextColor(color)
     }
+
+    fun setRightTextVisibility(visibility : Int){
+        mRightTxt?.visibility = visibility
+    }
 }

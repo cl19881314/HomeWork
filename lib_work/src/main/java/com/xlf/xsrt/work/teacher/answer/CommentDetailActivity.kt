@@ -27,7 +27,10 @@ class CommentDetailActivity : BaseActivity(){
                 commentTxt.text = it.teacherComment?.comment
             }
         })
-
+        mDataViewModel.mErrorData.observe(this, Observer {
+            toast(it!!)
+        })
+        
         titleBar.getBackImageView()?.setOnClickListener {
             finish()
         }

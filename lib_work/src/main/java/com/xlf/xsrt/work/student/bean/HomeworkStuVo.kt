@@ -1,5 +1,8 @@
 package com.xlf.xsrt.work.student.bean
 
+import android.os.Parcel
+import android.os.Parcelable
+
 /**
  * 日历界面作业数据
  */
@@ -12,5 +15,38 @@ class HomeworkStuVo {
     var stuAnswerId = -1
     var createTime = ""
     var state = 0 //状态 0待提交 1待批阅 2已批阅
-    var homeworkAnalysisUrlList: MutableList<String>? = null
+    var analysisUrlList: ArrayList<String>? = null
+    var homeworkBaseList: ArrayList<HomeworkBaseVo>? = null
+
+    class HomeworkBaseVo() : Parcelable{
+        var homeworkDetailUrl = ""
+        var homeworkId = 0
+        var optionCount = 0
+
+        constructor(parcel: Parcel) : this() {
+            homeworkDetailUrl = parcel.readString()
+            homeworkId = parcel.readInt()
+            optionCount = parcel.readInt()
+        }
+
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(homeworkDetailUrl)
+            parcel.writeInt(homeworkId)
+            parcel.writeInt(optionCount)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<HomeworkBaseVo> {
+            override fun createFromParcel(parcel: Parcel): HomeworkBaseVo {
+                return HomeworkBaseVo(parcel)
+            }
+
+            override fun newArray(size: Int): Array<HomeworkBaseVo?> {
+                return arrayOfNulls(size)
+            }
+        }
+    }
 }

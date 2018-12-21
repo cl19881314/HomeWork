@@ -31,10 +31,6 @@ interface RequestService {
     fun queryHomeworkData(@FieldMap parame: HashMap<String, String>): Observable<GroupeEntry>
 
     @FormUrlEncoded
-    @POST("teacherManage/getComment")
-    fun getTeacherComment(@FieldMap parame: HashMap<String, String>): Observable<BaseStudentEntry>
-
-    @FormUrlEncoded
     @POST("appLogin/queryLogin")
     fun queryUserInfo(@FieldMap parame: HashMap<String, String>): Observable<UserInfo>
 
@@ -86,5 +82,8 @@ interface RequestService {
     @POST("teacherManage/collectOrCancel")
     fun collectOrCancel(@FieldMap parameter: HashMap<String, String>): Observable<BaseEntry>
 
+    @FormUrlEncoded
+    @POST("studentManage/submitHomework")
+    fun submitStudentAnswer(@FieldMap parameter: HashMap<String, Any>): Observable<BaseEntry>
 
 }

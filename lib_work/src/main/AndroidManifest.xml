@@ -2,16 +2,27 @@
     package="com.xlf.xsrt.work" >
     <uses-permission android:name="android.permission.INTERNET"/>
     <application>
-        <activity android:name=".teacher.group.GroupActivity"/>
-        <activity android:name=".teacher.TeacherActivity"/>
-        <activity android:name=".teacher.mylayout.MyArrangeActivity"/>
-        <activity android:name=".student.StudentActivity"/>
-        <activity android:name=".detail.SubjectDetailActivity"/>
-        <activity android:name=".teacher.answer.StudentAnswerActivity"/>
-        <activity android:name=".teacher.answer.CommentDetailActivity"/>
-        <activity android:name=".teacher.answer.WriteCommentActivity"/>
-        <activity android:name=".teacher.answer.StudentAnswerDetailActivity"/>
-        <activity android:name=".student.StudentToAnswerActivity"/>
-        <activity android:name=".teacher.group.SelectedHomeWorkActivity"/>
+        <activity android:name=".teacher.group.GroupActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".teacher.TeacherActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".teacher.mylayout.MyArrangeActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".student.StudentActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".detail.SubjectDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".teacher.answer.StudentAnswerActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".teacher.answer.CommentDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".teacher.answer.WriteCommentActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".detail.QuestionDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".student.StudentToAnswerActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".teacher.group.SelectedHomeWorkActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

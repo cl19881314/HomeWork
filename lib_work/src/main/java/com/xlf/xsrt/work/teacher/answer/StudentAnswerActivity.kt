@@ -49,6 +49,7 @@ class StudentAnswerActivity : BaseActivity() {
                 if (it?.stuAnswerList?.size ?: -1 > 0) {
                     showDataRv.visibility = View.VISIBLE
                     emptyLayout.visibility = View.GONE
+                    showDataRv.scrollToPosition(0)
                     mAdapter!!.setAnswerData(it?.stuAnswerList)
                 } else {
                     emptyLayout.visibility = View.VISIBLE
@@ -64,6 +65,9 @@ class StudentAnswerActivity : BaseActivity() {
                     addWorkPullData(it?.homeworkList!!)
                 }
             }
+        })
+        mDataViewModel.mErrorData.observe(this, Observer {
+            toast(it!!)
         })
     }
 

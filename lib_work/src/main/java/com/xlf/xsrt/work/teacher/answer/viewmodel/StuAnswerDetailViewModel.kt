@@ -14,6 +14,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class StuAnswerDetailViewModel : ViewModel() {
     var mAddCommentViewModel = MutableLiveData<BaseEntry>()
+    var mErrorData: MutableLiveData<String> = MutableLiveData()
     fun addComment(stuAnswerId: Int, comment: String) {
         RequestApi.getInstance().setTeacherCommentData(stuAnswerId, comment)
                 .subscribeOn(Schedulers.io())
@@ -21,20 +22,8 @@ class StuAnswerDetailViewModel : ViewModel() {
                 .subscribe({
                     mAddCommentViewModel.value = it
                 }, {
-
+                    mErrorData.value = ""
                 })
     }
-
-    fun getStuAnswerDetail(stuAnswerId: Int, comment: String) {
-        RequestApi.getInstance().getStuAnswerDetailData(stuAnswerId, comment)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    mAddCommentViewModel.value = it
-                }, {
-
-                })
-    }
-
 
 }

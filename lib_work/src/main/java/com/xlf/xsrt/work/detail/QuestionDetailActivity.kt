@@ -1,18 +1,20 @@
-package com.xlf.xsrt.work.teacher.answer
+package com.xlf.xsrt.work.detail
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.fragment.StudentAnswerDetailFragment
+import com.xlf.xsrt.work.teacher.answer.WriteCommentActivity
 import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerDetailAdapter
 import kotlinx.android.synthetic.main.xsrt_activity_answer_detail_layout.*
 
 /**
- * 老师待批阅界面
+ * 题目详情界面 可以左右滑动
  */
-class StudentAnswerDetailActivity : BaseActivity() {
+class QuestionDetailActivity : BaseActivity() {
     private var mAdapter: StudentAnswerDetailAdapter? = null
     private var mStuAnswerId = -1
     private var mUrlList: ArrayList<String>? = null
@@ -24,10 +26,10 @@ class StudentAnswerDetailActivity : BaseActivity() {
         mStuAnswerId = intent.getIntExtra("stuAnswerId", -1)
         mUrlList = intent.getStringArrayListExtra("urlList")
         var showTodo = intent.getBooleanExtra("showTodo", false)
-//        toDoCommentTxt.visibility = if (showTodo) View.VISIBLE else View.GONE
+        toDoCommentTxt.visibility = if (showTodo) View.VISIBLE else View.GONE
 
-        var stuName = intent.getStringExtra("stuName")
-        titleBar.setTitleTxt("$stuName")
+        var title = intent.getStringExtra("title")
+        titleBar.setTitleTxt(title)
         mAdapter = StudentAnswerDetailAdapter(supportFragmentManager)
         detailViewPager.adapter = mAdapter
         getDetailData()
@@ -52,7 +54,7 @@ class StudentAnswerDetailActivity : BaseActivity() {
 
     override fun initListener() {
         toDoCommentTxt.setOnClickListener {
-            var intent = Intent(this@StudentAnswerDetailActivity, WriteCommentActivity::class.java)
+            var intent = Intent(this@QuestionDetailActivity, WriteCommentActivity::class.java)
             intent.putExtra("stuAnswerId", mStuAnswerId)
             startActivityForResult(intent, 100)
         }

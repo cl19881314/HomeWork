@@ -92,15 +92,6 @@ class RequestApi {
     }
 
     /**
-     * 学生端 查询老师批阅
-     */
-    fun getTeacherComment(stuAnswerId: Int): Observable<BaseStudentEntry> {
-        var parame = HashMap<String, String>()
-        parame["stuAnswerId"] = "$stuAnswerId"
-        return mService.getTeacherComment(parame)
-    }
-
-    /**
      * 查询教师或者学生信息
      */
     fun queryUserInfo(token: String): Observable<UserInfo> {
@@ -162,16 +153,6 @@ class RequestApi {
      * 添加教师批阅
      */
     fun setTeacherCommentData(stuAnswerId: Int, comment: String): Observable<BaseEntry> {
-        var parameter = HashMap<String, Any>()
-        parameter["stuAnswerId"] = stuAnswerId
-        parameter["comment"] = comment
-        return mService.setTeacherCommentData(parameter)
-    }
-
-    /**
-     * 教师端学生作业详情
-     */
-    fun getStuAnswerDetailData(stuAnswerId: Int, comment: String): Observable<BaseEntry> {
         var parameter = HashMap<String, Any>()
         parameter["stuAnswerId"] = stuAnswerId
         parameter["comment"] = comment
@@ -247,6 +228,17 @@ class RequestApi {
         parameter["homeworkId"] = homeworkId.toString()
         parameter["collectFlag"] = collectFlag.toString()
         return mService.collectOrCancel(parameter)
+    }
+
+    /**
+     * 学生端 提交答案
+     */
+    fun submitStudentAnswer(userId: Int, groupId: Int, studentAnswers : String): Observable<BaseEntry> {
+        var parameter = HashMap<String, Any>()
+        parameter["userId"] = userId.toString()
+        parameter["groupedHomeworkId"] = groupId
+        parameter["studentAnswers"] = studentAnswers
+        return mService.submitStudentAnswer(parameter)
     }
 
 }

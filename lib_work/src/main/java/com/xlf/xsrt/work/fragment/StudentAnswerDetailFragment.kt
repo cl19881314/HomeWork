@@ -24,8 +24,8 @@ class StudentAnswerDetailFragment : BaseFragment() {
                 return true
             }
         }
-//        var url = arguments?.getString("url")
-        var url = "http://192.168.1.194:8080/homework/teacherManage/stuAnswerDetail/9"
+        var url = arguments?.getString("url")
+//        var url = "http://192.168.1.194:8080/homework/teacherManage/stuAnswerDetail/9"
         detailWeb!!.loadUrl(url)
 
     }

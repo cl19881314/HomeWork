@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class StudentAnswerViewModel : ViewModel() {
     var mAnswerViewModel = MutableLiveData<StudentAnswerBean>()
-
+    var mErrorData: MutableLiveData<String> = MutableLiveData()
     fun getStudentAnswerData(userId: Int, classId: Int, createTime: String, homeworkId: Int) {
         RequestApi.getInstance().getStudentAnswerData(userId,classId, createTime, homeworkId)
                 .subscribeOn(Schedulers.io())
@@ -22,7 +22,7 @@ class StudentAnswerViewModel : ViewModel() {
                 .subscribe({
                     mAnswerViewModel.value = it
                 }, {
-
+                    mErrorData.value = "网络异常，请检查网络"
                 })
     }
 }

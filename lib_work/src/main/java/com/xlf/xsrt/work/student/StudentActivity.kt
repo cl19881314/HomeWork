@@ -7,7 +7,6 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.text.format.DateUtils
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.student.adapter.StudentAdapter

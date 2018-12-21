@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class TeacherCommentViewModel : ViewModel(){
     var mCommentViewModel = MutableLiveData<TeacherCommentBean>()
-
+    var mErrorData: MutableLiveData<String> = MutableLiveData()
     fun getTeacherCommentData(stuAnswerId : Int){
         RequestApi.getInstance().getTeacherCommentData(stuAnswerId)
                 .subscribeOn(Schedulers.io())
@@ -22,7 +22,7 @@ class TeacherCommentViewModel : ViewModel(){
                 .subscribe({
                     mCommentViewModel.value = it
                 },{
-
+                    mErrorData.value = "网络异常，请检查网络"
                 })
     }
 }

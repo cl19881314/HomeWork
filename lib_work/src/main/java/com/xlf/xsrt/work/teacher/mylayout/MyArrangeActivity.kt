@@ -102,6 +102,7 @@ class MyArrangeActivity : BaseActivity() {
                     showDataRv.visibility = View.VISIBLE
                     emptyLayout.visibility = View.GONE
                     noDataTxt.visibility = View.GONE
+                    showDataRv.scrollToPosition(0)
                     mAdapter!!.setArrangeData(it?.homeworkBaseList)
                 } else {
                     showDataRv.visibility = View.GONE
@@ -116,6 +117,8 @@ class MyArrangeActivity : BaseActivity() {
                     addTimePullData(bean)
                     addWorkPullData(bean)
                 }
+            } else {
+                toast(it?.msg!!)
             }
         })
 
@@ -126,6 +129,9 @@ class MyArrangeActivity : BaseActivity() {
             } else {
                 toast("删除失败")
             }
+        })
+        mViewModer.mErrorData.observe(this, Observer {
+            toast(it!!)
         })
     }
 
