@@ -104,7 +104,7 @@ public class WMonthView extends View implements View.OnClickListener {
         mCurCircleDayPaint.setAntiAlias(true);
         mCurCircleDayPaint.setColor(Color.parseColor("#00724C"));
         mCurCircleDayPaint.setStyle(Paint.Style.STROKE);
-        mCurCircleDayPaint.setStrokeWidth(WCanlendarUtil.dipToPx(context, 2));
+        mCurCircleDayPaint.setStrokeWidth(WCanlendarUtil.dipToPx(context, 1));
 
         setOnClickListener(this);
     }

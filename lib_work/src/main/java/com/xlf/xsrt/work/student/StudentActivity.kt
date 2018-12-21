@@ -7,6 +7,7 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
@@ -66,15 +67,15 @@ class StudentActivity : BaseActivity() {
             tv_time_stu.text = "${year}年${month}月"
             val instance = Calendar.getInstance()
             instance.set(year, month - 1, 1)
-            val date = DateUtil.dateToString(instance.time, "yyyy-MM")
-            mViewModel.getStuHomeworkByDate(UserInfoConstant.getUserId(), date)
+            queryTime = DateUtil.dateToString(instance.time, "yyyy-MM-dd")
+            mViewModel.getStuHomeworkByDate(UserInfoConstant.getUserId(), queryTime)
         }
         calendar_stu.setOnCanlendarItemListener { calendar, position ->
             //获取数据 刷新recyvleview
             val instance = Calendar.getInstance()
             instance.set(calendar.year, calendar.month - 1, calendar.day)
-            val date = DateUtil.dateToString(instance.time, "yyyy-MM-dd")
-            mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), date)
+            queryTime = DateUtil.dateToString(instance.time, "yyyy-MM-dd")
+            mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), queryTime)
         }
 
     }
@@ -111,7 +112,10 @@ class StudentActivity : BaseActivity() {
             }
             calendar_stu.setSchemeDate(courseInfos)//绘制刷新
             //跳转到当月（初始化时才跳转）
-            if (TextUtils.isEmpty(queryTime)) calendar_stu.moveToDate(today.year, today.month)
+            if (TextUtils.isEmpty(queryTime.trim())) {
+                tv_time_stu.text = "${today.year}年${today.month}月"//初始化title
+                calendar_stu.moveToDate(today.year, today.month)
+            }
         })
 
 
