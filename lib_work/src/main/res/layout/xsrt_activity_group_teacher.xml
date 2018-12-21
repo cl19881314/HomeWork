@@ -119,14 +119,18 @@
         <CheckBox
             android:id="@+id/selectedAll_group"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/xsrt_margin_left"
+            android:background="@drawable/xsrt_selector_raddio_btn"
+            android:button="@null" />
 
         <TextView
             android:id="@+id/subjectNumTxt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:text="全选（当前页面）" />
+            android:text="全选" />
 
         <TextView
             android:id="@+id/commit_group"

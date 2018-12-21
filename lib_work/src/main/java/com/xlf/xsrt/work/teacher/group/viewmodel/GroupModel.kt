@@ -44,6 +44,7 @@ class GroupModel : ViewModel() {
                 .subscribe({ it ->
                     mSelectedNum.value = it.groupedCount
                     mGroupData.value = it
+                    mHomeworkData.value = it.homeworkBaseList
                 }, { e ->
                     mGroupError.value = "网络异常，请检查网络"
                 })

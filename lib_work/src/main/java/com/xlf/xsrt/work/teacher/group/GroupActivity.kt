@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -35,6 +36,7 @@ import com.xlf.xsrt.work.utils.ScreenUtil
 import com.xlf.xsrt.work.widget.TitleBar
 import com.xlf.xsrt.work.widget.pulltextview.PullBean
 import com.xlf.xsrt.work.widget.pulltextview.PullTextView
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
@@ -42,6 +44,8 @@ import kotlinx.android.synthetic.main.xsrt_item_subject_layout.view.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
+import java.util.*
+import java.util.function.Function
 
 class GroupActivity : BaseActivity() {
 
@@ -92,8 +96,16 @@ class GroupActivity : BaseActivity() {
     }
 
     private fun initRcyView() {
-        rcy_group.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val manager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rcy_group.layoutManager = manager
         rcy_group.adapter = mGroupAdapter
+        rcy_group.setOnLoadMoreListener {
+            if (manager.findLastCompletelyVisibleItemPosition() == mGroupAdapter.getData().size + 1)
+                mViewModel.queryHomeworkData(mQueryCondition)
+            else {
+                rcy_group.stopLoadMore()
+            }
+        }
     }
 
     private fun initDiffPopWindow() {
@@ -135,6 +147,7 @@ class GroupActivity : BaseActivity() {
             mDiffPopWindow?.dismiss()
         }
         mDiffPopWindow?.setOnDismissListener {
+            mQueryCondition.page = 0
             mViewModel.queryHomeworkData(mQueryCondition)
         }
     }
@@ -213,6 +226,7 @@ class GroupActivity : BaseActivity() {
                 //加入教材筛选条件
                 mQueryCondition.textbookId = bean.searchId.toString()
                 //查询数据 更新界面
+                mQueryCondition.page = 0
                 mViewModel.queryHomeworkData(mQueryCondition)
             }
 
@@ -226,6 +240,7 @@ class GroupActivity : BaseActivity() {
                 //加入目录筛选条件
                 mQueryCondition.directoryId = bean.searchId.toString()
                 //查询数据 更新界面
+                mQueryCondition.page = 0
                 mViewModel.queryHomeworkData(mQueryCondition)
             }
 
@@ -235,6 +250,7 @@ class GroupActivity : BaseActivity() {
                 //加入章节筛选条件
                 mQueryCondition.chapterId = bean.searchId.toString()
                 //查询数据 更新界面
+                mQueryCondition.page = 0
                 mViewModel.queryHomeworkData(mQueryCondition)
             }
         })
@@ -375,11 +391,6 @@ class GroupActivity : BaseActivity() {
     override fun doResponseData() {
         mViewModel.mGroupData.observe(this, Observer {
             if (it?.flag == RESPONSE_SUCCESS) {
-                if (it.homeworkBaseList!!.size > 0) {
-                    mGroupAdapter.addData(it.homeworkBaseList!!)
-                } else {
-                    showEmptyView()
-                }
                 //重置困难等级
                 mDiffLevels.clear()
                 mDiffLevels.addAll(it.difficultyList!!)
@@ -408,7 +419,6 @@ class GroupActivity : BaseActivity() {
                 mQueryCondition.directoryId = mDirectors[0].sysDictId.toString()
                 mQueryCondition.chapterId = mSections[0].sysDictId.toString()
 
-
                 groupedHomeworkId = it.groupedHomeworkId!!
             }
         })
@@ -427,10 +437,26 @@ class GroupActivity : BaseActivity() {
                     mGroupAdapter.addData(it)
                 }
             }
+            mQueryCondition.page++
+            rcy_group.stopLoadMore()
+            rcy_group.isLoadable = mGroupAdapter.getData().size >= 20
+            Observable.fromIterable(mGroupAdapter.getData())
+                    .all {
+                        it.addFlag == 1
+                    }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { t ->
+                        selectedAll_group.isChecked = t
+                    }
         })
 
         mViewModel.mSelectedNum.observe(this, Observer {
             selectedNum_group.text = "已选（$it）"
+        })
+
+        mViewModel.mGroupError.observe(this, Observer {
+            toast(it!!)
         })
     }
 
