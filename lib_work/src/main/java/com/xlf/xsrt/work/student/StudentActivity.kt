@@ -62,7 +62,7 @@ class StudentActivity : BaseActivity() {
             tv_time_stu.text = "${year}年${month}月"
             val instance = Calendar.getInstance()
             instance.set(year, month - 1, 1)
-            val date = DateUtil.dateToString2(instance.time)
+            val date = DateUtil.dateToString(instance.time,"yyyy-MM")
             //TODO:拉取选中页月数据
             mViewModel.getStuHomeworkByDate(-1, date)
         }
@@ -71,7 +71,7 @@ class StudentActivity : BaseActivity() {
             //获取数据 刷新recyvleview
             val instance = Calendar.getInstance()
             instance.set(calendar.year, calendar.month - 1, calendar.day)
-            val date = DateUtil.dateToString(instance.time)
+            val date = DateUtil.dateToString(instance.time,"yyyy-MM-dd")
             mViewModel.getHomeworkByDay(-1, date)
         }
 
@@ -84,7 +84,7 @@ class StudentActivity : BaseActivity() {
         mViewModel.mMonthHomeworkData.observe(this, Observer {
             //更新日历当日时间
             val today = CalendarBean()
-            val current = DateUtil.string2date(it!!.currentTime)
+            val current = DateUtil.string2date(it!!.currentTime,"yyyy-MM-dd")
             val instance = Calendar.getInstance()
             instance.time = current
             today.year = instance.get(Calendar.YEAR)
@@ -97,7 +97,7 @@ class StudentActivity : BaseActivity() {
             val courseInfos = mutableListOf<CalendarBean>()
             for (i in 0 until it.homeworkTimeList!!.size) {
                 val courseInfosVo = it.homeworkTimeList!![i]
-                val date = DateUtil.string2date(courseInfosVo.createTime)
+                val date = DateUtil.string2date(courseInfosVo.createTime,"yyyy-MM-dd")
                 val instance = Calendar.getInstance()
                 instance.time = date
                 val calendar = CalendarBean()

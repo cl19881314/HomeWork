@@ -12,9 +12,9 @@ class DateUtil {
          * 字符串转化为日期
          * 格式 "yyyy-MM-dd"
          */
-        fun string2date(dateString: String): Date? {
+        fun string2date(dateString: String, format: String): Date? {
             var formateDate: Date? = null
-            val format = SimpleDateFormat(YYYY_MM_DD)
+            val format = SimpleDateFormat(format)
             try {
                 formateDate = format.parse(dateString)
             } catch (e: ParseException) {
@@ -26,19 +26,9 @@ class DateUtil {
 
         /**
          * 日期转化为字符串
-         *  yyyy-MM-dd格式
          */
-        fun dateToString(date: Date): String {
-            val sdf = SimpleDateFormat(YYYY_MM_DD)
-            return sdf.format(date)
-        }
-
-        /**
-         * 日期转化为字符串
-         *  yyyy-MM格式
-         */
-        fun dateToString2(date: Date): String {
-            val sdf = SimpleDateFormat(YYYY_MM)
+        fun dateToString(date: Date,format: String): String {
+            val sdf = SimpleDateFormat(format)
             return sdf.format(date)
         }
 
@@ -48,8 +38,7 @@ class DateUtil {
          *
          */
         fun chainToString2(date: String): String {
-            var time = date.replace("年","-").replace("月","-").replace("日","")
-            return time
+            return date.replace("年", "-").replace("月", "-").replace("日", "")
         }
     }
 }

@@ -17,7 +17,7 @@ class SelectedHomeWorkModel : ViewModel() {
     /**
      * 返回数据错误信息
      */
-    var mGroupError: MutableLiveData<String> = MutableLiveData()
+    var mError: MutableLiveData<String> = MutableLiveData()
 
     /**
      * 提交作业
@@ -33,10 +33,10 @@ class SelectedHomeWorkModel : ViewModel() {
                     if (it.flag == 1) {
                         mPushData.value = it
                     } else {
-                        mGroupError.value = it.msg
+                        mError.value = it.msg
                     }
                 }, { e ->
-                    mGroupError.value = "网络异常，请检查网络"
+                    mError.value = "网络异常，请检查网络"
                 })
     }
 
@@ -46,13 +46,9 @@ class SelectedHomeWorkModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it ->
-                    if (it.flag == 1) {
-                        mGroupHomeworkData.value = it
-                    } else {
-                        mGroupError.value = it.msg
-                    }
+                    mGroupHomeworkData.value = it
                 }, { e ->
-                    mGroupError.value = "网络异常，请检查网络"
+                    mError.value = "网络异常，请检查网络"
                 })
     }
 }

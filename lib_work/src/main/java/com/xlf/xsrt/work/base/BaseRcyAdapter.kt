@@ -40,6 +40,15 @@ abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
         return mData
     }
 
+    fun removeData(position: Int){
+        mData.removeAt(position)
+        notifyDataSetChanged()
+    }
+
+    fun getItemContent(position: Int): T? {
+        return mData[position]
+    }
+
     override fun getRealItemCount(): Int {
         return if (mData == null) {
             0
