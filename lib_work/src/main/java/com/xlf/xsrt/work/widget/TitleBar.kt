@@ -72,15 +72,20 @@ class TitleBar : RelativeLayout {
         return mBackImg
     }
 
-    fun setTitleTxt(txt : String){
+    fun setTitleTxt(txt: String) {
         mTitleTxt?.text = txt
     }
 
-    fun setRightTextClor(color : Int){
+    fun setRightTextClor(color: Int) {
         mRightTxt?.setTextColor(color)
     }
 
-    fun setRightTextVisibility(visibility : Int){
+    fun setRightText(txt: String) {
+        mRightTxt?.text = txt
+
+    }
+
+    fun setRightTextVisibility(visibility: Int) {
         mRightTxt?.visibility = visibility
     }
 }

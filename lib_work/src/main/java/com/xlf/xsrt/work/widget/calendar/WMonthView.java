@@ -80,9 +80,9 @@ public class WMonthView extends View implements View.OnClickListener {
         mCurDayTextPaint = new Paint();
         mCurDayTextPaint.setTextSize(24);
         mCurDayTextPaint.setAntiAlias(true);
-        mCurDayTextPaint.setColor(Color.parseColor("#0ABAB3"));
+        mCurDayTextPaint.setColor(Color.parseColor("#00724C"));
         mCurDayTextPaint.setTextAlign(Paint.Align.CENTER);
-        mCurDayTextPaint.setFakeBoldText(true);
+//        mCurDayTextPaint.setFakeBoldText(true);
         mCurDayTextPaint.setTextSize(WCanlendarUtil.dipToPx(context, 15));//设置字体大小
 
         mSelectTPaint = new Paint();
