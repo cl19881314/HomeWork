@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="244dp"
+    android:layout_height="wrap_content"
+    android:paddingTop="31dp"
+    android:paddingBottom="31dp">
+
+    <TextView
+        android:id="@+id/tv_arrage_dailog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableTop="@drawable/xsrt_tc_success_icon"
+        android:drawablePadding="18dp"
+        android:gravity="center"
+        android:text="预约布置成功"
+        android:textColor="@color/xsrt_title1_txt_color"
+        android:textSize="15sp" />
+
+</FrameLayout>

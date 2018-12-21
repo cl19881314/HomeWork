@@ -212,7 +212,7 @@ class RequestApi {
      */
     fun pushHomeWork(teacherId: Int, appointmentTime: String, groupedHomeworkId: Int, groupedHomeworkId1: Int, homeworkName: String):  Observable<BaseEntry> {
         var parameter = HashMap<String, String>()
-        parameter["teacherId"] = teacherId.toString()
+        parameter["userId"] = teacherId.toString()
         parameter["appointmentTime"] = appointmentTime
         parameter["groupedHomeworkId"] = groupedHomeworkId.toString()
         parameter["homeworkName"] = homeworkName
