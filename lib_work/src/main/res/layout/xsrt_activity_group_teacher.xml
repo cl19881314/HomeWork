@@ -36,8 +36,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
+                android:ellipsize="end"
                 android:gravity="center"
-                android:text="教材" />
+                android:maxLines="1" />
         </FrameLayout>
 
         <FrameLayout
@@ -51,8 +52,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
+                android:ellipsize="end"
                 android:gravity="center"
-                android:text="目录" />
+                android:maxLines="1" />
         </FrameLayout>
 
         <FrameLayout
@@ -66,8 +68,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
+                android:ellipsize="end"
                 android:gravity="center"
-                android:text="章节" />
+                android:maxLines="1" />
         </FrameLayout>
 
         <TextView

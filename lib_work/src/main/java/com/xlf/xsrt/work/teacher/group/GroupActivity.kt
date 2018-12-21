@@ -287,6 +287,7 @@ class GroupActivity : BaseActivity() {
             data.add(pullBean)
         }
         section_group.updateData(data, true)
+        section_group.text = mSections[0].sysDictName
     }
 
     /**
@@ -307,6 +308,7 @@ class GroupActivity : BaseActivity() {
             data.add(pullBean)
         }
         director_group.updateData(data, true)
+        director_group.text = mDirectors[0].sysDictName
     }
 
 
@@ -336,6 +338,7 @@ class GroupActivity : BaseActivity() {
                     data.add(pullBean)
                 }
                 textbook_group.updateData(data, true)
+                textbook_group.text = mTextBooks[0].sysDictName
                 //初始化目录数据
                 setDefaultDirecData()
                 //初始化章节数据
@@ -388,6 +391,7 @@ class GroupActivity : BaseActivity() {
             diredata.add(pullBean)
         }
         director_group.updateData(diredata, true)
+        director_group.text = mDirectors[0].sysDictName
     }
 
     /**
@@ -408,6 +412,7 @@ class GroupActivity : BaseActivity() {
             sectiondata.add(pullBean)
         }
         section_group.updateData(sectiondata, true)
+        section_group.text = mSections[0].sysDictName
     }
 
     private fun showEmptyView() {

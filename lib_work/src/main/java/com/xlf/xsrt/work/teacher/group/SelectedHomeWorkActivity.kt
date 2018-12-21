@@ -35,7 +35,8 @@ class SelectedHomeWorkActivity : BaseActivity() {
     private val mGroupHomeworkId by lazy {
         intent.getIntExtra("groupHomeworkId", -1)
     }
-    private var mCustomDatePicker:CustomDatePicker?=null
+    private var mCustomDatePicker: CustomDatePicker? = null
+
     companion object {
         fun start(ctx: Context, groupHomeworkId: Int) {
             val intent = Intent(ctx, SelectedHomeWorkActivity::class.java)
@@ -62,7 +63,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
         calendar.set(2008, 1, 1)
         val start = dateFormat.format(calendar.time)
         toast(start)
-        mCustomDatePicker= CustomDatePicker(this, { time ->
+        mCustomDatePicker = CustomDatePicker(this, { time ->
             toast(time)
         }, "2010-01-01 00:00", now)
         mCustomDatePicker?.showSpecificTime(true) // 显示时和分
