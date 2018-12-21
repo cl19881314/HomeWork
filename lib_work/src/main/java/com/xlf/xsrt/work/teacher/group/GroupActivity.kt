@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Rect
 import android.os.Build
 import android.support.annotation.RequiresApi
@@ -26,13 +27,11 @@ import com.xlf.xsrt.work.base.RequestApi
 import com.xlf.xsrt.work.bean.HomeworkBaseVo
 import com.xlf.xsrt.work.bean.SysDictVo
 import com.xlf.xsrt.work.teacher.group.adapter.GroupAdapter
-import com.xlf.xsrt.work.teacher.group.adapter.PopWindowAdapter
 import com.xlf.xsrt.work.teacher.group.adapter.ScreenPopWindowAdapter
 import com.xlf.xsrt.work.bean.QueryCondition
 import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.detail.SubjectDetailActivity
 import com.xlf.xsrt.work.teacher.group.viewmodel.GroupModel
-import com.xlf.xsrt.work.utils.ScreenUtil
 import com.xlf.xsrt.work.widget.TitleBar
 import com.xlf.xsrt.work.widget.pulltextview.PullBean
 import com.xlf.xsrt.work.widget.pulltextview.PullTextView
@@ -40,12 +39,8 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
-import kotlinx.android.synthetic.main.xsrt_item_subject_layout.view.*
-import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
-import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
 import java.util.*
-import java.util.function.Function
 
 class GroupActivity : BaseActivity() {
 
@@ -159,6 +154,7 @@ class GroupActivity : BaseActivity() {
             }
 
             override fun rightTextClick() {
+                SelectedHomeWorkActivity.start(this@GroupActivity, groupedHomeworkId)
             }
         })
         textbook_group.setOnClickListener {
@@ -269,6 +265,7 @@ class GroupActivity : BaseActivity() {
                             mSelectedHomeWorks.remove(bean)
                             bean.addFlag = 0
                         }
+                        commit_group.isEnabled = mSelectedHomeWorks.size > 0
                     }
                     R.id.isCollocted -> {
                         //收藏
@@ -305,8 +302,6 @@ class GroupActivity : BaseActivity() {
                         startActivity(intent)
                     }
                     else -> {
-                        //donothing
-                        toast("donothing")
                     }
                 }
             }
@@ -321,17 +316,15 @@ class GroupActivity : BaseActivity() {
                     data[i].addFlag = 1
                     mSelectedHomeWorks.add(data[i])
                 }
+                commit_group.isEnabled = true
             } else {
                 for (i in 0 until data.size) {
                     data[i].addFlag = 0
                     mSelectedHomeWorks.remove(data[i])
                 }
+                commit_group.isEnabled = false
             }
             mGroupAdapter.notifyDataSetChanged()
-        }
-        //已选作业
-        selectedNum_group.setOnClickListener {
-            SelectedHomeWorkActivity.start(this, groupedHomeworkId)
         }
         //提交作业
         commit_group.setOnClickListener {
@@ -452,7 +445,9 @@ class GroupActivity : BaseActivity() {
         })
 
         mViewModel.mSelectedNum.observe(this, Observer {
-            selectedNum_group.text = "已选（$it）"
+            titlebar_group.setRightTextVisibility(View.VISIBLE)
+            titlebar_group.setRightText("已选（$it）")
+            titlebar_group.setRightTextClor(Color.parseColor("#00724C"))
         })
 
         mViewModel.mGroupError.observe(this, Observer {
@@ -502,11 +497,15 @@ class GroupActivity : BaseActivity() {
     }
 
     private fun showEmptyView() {
+        rcy_group.visibility = View.GONE
         empty_group.visibility = View.VISIBLE
+        selectedAll_group.isEnabled = false
     }
 
     private fun hideEmptyView() {
+        rcy_group.visibility = View.VISIBLE
         empty_group.visibility = View.GONE
+        selectedAll_group.isEnabled = true
     }
 
 }
