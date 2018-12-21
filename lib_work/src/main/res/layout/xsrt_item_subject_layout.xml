@@ -33,13 +33,12 @@
             android:textColor="@color/xsrt_title1_txt_color"
             android:textSize="15sp" />
 
-        <CheckBox
+        <ImageView
             android:id="@+id/isCollocted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/xsrt_selector_colloct_homework"
-            android:button="@null"
+            android:background="@drawable/xsrt_ic_collection_no"
             android:visibility="gone" />
 
         <ImageView
@@ -49,7 +48,7 @@
             android:layout_gravity="center_vertical"
             android:padding="10dp"
             android:src="@drawable/xsrt_ic_del"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </LinearLayout>
 
     <View

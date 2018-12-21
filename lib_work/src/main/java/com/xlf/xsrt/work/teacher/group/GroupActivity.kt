@@ -15,11 +15,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.base.BaseRcyAdapter
+import com.xlf.xsrt.work.base.RequestApi
 import com.xlf.xsrt.work.bean.HomeworkBaseVo
 import com.xlf.xsrt.work.bean.SysDictVo
 import com.xlf.xsrt.work.teacher.group.adapter.GroupAdapter
@@ -33,6 +35,8 @@ import com.xlf.xsrt.work.utils.ScreenUtil
 import com.xlf.xsrt.work.widget.TitleBar
 import com.xlf.xsrt.work.widget.pulltextview.PullBean
 import com.xlf.xsrt.work.widget.pulltextview.PullTextView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
 import kotlinx.android.synthetic.main.xsrt_item_subject_layout.view.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
@@ -243,21 +247,39 @@ class GroupActivity : BaseActivity() {
                         val checkBox = childView as CheckBox
                         if (checkBox.isChecked) {
                             mSelectedHomeWorks.add(bean)
-                            checkBox.isChecked = false
+                            bean.addFlag = 1
                         } else {
                             //移除
                             mSelectedHomeWorks.remove(bean)
-                            checkBox.isChecked = true
+                            bean.addFlag = 0
                         }
                     }
                     R.id.isCollocted -> {
                         //收藏
-                        val checkBox = childView as CheckBox
-                        if (checkBox.isChecked) {
-                            //收藏
-                        } else {
-                            //取消收藏
-                        }
+                        val imgview = childView as ImageView
+                        RequestApi.getInstance().collectOrCancel(UserInfoConstant.getUserId(), bean.homeworkId, bean.collectFlag)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe({
+                                    when (it.flag) {
+                                        0 -> toast(it.msg!!)
+                                        1 -> {
+                                            bean.collectFlag = Math.abs(bean.collectFlag!! - 1)
+                                            if (bean.collectFlag == 1) {
+                                                imgview.setBackgroundResource(R.drawable.xsrt_ic_collection_yes)
+                                            } else {
+                                                imgview.setBackgroundResource(R.drawable.xsrt_ic_collection_no)
+                                            }
+                                        }
+                                    }
+                                }, { e ->
+                                    toast(if (bean.collectFlag == 0) {
+                                        "收藏失败"
+                                    } else {
+                                        "取消收藏失败"
+                                    })
+                                })
+
                     }
                     R.id.showDetailTxt -> {
                         //详情

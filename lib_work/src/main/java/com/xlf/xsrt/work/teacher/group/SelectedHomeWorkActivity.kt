@@ -1,21 +1,15 @@
 package com.xlf.xsrt.work.teacher.group
 
-import android.app.TimePickerDialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.widget.EditText
-import android.widget.TimePicker
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
-import com.xlf.xsrt.work.bean.HomeworkBaseVo
-import com.xlf.xsrt.work.bean.UserInfo
 import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.teacher.group.adapter.SelectedHomeworkAdapter
 import com.xlf.xsrt.work.teacher.group.viewmodel.SelectedHomeWorkModel

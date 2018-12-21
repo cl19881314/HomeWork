@@ -1,6 +1,5 @@
 package com.xlf.xsrt.work.teacher.group.adapter
 
-import android.content.Intent
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -40,7 +39,11 @@ class GroupAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
         webview.loadUrl(bean.homeworkContentUrl)
         //收藏
         itemView.isCollocted.visibility = View.VISIBLE
-        itemView.isCollocted.isChecked = bean.collectFlag == 1
+        if(bean.collectFlag==1){
+            itemView.isCollocted.setBackgroundResource(R.drawable.xsrt_ic_collection_yes)
+        }else{
+            itemView.isCollocted.setBackgroundResource(R.drawable.xsrt_ic_collection_no)
+        }
         itemView.isCollocted.setOnClickListener {
             listener?.onItemChildClick(it, positon)
         }

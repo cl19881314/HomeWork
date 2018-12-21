@@ -210,8 +210,8 @@ class RequestApi {
         var parameter = HashMap<String, String>()
         parameter["userId"] = teacherId.toString()
         parameter["addFlag"] = addFlag.toString()
-        parameter["groupedHomework"] = groupedHomework.toString()
-        parameter["homeworkIds"] = homeworkIds.toString()
+        parameter["groupedHomeworkId"] = groupedHomework.toString()
+        parameter["homeworkIds"] = homeworkIds
         return mService.addOrCancleHomework(parameter)
 
     }
@@ -226,6 +226,9 @@ class RequestApi {
         return mService.querySelectHomework(parameter)
     }
 
+    /**
+     * 提交已选作业
+     */
     fun pushHomeWork(teacherId: Int, appointmentTime: String, groupedHomeworkId: Int, groupedHomeworkId1: Int, homeworkName: String):  Observable<BaseEntry> {
         var parameter = HashMap<String, String>()
         parameter["teacherId"] = teacherId.toString()
@@ -233,6 +236,17 @@ class RequestApi {
         parameter["groupedHomeworkId"] = groupedHomeworkId.toString()
         parameter["homeworkName"] = homeworkName
         return mService.pushHomeWork(parameter)
+    }
+
+    /**
+     * 收藏或者取消收藏
+     */
+    fun collectOrCancel(userId: Int, homeworkId: Int?, collectFlag: Int?) :Observable<BaseEntry>{
+        var parameter = HashMap<String, String>()
+        parameter["userId"] = userId.toString()
+        parameter["homeworkId"] = homeworkId.toString()
+        parameter["collectFlag"] = collectFlag.toString()
+        return mService.collectOrCancel(parameter)
     }
 
 }

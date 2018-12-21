@@ -82,5 +82,9 @@ interface RequestService {
     @POST("teacherManage/publishHomeWork")
     fun pushHomeWork(@FieldMap parameter: HashMap<String, String>): Observable<BaseEntry>
 
+    @FormUrlEncoded
+    @POST("teacherManage/collectOrCancel")
+    fun collectOrCancel(@FieldMap parameter: HashMap<String, String>): Observable<BaseEntry>
+
 
 }
