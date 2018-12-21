@@ -13,7 +13,7 @@ class StudentAdapter : BaseRcyAdapter<HomeworkStuVo>() {
         return R.layout.xsrt_item_homework_student
     }
 
-    override fun setItemContent(itemView: View, bean: HomeworkStuVo, positon: Int) {
+    override fun setItemContent(itemView: View, bean: HomeworkStuVo, positon: Int, listener: ItemChildViewClickListener?) {
         itemView.btn_checkMark_item_stu.setOnClickListener {
             ReadOverActivity.start(itemView.context, bean.stuAnswerId!!)
         }

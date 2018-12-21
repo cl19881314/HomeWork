@@ -11,6 +11,6 @@ class SelectedHomeworkAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
 
     }
 
-    override fun setItemContent(itemView: View, bean: HomeworkBaseVo, positon: Int) {
+    override fun setItemContent(itemView: View, bean: HomeworkBaseVo, positon: Int, listener: ItemChildViewClickListener?) {
     }
 }

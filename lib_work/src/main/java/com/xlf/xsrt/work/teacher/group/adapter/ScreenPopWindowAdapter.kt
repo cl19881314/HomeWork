@@ -11,7 +11,7 @@ class ScreenPopWindowAdapter : BaseRcyAdapter<SysDictVo>() {
         return R.layout.xsrt_item_screen_popwindow
     }
 
-    override fun setItemContent(itemView: View, bean: SysDictVo, positon: Int) {
+    override fun setItemContent(itemView: View, bean: SysDictVo, positon: Int, listener: ItemChildViewClickListener?) {
         itemView.ck_name_screen_popwindow.text = "${bean.sysDictName}"
         itemView.ck_name_screen_popwindow.isChecked = bean.isSelected
     }

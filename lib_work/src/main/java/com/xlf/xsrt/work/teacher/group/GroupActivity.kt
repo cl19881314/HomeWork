@@ -14,6 +14,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.xlf.xsrt.work.R
@@ -26,12 +27,14 @@ import com.xlf.xsrt.work.teacher.group.adapter.PopWindowAdapter
 import com.xlf.xsrt.work.teacher.group.adapter.ScreenPopWindowAdapter
 import com.xlf.xsrt.work.bean.QueryCondition
 import com.xlf.xsrt.work.constant.UserInfoConstant
+import com.xlf.xsrt.work.detail.SubjectDetailActivity
 import com.xlf.xsrt.work.teacher.group.viewmodel.GroupModel
 import com.xlf.xsrt.work.utils.ScreenUtil
 import com.xlf.xsrt.work.widget.TitleBar
 import com.xlf.xsrt.work.widget.pulltextview.PullBean
 import com.xlf.xsrt.work.widget.pulltextview.PullTextView
 import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
+import kotlinx.android.synthetic.main.xsrt_item_subject_layout.view.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_group.view.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
@@ -232,9 +235,42 @@ class GroupActivity : BaseActivity() {
             }
         })
 
-        mGroupAdapter.setOnItemClickListener(object : BaseRcyAdapter.ItemClickListener {
-            override fun onItemClick(position: Int) {
-                //TODO:添加作业
+        mGroupAdapter.setOnItemChildViewClickListener(object : BaseRcyAdapter.ItemChildViewClickListener {
+            override fun onItemChildClick(childView: View, position: Int) {
+                val bean = mGroupAdapter.getData()[position]
+                when (childView.id) {
+                    R.id.isAdded -> {
+                        val checkBox = childView as CheckBox
+                        if (checkBox.isChecked) {
+                            mSelectedHomeWorks.add(bean)
+                            checkBox.isChecked = false
+                        } else {
+                            //移除
+                            mSelectedHomeWorks.remove(bean)
+                            checkBox.isChecked = true
+                        }
+                    }
+                    R.id.isCollocted -> {
+                        //收藏
+                        val checkBox = childView as CheckBox
+                        if (checkBox.isChecked) {
+                            //收藏
+                        } else {
+                            //取消收藏
+                        }
+                    }
+                    R.id.showDetailTxt -> {
+                        //详情
+                        var intent = Intent(this@GroupActivity, SubjectDetailActivity::class.java)
+                        intent.putExtra("url", bean.homeworkDetailUrl)
+                        intent.putExtra("num", bean.homeworkId.toString())
+                        startActivity(intent)
+                    }
+                    else -> {
+                        //donothing
+                        toast("donothing")
+                    }
+                }
             }
 
         })
@@ -245,10 +281,12 @@ class GroupActivity : BaseActivity() {
             if (selectedAll_group.isChecked) {
                 for (i in 0 until data.size) {
                     data[i].addFlag = 1
+                    mSelectedHomeWorks.add(data[i])
                 }
             } else {
                 for (i in 0 until data.size) {
                     data[i].addFlag = 0
+                    mSelectedHomeWorks.remove(data[i])
                 }
             }
             mGroupAdapter.notifyDataSetChanged()
@@ -264,7 +302,7 @@ class GroupActivity : BaseActivity() {
                 buffer.append("${item.homeworkId},")
             }
             val homeworkIds = buffer.toString()
-            mViewModel.addOrCancleHomework(UserInfoConstant.getUserId(), 1, groupedHomeworkId, homeworkIds.substring(0, homeworkIds.length - 1))
+            mViewModel.addOrCancleHomework(UserInfoConstant.getUserId(), 1, groupedHomeworkId, homeworkIds)
         }
 
     }

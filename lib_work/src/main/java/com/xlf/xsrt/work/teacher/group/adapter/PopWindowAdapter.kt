@@ -12,7 +12,7 @@ class PopWindowAdapter : BaseRcyAdapter<SysDictVo>() {
         return R.layout.xsrt_item_popwindow
     }
 
-    override fun setItemContent(itemView: View, bean: SysDictVo, positon: Int) {
+    override fun setItemContent(itemView: View, bean: SysDictVo, positon: Int, listener: ItemChildViewClickListener?) {
         itemView.tv_name_popwindow.text = "${bean.sysDictName}"
     }
 }

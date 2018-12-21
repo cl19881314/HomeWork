@@ -12,7 +12,7 @@ class PullTextViewAdapter : BaseRcyAdapter<PullBean>() {
         return R.layout.xsrt_item_popwindow
     }
 
-    override fun setItemContent(itemView: View, bean: PullBean, positon: Int) {
+    override fun setItemContent(itemView: View, bean: PullBean, positon: Int, listener: ItemChildViewClickListener?) {
         itemView.tv_name_popwindow.text = bean.content
         if (bean.selected) {
             itemView.tv_name_popwindow.setTextColor(Color.parseColor("#00724c"))
