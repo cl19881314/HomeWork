@@ -95,29 +95,21 @@ class MyArrangeActivity : BaseActivity() {
             if (it?.flag == 1){
                 //是否预约发布状态修改
                 if (it?.appointmentFlag == 0){
-                    arrangedStatusTxt.visibility = View.VISIBLE
-                    arrangingStatusTxt.visibility = View.GONE
-                    timeTxt.visibility = View.GONE
-                    delTxt.visibility = View.GONE
-                } else {
+                    setArrangedStatus(true)
+                } else if (it?.appointmentFlag == 1){
                     timeTxt.text = it?.appointmentTime
-                    arrangedStatusTxt.visibility = View.GONE
-                    arrangingStatusTxt.visibility = View.VISIBLE
-                    delTxt.visibility = View.VISIBLE
-                    timeTxt.visibility = View.VISIBLE
+                    setArrangedStatus(false)
                 }
                 if (it?.homeworkBaseList?.size ?: -1 > 0) {
-                    showDataRv.visibility = View.VISIBLE
-                    emptyLayout.visibility = View.GONE
-                    noDataTxt.visibility = View.GONE
+                    showData(true)
                     showDataRv.scrollToPosition(0)
                     mAdapter!!.setArrangeData(it?.homeworkBaseList)
                 } else {
-                    showDataRv.visibility = View.GONE
+                    showData(false)
                     arrangedStatusTxt.visibility = View.GONE
                     arrangingStatusTxt.visibility = View.GONE
-                    noDataTxt.visibility = View.VISIBLE
-                    emptyLayout.visibility = View.VISIBLE
+                    delTxt.visibility = View.GONE
+                    timeTxt.visibility = View.GONE
                 }
                 if (it?.homeworkList?.size ?: -1 > 0) {
                     mHomeworkList = it?.homeworkList
@@ -145,6 +137,19 @@ class MyArrangeActivity : BaseActivity() {
         mViewModer.mErrorData.observe(this, Observer {
             toast(it!!)
         })
+    }
+
+    private fun setArrangedStatus(show : Boolean){
+        arrangedStatusTxt.visibility = if (show) View.VISIBLE else View.GONE
+        arrangingStatusTxt.visibility = if (!show) View.VISIBLE else View.GONE
+        timeTxt.visibility = if (!show) View.VISIBLE else View.GONE
+        delTxt.visibility = if (!show) View.VISIBLE else View.GONE
+    }
+
+    private fun showData(show: Boolean){
+        showDataRv.visibility = if (show) View.VISIBLE else View.GONE
+        emptyLayout.visibility = if (!show) View.VISIBLE else View.GONE
+        noDataTxt.visibility = if (!show) View.VISIBLE else View.GONE
     }
 
     private fun addTimePullData(bean: SysDictVo) {
