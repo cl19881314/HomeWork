@@ -43,7 +43,7 @@ class StudentAdapter : BaseRcyAdapter<HomeworkStuVo>() {
                 intent.setClass(itemView.context, StudentToAnswerActivity::class.java)
                 intent.putExtra("title", bean.homeworkName)
                 intent.putExtra("groupId", bean.homeworkId)
-                intent.putParcelableArrayListExtra("data", bean.homeworkBaseList!!)
+                intent.putParcelableArrayListExtra("data", bean.homeworkBaseList)
             } else {
                 intent.setClass(itemView.context, QuestionDetailActivity::class.java)
                 intent.putExtra("title", bean.homeworkName)

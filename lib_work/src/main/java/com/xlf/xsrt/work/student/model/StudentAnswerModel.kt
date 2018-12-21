@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.xlf.xsrt.work.base.RequestApi
 import com.xlf.xsrt.work.bean.BaseEntry
+import com.xlf.xsrt.work.student.bean.AnalysisDataBean
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -14,6 +15,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class StudentAnswerModel : ViewModel(){
     var mStudentModel = MutableLiveData<BaseEntry>()
+    var mAnalysisModel = MutableLiveData<AnalysisDataBean>()
     var mErrorData: MutableLiveData<String> = MutableLiveData()
     fun submitAnswer(userId : Int, groupId : Int, answer : String){
         RequestApi.getInstance().submitStudentAnswer(userId, groupId, answer)
@@ -31,7 +33,7 @@ class StudentAnswerModel : ViewModel(){
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    mStudentModel.value = it
+                    mAnalysisModel.value = it
                 },{
                     mErrorData.value = "网络异常，请检查网络"
                 })

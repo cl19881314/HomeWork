@@ -10,6 +10,7 @@ class MyArrangeBean {
     var msg = ""
     //是否为预约作业 0否  1是
     var appointmentFlag = 0
+    var appointmentTime = ""
     var homeworkList: ArrayList<SysDictVo>? = null
     var homeworkBaseList: ArrayList<HomeworkBaseVo>? = null
 }

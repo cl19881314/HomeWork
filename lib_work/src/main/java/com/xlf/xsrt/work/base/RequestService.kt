@@ -1,6 +1,7 @@
 package com.xlf.xsrt.work.base
 
 import com.xlf.xsrt.work.bean.*
+import com.xlf.xsrt.work.student.bean.AnalysisDataBean
 import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import com.xlf.xsrt.work.student.bean.StuHomwork
 import com.xlf.xsrt.work.teacher.answer.bean.StuAnswerDetailBean
@@ -85,5 +86,9 @@ interface RequestService {
     @FormUrlEncoded
     @POST("studentManage/submitHomework")
     fun submitStudentAnswer(@FieldMap parameter: HashMap<String, Any>): Observable<BaseEntry>
+
+    @FormUrlEncoded
+    @POST("studentManage/getAnalysisPages")
+    fun getAnalyisesData(@FieldMap parameter: HashMap<String, Any>): Observable<AnalysisDataBean>
 
 }

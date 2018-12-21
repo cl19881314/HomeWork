@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.xlf.xsrt.work.bean.*
 import com.xlf.xsrt.work.constant.ServiceApi
+import com.xlf.xsrt.work.student.bean.AnalysisDataBean
 import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import com.xlf.xsrt.work.student.bean.StuHomwork
 import com.xlf.xsrt.work.teacher.answer.bean.TeacherCommentBean
@@ -241,11 +242,14 @@ class RequestApi {
         return mService.submitStudentAnswer(parameter)
     }
 
-    fun getAnaysyPage(userId: Int, homeworkId : Int): Observable<BaseEntry> {
+    /**
+     * 学生答题后提交成功后要重新请求获取解析页面数据
+     */
+    fun getAnaysyPage(userId: Int, homeworkId : Int): Observable<AnalysisDataBean> {
         var parameter = HashMap<String, Any>()
         parameter["userId"] = userId
         parameter["homeworkId"] = homeworkId
-        return mService.submitStudentAnswer(parameter)
+        return mService.getAnalyisesData(parameter)
     }
 
 }

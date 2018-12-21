@@ -50,15 +50,13 @@ class MyArrangeActivity : BaseActivity() {
                 var timeBean = mHomeworkList!![position]
                 addWorkPullData(timeBean)
                 if (timeBean.subFlag == 1) {
-                    mGroupWorkId = timeBean.subDataList!![0].sysDictId!!
-                    mViewModer.getArrangeData(UserInfoConstant.getUserId(), mGroupWorkId)
+                    mViewModer.getArrangeData(UserInfoConstant.getUserId(), timeBean.subDataList!![0].sysDictId!!)
                 }
             }
         })
         homeWorkPullTxt.setItemClickListener(object :PullTextView.PullListItemListener{
             override fun onItemClick(bean: PullBean, position: Int) {
-                mGroupWorkId = bean.searchId
-                mViewModer.getArrangeData(UserInfoConstant.getUserId(), mGroupWorkId)
+                mViewModer.getArrangeData(UserInfoConstant.getUserId(), bean.searchId)
             }
         })
         timePullTxt.setOnClickListener {
@@ -95,9 +93,19 @@ class MyArrangeActivity : BaseActivity() {
     override fun doResponseData() {
         mViewModer.mGroupData.observe(this, Observer{
             if (it?.flag == 1){
-                arrangedStatusTxt.visibility = if (it?.appointmentFlag == 0) View.VISIBLE else View.GONE
-                arrangingStatusTxt.visibility = if (it?.appointmentFlag == 1) View.VISIBLE else View.GONE
-                delTxt.visibility = if (it?.appointmentFlag == 1) View.VISIBLE else View.GONE
+                //是否预约发布状态修改
+                if (it?.appointmentFlag == 0){
+                    arrangedStatusTxt.visibility = View.VISIBLE
+                    arrangingStatusTxt.visibility = View.GONE
+                    timeTxt.visibility = View.GONE
+                    delTxt.visibility = View.GONE
+                } else {
+                    timeTxt.text = it?.appointmentTime
+                    arrangedStatusTxt.visibility = View.GONE
+                    arrangingStatusTxt.visibility = View.VISIBLE
+                    delTxt.visibility = View.VISIBLE
+                    timeTxt.visibility = View.VISIBLE
+                }
                 if (it?.homeworkBaseList?.size ?: -1 > 0) {
                     showDataRv.visibility = View.VISIBLE
                     emptyLayout.visibility = View.GONE
@@ -115,6 +123,9 @@ class MyArrangeActivity : BaseActivity() {
                     mHomeworkList = it?.homeworkList
                     var bean = mHomeworkList!![0]
                     mGroupWorkId = bean.sysDictId!!
+                    if (bean.subFlag == 1){
+                        mGroupWorkId = bean.subDataList!![0].sysDictId!!
+                    }
                     addTimePullData(bean)
                     addWorkPullData(bean)
                 }

@@ -73,6 +73,6 @@
             android:background="@drawable/xsrt_green_bg_btn"
             android:text="查看批阅"
             android:textColor="@color/xsrt_white"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </RelativeLayout>
 </FrameLayout>

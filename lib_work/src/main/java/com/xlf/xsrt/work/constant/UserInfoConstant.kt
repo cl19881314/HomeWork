@@ -12,7 +12,7 @@ object UserInfoConstant{
             return mUserId
         }
         //TODO 读取sp
-        return  5
+        return  3
     }
 
     fun setUserId(userId : Int){

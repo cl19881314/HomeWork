@@ -104,6 +104,14 @@
             android:textSize="12sp"
             android:textColor="@color/xsrt_title3_txt_color"
             android:visibility="gone"/>
+        <TextView
+            android:id="@+id/timeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/xsrt_title3_txt_color"
+            android:layout_alignParentRight="true"
+            />
     </RelativeLayout>
 
     <com.xlf.xsrt.work.widget.xxxrecycler.XXXRecyclerView
