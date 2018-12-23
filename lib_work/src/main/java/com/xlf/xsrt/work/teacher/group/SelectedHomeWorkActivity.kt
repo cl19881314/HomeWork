@@ -26,6 +26,7 @@ import com.xlf.xsrt.work.widget.TitleBar
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
 import kotlinx.android.synthetic.main.xsrt_activity_selected_homework.*
 import kotlinx.android.synthetic.main.xsrt_layout_arrage_dailog.view.*
 import java.util.*
@@ -170,6 +171,13 @@ class SelectedHomeWorkActivity : BaseActivity() {
             grouphomework_name_select.text = it?.homeworkName
             mHomeworkName = it?.homeworkName!!
             mAdapter.addData(it?.groupedhomeworkList!!, true)
+            if (mAdapter.getData().size > 0) {
+                btn_sure_selected_homework.isEnabled = true
+                btn_subscribe_selected_homework.isEnabled = true
+            } else {
+                btn_sure_selected_homework.isEnabled = false
+                btn_subscribe_selected_homework.isEnabled = false
+            }
         })
 
         mViewModel.mPushData.observe(this, Observer {
@@ -195,6 +203,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
         mViewModel.mError.observe(this, Observer {
             toast(it!!)
         })
+
     }
 
     private fun showArrangeDailog(text: String, resId: Int, success: Boolean) {

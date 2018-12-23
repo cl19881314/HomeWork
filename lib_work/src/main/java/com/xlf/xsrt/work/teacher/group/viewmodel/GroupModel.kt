@@ -3,6 +3,7 @@ package com.xlf.xsrt.work.teacher.group.viewmodel
 import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import com.xlf.xsrt.work.base.RequestApi
 import com.xlf.xsrt.work.bean.GroupeEntry
 import com.xlf.xsrt.work.bean.HomeworkBaseVo
@@ -46,6 +47,7 @@ class GroupModel : ViewModel() {
                     mGroupData.value = it
                     mHomeworkData.value = it.homeworkBaseList
                 }, { e ->
+                    e.printStackTrace()
                     mGroupError.value = "网络异常，请检查网络"
                 })
     }
@@ -63,7 +65,8 @@ class GroupModel : ViewModel() {
                     }
 
                 }, { e ->
-                    mGroupError.value = "网络异常，请检查网络"
+                    Log.d("chufei","1  ${e.message}")
+                    mGroupError.value = "网络异常，请检查网络  ${e.message}"
                 })
     }
 
@@ -79,6 +82,7 @@ class GroupModel : ViewModel() {
                         mGroupError.value = it.msg
                     }
                 }, { e ->
+                    Log.d("chufei","2  ${e.message}")
                     mGroupError.value = "网络异常，请检查网络"
                 })
 

@@ -137,13 +137,16 @@ class GroupActivity : BaseActivity() {
         }
         windowView.sure_screen_popwindow.setOnClickListener {
             mDiffPopWindow?.dismiss()
+            //点击确定，开始筛选搜索
+            mQueryCondition.page = 0
+            mViewModel.queryHomeworkData(mQueryCondition)
         }
         windowView.screen_root_pop_group.setOnClickListener {
             mDiffPopWindow?.dismiss()
         }
+
         mDiffPopWindow?.setOnDismissListener {
-            mQueryCondition.page = 0
-            mViewModel.queryHomeworkData(mQueryCondition)
+
         }
     }
 
@@ -216,9 +219,6 @@ class GroupActivity : BaseActivity() {
                 resetDirectorData(position)
                 //重置章节数据，默认为第一条目录数据
                 setDefaultSectionData()
-                //清除目录和章节查询条件
-                mQueryCondition.directoryId = mDirectors[0].sysDictId.toString()
-                mQueryCondition.chapterId = mSections[0].sysDictId.toString()
                 //加入教材筛选条件
                 mQueryCondition.textbookId = bean.searchId.toString()
                 //查询数据 更新界面
@@ -231,8 +231,6 @@ class GroupActivity : BaseActivity() {
             override fun onItemClick(bean: PullBean, position: Int) {
                 //重置章节数据
                 resetSectionData(position)
-                //章节查询条件
-                mQueryCondition.chapterId = mSections[0].sysDictId.toString()
                 //加入目录筛选条件
                 mQueryCondition.directoryId = bean.searchId.toString()
                 //查询数据 更新界面
@@ -344,19 +342,25 @@ class GroupActivity : BaseActivity() {
      */
     private fun resetSectionData(position: Int) {
         mSections.clear()
-        mSections.addAll(mDirectors[position].subDataList!!)
-        val data = mutableListOf<PullBean>()
-        for (i in mSections.indices) {
-            val pullBean = PullBean()
-            pullBean.content = mSections[i].sysDictName!!
-            pullBean.searchId = mSections[i].sysDictId!!
-            if (i == 0) {
-                pullBean.selected = true
+        if (mDirectors[position].subFlag == 1) {
+            mSections.addAll(mDirectors[position].subDataList!!)
+            val data = mutableListOf<PullBean>()
+            for (i in mSections.indices) {
+                val pullBean = PullBean()
+                pullBean.content = mSections[i].sysDictName!!
+                pullBean.searchId = mSections[i].sysDictId!!
+                if (i == 0) {
+                    pullBean.selected = true
+                }
+                data.add(pullBean)
             }
-            data.add(pullBean)
+            section_group.updateData(data, true)
+            section_group.text = mSections[0].sysDictName
+            mQueryCondition.chapterId = mSections[0].sysDictId.toString()
+        } else {
+            section_group.text = ""
+            mQueryCondition.chapterId = ""
         }
-        section_group.updateData(data, true)
-        section_group.text = mSections[0].sysDictName
     }
 
     /**
@@ -365,19 +369,26 @@ class GroupActivity : BaseActivity() {
      */
     private fun resetDirectorData(position: Int) {
         mDirectors.clear()
-        mDirectors.addAll(mTextBooks[position].subDataList!!)
-        val data = mutableListOf<PullBean>()
-        for (i in mDirectors.indices) {
-            val pullBean = PullBean()
-            pullBean.content = mDirectors[i].sysDictName!!
-            pullBean.searchId = mDirectors[i].sysDictId!!
-            if (i == 0) {
-                pullBean.selected = true
+        if (mTextBooks[position].subFlag == 1) {
+            mDirectors.addAll(mTextBooks[position].subDataList!!)
+            val data = mutableListOf<PullBean>()
+            for (i in mDirectors.indices) {
+                val pullBean = PullBean()
+                pullBean.content = mDirectors[i].sysDictName!!
+                pullBean.searchId = mDirectors[i].sysDictId!!
+                if (i == 0) {
+                    pullBean.selected = true
+                }
+                data.add(pullBean)
             }
-            data.add(pullBean)
+            director_group.updateData(data, true)
+            director_group.text = mDirectors[0].sysDictName
+            //重置查询条件
+            mQueryCondition.directoryId = mDirectors[0].sysDictId.toString()
+        } else {
+            director_group.text = ""
+            mQueryCondition.directoryId = ""
         }
-        director_group.updateData(data, true)
-        director_group.text = mDirectors[0].sysDictName
     }
 
 
@@ -409,9 +420,6 @@ class GroupActivity : BaseActivity() {
                 setDefaultSectionData()
                 //初始化默认查询条件
                 mQueryCondition.textbookId = mTextBooks[0].sysDictId.toString()
-                mQueryCondition.directoryId = mDirectors[0].sysDictId.toString()
-                mQueryCondition.chapterId = mSections[0].sysDictId.toString()
-
                 groupedHomeworkId = it.groupedHomeworkId!!
             }
         })
@@ -460,19 +468,25 @@ class GroupActivity : BaseActivity() {
      */
     private fun setDefaultDirecData() {
         mDirectors.clear()
-        mDirectors.addAll(mTextBooks[0].subDataList!!)
-        val diredata = mutableListOf<PullBean>()
-        for (i in mDirectors.indices) {
-            val pullBean = PullBean()
-            pullBean.content = mDirectors[i].sysDictName!!
-            pullBean.searchId = mDirectors[i].sysDictId!!
-            if (i == 0) {
-                pullBean.selected = true
+        if (mTextBooks.size > 0 && mTextBooks[0].subFlag == 1) {
+            mDirectors.addAll(mTextBooks[0].subDataList!!)
+            val diredata = mutableListOf<PullBean>()
+            for (i in mDirectors.indices) {
+                val pullBean = PullBean()
+                pullBean.content = mDirectors[i].sysDictName!!
+                pullBean.searchId = mDirectors[i].sysDictId!!
+                if (i == 0) {
+                    pullBean.selected = true
+                }
+                diredata.add(pullBean)
             }
-            diredata.add(pullBean)
+            director_group.updateData(diredata, true)
+            director_group.text = mDirectors[0].sysDictName
+            mQueryCondition.directoryId = mDirectors[0].sysDictId.toString()
+        } else {
+            director_group.text = ""
+            mQueryCondition.directoryId = ""
         }
-        director_group.updateData(diredata, true)
-        director_group.text = mDirectors[0].sysDictName
     }
 
     /**
@@ -481,19 +495,25 @@ class GroupActivity : BaseActivity() {
 
     private fun setDefaultSectionData() {
         mSections.clear()
-        mSections.addAll(mDirectors[0].subDataList!!)
-        val sectiondata = mutableListOf<PullBean>()
-        for (i in mSections.indices) {
-            val pullBean = PullBean()
-            pullBean.content = mSections[i].sysDictName!!
-            pullBean.searchId = mSections[i].sysDictId!!
-            if (i == 0) {
-                pullBean.selected = true
+        if (mDirectors.size > 0 && mDirectors[0].subFlag == 1) {
+            mSections.addAll(mDirectors[0].subDataList!!)
+            val sectiondata = mutableListOf<PullBean>()
+            for (i in mSections.indices) {
+                val pullBean = PullBean()
+                pullBean.content = mSections[i].sysDictName!!
+                pullBean.searchId = mSections[i].sysDictId!!
+                if (i == 0) {
+                    pullBean.selected = true
+                }
+                sectiondata.add(pullBean)
             }
-            sectiondata.add(pullBean)
+            section_group.updateData(sectiondata, true)
+            section_group.text = mSections[0].sysDictName
+            mQueryCondition.chapterId = mSections[0].sysDictId.toString()
+        } else {
+            director_group.text = ""
+            mQueryCondition.chapterId = ""
         }
-        section_group.updateData(sectiondata, true)
-        section_group.text = mSections[0].sysDictName
     }
 
     private fun showEmptyView() {
