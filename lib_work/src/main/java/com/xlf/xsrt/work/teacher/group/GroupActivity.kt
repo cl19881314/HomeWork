@@ -5,17 +5,12 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.Rect
-import android.os.Build
-import android.support.annotation.RequiresApi
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -511,7 +506,7 @@ class GroupActivity : BaseActivity() {
             section_group.text = mSections[0].sysDictName
             mQueryCondition.chapterId = mSections[0].sysDictId.toString()
         } else {
-            director_group.text = ""
+            section_group.text = ""
             mQueryCondition.chapterId = ""
         }
     }

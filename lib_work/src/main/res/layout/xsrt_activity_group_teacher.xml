@@ -32,7 +32,7 @@
 
             <com.xlf.xsrt.work.widget.pulltextview.PullTextView
                 android:id="@+id/textbook_group"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
@@ -48,7 +48,7 @@
 
             <com.xlf.xsrt.work.widget.pulltextview.PullTextView
                 android:id="@+id/director_group"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
@@ -64,7 +64,7 @@
 
             <com.xlf.xsrt.work.widget.pulltextview.PullTextView
                 android:id="@+id/section_group"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
