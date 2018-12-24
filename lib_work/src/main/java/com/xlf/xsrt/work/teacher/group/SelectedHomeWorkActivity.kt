@@ -8,6 +8,8 @@ import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.InputFilter
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +23,7 @@ import com.xlf.xsrt.work.detail.SubjectDetailActivity
 import com.xlf.xsrt.work.teacher.group.adapter.SelectedHomeworkAdapter
 import com.xlf.xsrt.work.teacher.group.viewmodel.SelectedHomeWorkModel
 import com.xlf.xsrt.work.utils.DateUtil
+import com.xlf.xsrt.work.utils.MaxTextLengthFileter
 import com.xlf.xsrt.work.widget.CustomDatePicker
 import com.xlf.xsrt.work.widget.TitleBar
 import io.reactivex.Observable
@@ -45,7 +48,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
     private var mCustomDatePicker: CustomDatePicker? = null
 
     private var flag = 1 //0为预约 1为布置
-    private var mHomeworkName = ""
+    private var mDefaultHomeworkName = ""
 
     companion object {
         fun start(ctx: Context, groupHomeworkId: Int) {
@@ -115,6 +118,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
         }
         grouphomework_name_select.setOnClickListener {
             val editText = EditText(this@SelectedHomeWorkActivity)
+            editText.filters = Array<InputFilter>(1) { MaxTextLengthFileter(this, 20) }
             AlertDialog.Builder(this@SelectedHomeWorkActivity)
                     .setTitle("修改名称")
                     .setView(editText)
@@ -122,7 +126,11 @@ class SelectedHomeWorkActivity : BaseActivity() {
                         dialog.dismiss()
                     }
                     .setPositiveButton("确定") { dialog, which ->
-                        grouphomework_name_select.text = editText.text
+                        if (!TextUtils.isEmpty(editText.text.trim())) {
+                            grouphomework_name_select.text = editText.text
+                        } else {
+                            grouphomework_name_select.text = mDefaultHomeworkName
+                        }
                         dialog.dismiss()
                     }
                     .show()
@@ -169,7 +177,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
     override fun doResponseData() {
         mViewModel.mGroupHomeworkData.observe(this, Observer {
             grouphomework_name_select.text = it?.homeworkName
-            mHomeworkName = it?.homeworkName!!
+            mDefaultHomeworkName = it?.homeworkName!!
             mAdapter.addData(it?.groupedhomeworkList!!, true)
             if (mAdapter.getData().size > 0) {
                 btn_sure_selected_homework.isEnabled = true
@@ -234,7 +242,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
      */
     private fun doCommitHomeWork() {
         flag = 1
-        mViewModel.pushHomeWork(UserInfoConstant.getUserId(), "", mGroupHomeworkId, mHomeworkName)
+        mViewModel.pushHomeWork(UserInfoConstant.getUserId(), "", mGroupHomeworkId, grouphomework_name_select.text.toString())
     }
 
     /**
@@ -242,6 +250,6 @@ class SelectedHomeWorkActivity : BaseActivity() {
      */
     private fun doSubscribeHomeWork(time: Long) {
         flag = 0
-        mViewModel.pushHomeWork(UserInfoConstant.getUserId(), time.toString(), mGroupHomeworkId, mHomeworkName)
+        mViewModel.pushHomeWork(UserInfoConstant.getUserId(), time.toString(), mGroupHomeworkId, grouphomework_name_select.text.toString())
     }
 }

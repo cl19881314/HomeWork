@@ -475,7 +475,7 @@ class GroupActivity : BaseActivity() {
         })
 
         mViewModel.mSelectedNum.observe(this, Observer {
-            select_num_group.text = "已选（$it）"
+            select_num_group.text = "已选作业（$it）"
         })
 
         mViewModel.mGroupError.observe(this, Observer {
