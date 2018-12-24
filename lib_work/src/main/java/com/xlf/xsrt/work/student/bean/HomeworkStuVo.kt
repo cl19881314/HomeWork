@@ -20,17 +20,20 @@ class HomeworkStuVo {
 
     class HomeworkBaseVo() : Parcelable{
         var homeworkDetailUrl = ""
+        var homeworkContentUrl = ""
         var homeworkId = 0
         var optionCount = 0
 
         constructor(parcel: Parcel) : this() {
             homeworkDetailUrl = parcel.readString()
+            homeworkContentUrl = parcel.readString()
             homeworkId = parcel.readInt()
             optionCount = parcel.readInt()
         }
 
         override fun writeToParcel(parcel: Parcel, flags: Int) {
             parcel.writeString(homeworkDetailUrl)
+            parcel.writeString(homeworkContentUrl)
             parcel.writeInt(homeworkId)
             parcel.writeInt(optionCount)
         }

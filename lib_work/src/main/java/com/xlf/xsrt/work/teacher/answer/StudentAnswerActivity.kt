@@ -8,14 +8,21 @@ import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.constant.UserInfoConstant
+import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
 import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerAdapter
 import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import com.xlf.xsrt.work.teacher.answer.viewmodel.StudentAnswerViewModel
 import com.xlf.xsrt.work.utils.DateUtil
 import com.xlf.xsrt.work.widget.pulltextview.PullBean
 import com.xlf.xsrt.work.widget.pulltextview.PullTextView
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.xsrt_activity_student_answer_layout.*
 import kotlinx.android.synthetic.main.xsrt_item_empty_layout.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import java.util.concurrent.TimeUnit
 
 /**
  * 学生作业
@@ -26,6 +33,7 @@ class StudentAnswerActivity : BaseActivity() {
     private var mTimeId = ""
     private var mWorkId = -1
     private var mChooseType = -1 //用于判断选择哪个筛选条件，控制是否刷新瞎选条目
+    private var mIsRefresh = false
     private val mDataViewModel by lazy {
         ViewModelProviders.of(this@StudentAnswerActivity).get(StudentAnswerViewModel::class.java)
     }
@@ -41,6 +49,7 @@ class StudentAnswerActivity : BaseActivity() {
         showDataRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         showDataRv.adapter = mAdapter
         showDataRv.isLoadable = false
+        EventBus.getDefault().register(this)
     }
 
     override fun doResponseData() {
@@ -50,6 +59,12 @@ class StudentAnswerActivity : BaseActivity() {
                     showDataRv.visibility = View.VISIBLE
                     emptyLayout.visibility = View.GONE
                     showDataRv.scrollToPosition(0)
+                    if (mIsRefresh){
+                        Observable.timer(100, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
+                                .subscribe {
+
+                                }
+                    }
                     mAdapter!!.setAnswerData(it?.stuAnswerList)
                 } else {
                     emptyLayout.visibility = View.VISIBLE
@@ -175,4 +190,13 @@ class StudentAnswerActivity : BaseActivity() {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun needRefresh(event: NeedRefreshSuccessBean) {
+        mDataViewModel.getStudentAnswerData(UserInfoConstant.getUserId(), mClassId, mTimeId, mWorkId)
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
 }

@@ -17,6 +17,7 @@ class StudentAdapter : BaseRcyAdapter<HomeworkStuVo>() {
 
     override fun setItemContent(itemView: View, bean: HomeworkStuVo, positon: Int, listener: ItemChildViewClickListener?) {
         itemView.showDetailTxt.visibility = View.VISIBLE
+        itemView.btn_checkMark_item_stu.visibility = View.GONE
         if (bean.state == 0) {
             itemView. cv_item_student.setPaintColor("#F43756")
             itemView.showDetailTxt.text = "待提交"
@@ -26,8 +27,9 @@ class StudentAdapter : BaseRcyAdapter<HomeworkStuVo>() {
             itemView.showDetailTxt.text = "待批阅"
             itemView.showDetailTxt.setTextColor(itemView.resources.getColor(R.color.xsrt_yellow_bg_color))
         } else {
+            //查看批阅
             itemView.cv_item_student.setPaintColor("#00734C")
-            itemView.showDetailTxt.visibility = View.GONE//查看批阅
+            itemView.showDetailTxt.visibility = View.GONE
             itemView.btn_checkMark_item_stu.visibility = View.VISIBLE
         }
 

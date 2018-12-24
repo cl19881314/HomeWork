@@ -138,7 +138,10 @@ class StudentToAnswerActivity : BaseActivity() {
     }
 
     private fun setAnswer(position: Int) {
-        var data = HashMap<String, String>()
+        if (mAnswerList.size <= 0){
+            return
+        }
+        var data = mAnswerList[position]
         var answer = ""
         for (i in 0 until chooseAnswerLL.childCount) {
             val optionView = chooseAnswerLL.getChildAt(i).findViewById<CheckBox>(R.id.optionTxt)
@@ -146,7 +149,9 @@ class StudentToAnswerActivity : BaseActivity() {
                 answer += (i + 65).toChar().toString()
             }
         }
-        data["$position"] = answer
+        for (key in data.entries){
+            key.setValue(answer)
+        }
         mAnswerList[position] = data
     }
 
@@ -159,7 +164,7 @@ class StudentToAnswerActivity : BaseActivity() {
         for (i in 0 until mAnswerSize) {
             var fragment = StudentAnswerDetailFragment()
             var bundle = Bundle()
-            bundle.putString("url", mDataList[i].homeworkDetailUrl)
+            bundle.putString("url", mDataList[i].homeworkContentUrl)
             fragment.arguments = bundle
             data.add(fragment)
             var map = HashMap<String, String>()
@@ -169,6 +174,9 @@ class StudentToAnswerActivity : BaseActivity() {
         mAdapter?.setData(data)
         if (mDataList.size > 0) {
             initOption(mDataList[0].optionCount)
+        }
+        if (mDataList.size == 1){
+            titleBar.setRightTextVisibility(View.VISIBLE)
         }
     }
 
