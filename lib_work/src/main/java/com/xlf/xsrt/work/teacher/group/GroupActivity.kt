@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -26,11 +25,11 @@ import com.xlf.xsrt.work.teacher.group.adapter.ScreenPopWindowAdapter
 import com.xlf.xsrt.work.bean.QueryCondition
 import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.detail.SubjectDetailActivity
+import com.xlf.xsrt.work.teacher.group.bean.AddRespondeBean
 import com.xlf.xsrt.work.teacher.group.viewmodel.GroupModel
 import com.xlf.xsrt.work.widget.TitleBar
 import com.xlf.xsrt.work.widget.pulltextview.PullBean
 import com.xlf.xsrt.work.widget.pulltextview.PullTextView
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
@@ -152,7 +151,7 @@ class GroupActivity : BaseActivity() {
             }
 
             override fun rightTextClick() {
-                SelectedHomeWorkActivity.start(this@GroupActivity, groupedHomeworkId)
+
             }
         })
         textbook_group.setOnClickListener {
@@ -251,14 +250,39 @@ class GroupActivity : BaseActivity() {
                     R.id.isAdded -> {
                         val checkBox = childView as CheckBox
                         if (checkBox.isChecked) {
-                            mSelectedHomeWorks.add(bean)
-                            bean.addFlag = 1
+                            mViewModel.addOrCancleHomework(UserInfoConstant.getUserId()
+                                    , 1, groupedHomeworkId, bean.homeworkId.toString()
+                                    , object : GroupModel.ResultListener<AddRespondeBean> {
+                                override fun onSuccess(t: AddRespondeBean) {
+                                    mViewModel.mSelectedNum.value = t.groupedCount
+                                    bean.addFlag = 1
+                                    toast("添加成功")
+                                }
+
+                                override fun onFail(t: String) {
+                                    checkBox.isChecked = true
+                                    toast("添加失败")
+                                }
+                            })
+
+
                         } else {
                             //移除
-                            mSelectedHomeWorks.remove(bean)
-                            bean.addFlag = 0
+                            mViewModel.addOrCancleHomework(UserInfoConstant.getUserId()
+                                    , 0, groupedHomeworkId, bean.homeworkId.toString()
+                                    , object : GroupModel.ResultListener<AddRespondeBean> {
+                                override fun onSuccess(t: AddRespondeBean) {
+                                    mViewModel.mSelectedNum.value = t.groupedCount
+                                    bean.addFlag = 0
+                                    toast("移除成功")
+                                }
+
+                                override fun onFail(t: String) {
+                                    checkBox.isChecked = false
+                                    toast("移除失败")
+                                }
+                            })
                         }
-                        commit_group.isEnabled = mSelectedHomeWorks.size > 0
                     }
                     R.id.isCollocted -> {
                         //收藏
@@ -300,34 +324,37 @@ class GroupActivity : BaseActivity() {
             }
 
         })
+        select_num_group.setOnClickListener {
+            SelectedHomeWorkActivity.start(this@GroupActivity, groupedHomeworkId)
+        }
 
         //全选
-        selectedAll_group.setOnClickListener {
-            val data = mGroupAdapter.getData()
-            if (selectedAll_group.isChecked) {
-                for (i in 0 until data.size) {
-                    data[i].addFlag = 1
-                    mSelectedHomeWorks.add(data[i])
-                }
-                commit_group.isEnabled = true
-            } else {
-                for (i in 0 until data.size) {
-                    data[i].addFlag = 0
-                    mSelectedHomeWorks.remove(data[i])
-                }
-                commit_group.isEnabled = false
-            }
-            mGroupAdapter.notifyDataSetChanged()
-        }
-        //提交作业
-        commit_group.setOnClickListener {
-            val buffer = StringBuffer()
-            for (item in mSelectedHomeWorks) {
-                buffer.append("${item.homeworkId},")
-            }
-            val homeworkIds = buffer.toString()
-            mViewModel.addOrCancleHomework(UserInfoConstant.getUserId(), 1, groupedHomeworkId, homeworkIds)
-        }
+//        selectedAll_group.setOnClickListener {
+//            val data = mGroupAdapter.getData()
+//            if (selectedAll_group.isChecked) {
+//                for (i in 0 until data.size) {
+//                    data[i].addFlag = 1
+//                    mSelectedHomeWorks.add(data[i])
+//                }
+//                commit_group.isEnabled = true
+//            } else {
+//                for (i in 0 until data.size) {
+//                    data[i].addFlag = 0
+//                    mSelectedHomeWorks.remove(data[i])
+//                }
+//                commit_group.isEnabled = false
+//            }
+//            mGroupAdapter.notifyDataSetChanged()
+//        }
+//        //提交作业
+//        commit_group.setOnClickListener {
+//            val buffer = StringBuffer()
+//            for (item in mSelectedHomeWorks) {
+//                buffer.append("${item.homeworkId},")
+//            }
+//            val homeworkIds = buffer.toString()
+//            mViewModel.addOrCancleHomework(UserInfoConstant.getUserId(), 1, groupedHomeworkId, homeworkIds)
+//        }
 
     }
 
@@ -436,21 +463,19 @@ class GroupActivity : BaseActivity() {
             mQueryCondition.page++
             rcy_group.stopLoadMore()
             rcy_group.isLoadable = mGroupAdapter.getData().size >= 20
-            Observable.fromIterable(mGroupAdapter.getData())
-                    .all {
-                        it.addFlag == 1
-                    }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { t ->
-                        selectedAll_group.isChecked = t
-                    }
+//            Observable.fromIterable(mGroupAdapter.getData())
+//                    .all {
+//                        it.addFlag == 1
+//                    }
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe { t ->
+//                        selectedAll_group.isChecked = t
+//                    }
         })
 
         mViewModel.mSelectedNum.observe(this, Observer {
-            titlebar_group.setRightTextVisibility(View.VISIBLE)
-            titlebar_group.setRightText("已选（$it）")
-            titlebar_group.setRightTextClor(Color.parseColor("#00724C"))
+            select_num_group.text = "已选（$it）"
         })
 
         mViewModel.mGroupError.observe(this, Observer {
@@ -514,13 +539,13 @@ class GroupActivity : BaseActivity() {
     private fun showEmptyView() {
         rcy_group.visibility = View.GONE
         empty_group.visibility = View.VISIBLE
-        selectedAll_group.isEnabled = false
+//        selectedAll_group.isEnabled = false
     }
 
     private fun hideEmptyView() {
         rcy_group.visibility = View.VISIBLE
         empty_group.visibility = View.GONE
-        selectedAll_group.isEnabled = true
+//        selectedAll_group.isEnabled = true
     }
 
 }

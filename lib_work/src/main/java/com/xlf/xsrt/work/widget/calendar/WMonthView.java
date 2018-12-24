@@ -251,8 +251,8 @@ public class WMonthView extends View implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         CalendarBean calendar = getIndex();
-        mConfig.setmSelectDay(calendar);
         if (calendar.isScheme() || calendar.isCurrentDay()) {
+            mConfig.setmSelectDay(calendar);
             if (mItemListener != null) {
                 mItemListener.onCalendarItemClickListener(calendar, mItems.indexOf(calendar));
             }

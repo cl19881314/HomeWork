@@ -3,7 +3,6 @@ package com.xlf.xsrt.work.teacher.group.viewmodel
 import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
 import com.xlf.xsrt.work.base.RequestApi
 import com.xlf.xsrt.work.bean.GroupeEntry
 import com.xlf.xsrt.work.bean.HomeworkBaseVo
@@ -65,26 +64,29 @@ class GroupModel : ViewModel() {
                     }
 
                 }, { e ->
-                    Log.d("chufei","1  ${e.message}")
                     mGroupError.value = "网络异常，请检查网络  ${e.message}"
                 })
     }
 
     @SuppressLint("CheckResult")
-    fun addOrCancleHomework(teacherId: Int, addFlag: Int, groupedHomework: Int, homeworkIds: String) {
+    fun addOrCancleHomework(teacherId: Int, addFlag: Int, groupedHomework: Int, homeworkIds: String, listener: ResultListener<AddRespondeBean>?) {
         RequestApi.getInstance().addOrCancleHomework(teacherId, addFlag, groupedHomework, homeworkIds)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it ->
                     if (it.flag == 1) {
-                        mSelectedNum.value = it.groupedCount
+                        listener?.onSuccess(it)
                     } else {
-                        mGroupError.value = it.msg
+                        listener?.onFail(it.msg!!)
                     }
-                }, { e ->
-                    Log.d("chufei","2  ${e.message}")
-                    mGroupError.value = "网络异常，请检查网络"
+                }, {
+                    listener?.onFail("网络异常，请检查网络")
                 })
 
+    }
+
+    open interface ResultListener<T> {
+        fun onSuccess(t: T)
+        fun onFail(t: String)
     }
 }
