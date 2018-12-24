@@ -7,10 +7,12 @@ import android.text.TextUtils
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
+import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
 import com.xlf.xsrt.work.teacher.answer.viewmodel.StuAnswerDetailViewModel
 import com.xlf.xsrt.work.widget.TitleBar
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.xsrt_activity_write_comment_layout.*
+import org.greenrobot.eventbus.EventBus
 
 class WriteCommentActivity : BaseActivity(){
     private var mStuAnswerId = -1
@@ -52,6 +54,7 @@ class WriteCommentActivity : BaseActivity(){
             if (it?.flag == 1){
                 toast("发布批阅成功")
                 setResult(Activity.RESULT_OK)
+                EventBus.getDefault().post(NeedRefreshSuccessBean())
                 finish()
             } else {
                 toast("发布批阅失败")

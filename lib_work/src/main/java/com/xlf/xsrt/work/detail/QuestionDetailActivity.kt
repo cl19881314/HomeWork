@@ -63,6 +63,7 @@ class QuestionDetailActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 100 && resultCode == RESULT_OK){
+            //发布批阅后回到学生作业界面
             finish()
         }
     }
