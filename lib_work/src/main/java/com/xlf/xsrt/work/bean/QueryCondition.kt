@@ -11,4 +11,5 @@ class QueryCondition {
     var baseFlag = "1" //默认是基础题库  0 我的收藏 1 基础题库
     var difficultyId = ""
     var page = 0
+    var groupedHomeworkId = 0
 }

@@ -53,7 +53,8 @@ class GroupModel : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun queryHomeworkData(condition: QueryCondition) {
-        RequestApi.getInstance().queryHomeworkData(condition.userId, condition.textbookId, condition.directoryId, condition.chapterId, condition.baseFlag, condition.difficultyId, condition.page)
+        RequestApi.getInstance().queryHomeworkData(condition.userId, condition.textbookId, condition.directoryId, condition.chapterId, condition.baseFlag, condition.difficultyId, condition.page
+        ,condition.groupedHomeworkId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it ->

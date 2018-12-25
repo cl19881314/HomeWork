@@ -80,7 +80,7 @@ class RequestApi {
      * 条件查询组作业数据
      */
 //    fun queryHomeworkData(userId: Int, textbookId: Int, directoryId: Int, chapterId: Int, baseFlag: Int, difficultyId: Int, page: Int): Observable<GroupeEntry> {
-    fun queryHomeworkData(userId: String, textbookId: String, directoryId: String, chapterId: String, baseFlag: String, difficultyId: String, page: Int): Observable<GroupeEntry> {
+    fun queryHomeworkData(userId: String, textbookId: String, directoryId: String, chapterId: String, baseFlag: String, difficultyId: String, page: Int, groupedHomeworkId: Int): Observable<GroupeEntry> {
         var parame = HashMap<String, String>()
         parame["userId"] = userId
         parame["textbookId"] = textbookId
@@ -88,7 +88,9 @@ class RequestApi {
         parame["chapterId"] = chapterId
         parame["baseFlag"] = baseFlag
         parame["difficultyId"] = difficultyId
-        parame["page"] = "$page"
+        parame["page"] = page.toString()
+        parame["groupedHomeworkId"] = groupedHomeworkId.toString()
+
         return mService.queryHomeworkData(parame)
     }
 
@@ -211,7 +213,7 @@ class RequestApi {
     /**
      * 提交已选作业
      */
-    fun pushHomeWork(teacherId: Int, appointmentTime: String, groupedHomeworkId: Int, groupedHomeworkId1: Int, homeworkName: String):  Observable<BaseEntry> {
+    fun pushHomeWork(teacherId: Int, appointmentTime: String, groupedHomeworkId: Int, groupedHomeworkId1: Int, homeworkName: String): Observable<BaseEntry> {
         var parameter = HashMap<String, String>()
         parameter["userId"] = teacherId.toString()
         parameter["appointmentTime"] = appointmentTime
@@ -223,7 +225,7 @@ class RequestApi {
     /**
      * 收藏或者取消收藏
      */
-    fun collectOrCancel(userId: Int, homeworkId: Int?, collectFlag: Int?) :Observable<BaseEntry>{
+    fun collectOrCancel(userId: Int, homeworkId: Int?, collectFlag: Int?): Observable<BaseEntry> {
         var parameter = HashMap<String, String>()
         parameter["userId"] = userId.toString()
         parameter["homeworkId"] = homeworkId.toString()
@@ -234,7 +236,7 @@ class RequestApi {
     /**
      * 学生端 提交答案
      */
-    fun submitStudentAnswer(userId: Int, groupId: Int, studentAnswers : String): Observable<BaseEntry> {
+    fun submitStudentAnswer(userId: Int, groupId: Int, studentAnswers: String): Observable<BaseEntry> {
         var parameter = HashMap<String, Any>()
         parameter["userId"] = userId
         parameter["groupedHomeworkId"] = groupId
@@ -245,7 +247,7 @@ class RequestApi {
     /**
      * 学生答题后提交成功后要重新请求获取解析页面数据
      */
-    fun getAnaysyPage(userId: Int, homeworkId : Int): Observable<AnalysisDataBean> {
+    fun getAnaysyPage(userId: Int, homeworkId: Int): Observable<AnalysisDataBean> {
         var parameter = HashMap<String, Any>()
         parameter["userId"] = userId
         parameter["homeworkId"] = homeworkId

@@ -25,6 +25,7 @@ import com.xlf.xsrt.work.teacher.group.adapter.ScreenPopWindowAdapter
 import com.xlf.xsrt.work.bean.QueryCondition
 import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.detail.SubjectDetailActivity
+import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
 import com.xlf.xsrt.work.teacher.group.bean.AddRespondeBean
 import com.xlf.xsrt.work.teacher.group.viewmodel.GroupModel
 import com.xlf.xsrt.work.widget.TitleBar
@@ -34,6 +35,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 class GroupActivity : BaseActivity() {
@@ -47,7 +51,6 @@ class GroupActivity : BaseActivity() {
     private var mDiffLevels: MutableList<SysDictVo> = mutableListOf() //困难等级
 
     private var mSelectedHomeWorks: ArrayList<HomeworkBaseVo> = ArrayList() //选择预添加的作业
-    private var groupedHomeworkId = -1
     private val mViewModel by lazy {
         ViewModelProviders.of(this).get(GroupModel::class.java)
     }
@@ -77,6 +80,7 @@ class GroupActivity : BaseActivity() {
         initRcyView()
         initDiffPopWindow()
         initData()
+        EventBus.getDefault().register(this)
     }
 
     private fun initData() {
@@ -251,7 +255,7 @@ class GroupActivity : BaseActivity() {
                         val checkBox = childView as CheckBox
                         if (checkBox.isChecked) {
                             mViewModel.addOrCancleHomework(UserInfoConstant.getUserId()
-                                    , 1, groupedHomeworkId, bean.homeworkId.toString()
+                                    , 1, mQueryCondition.groupedHomeworkId, bean.homeworkId.toString()
                                     , object : GroupModel.ResultListener<AddRespondeBean> {
                                 override fun onSuccess(t: AddRespondeBean) {
                                     mViewModel.mSelectedNum.value = t.groupedCount
@@ -269,7 +273,7 @@ class GroupActivity : BaseActivity() {
                         } else {
                             //移除
                             mViewModel.addOrCancleHomework(UserInfoConstant.getUserId()
-                                    , 0, groupedHomeworkId, bean.homeworkId.toString()
+                                    , 0, mQueryCondition.groupedHomeworkId, bean.homeworkId.toString()
                                     , object : GroupModel.ResultListener<AddRespondeBean> {
                                 override fun onSuccess(t: AddRespondeBean) {
                                     mViewModel.mSelectedNum.value = t.groupedCount
@@ -325,7 +329,7 @@ class GroupActivity : BaseActivity() {
 
         })
         select_num_group.setOnClickListener {
-            SelectedHomeWorkActivity.start(this@GroupActivity, groupedHomeworkId)
+            SelectedHomeWorkActivity.start(this@GroupActivity, mQueryCondition.groupedHomeworkId)
         }
 
         //全选
@@ -442,7 +446,7 @@ class GroupActivity : BaseActivity() {
                 setDefaultSectionData()
                 //初始化默认查询条件
                 mQueryCondition.textbookId = mTextBooks[0].sysDictId.toString()
-                groupedHomeworkId = it.groupedHomeworkId!!
+                mQueryCondition.groupedHomeworkId = it.groupedHomeworkId!!
             }
         })
         mViewModel.mHomeworkData.observe(this, Observer {
@@ -546,6 +550,18 @@ class GroupActivity : BaseActivity() {
         rcy_group.visibility = View.VISIBLE
         empty_group.visibility = View.GONE
 //        selectedAll_group.isEnabled = true
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun EventToRefresh(event: NeedRefreshSuccessBean) {
+        mQueryCondition.page = 0
+        mViewModel.queryHomeworkData(mQueryCondition)
+        mViewModel.mSelectedNum.value = 0 //手动清零
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 }

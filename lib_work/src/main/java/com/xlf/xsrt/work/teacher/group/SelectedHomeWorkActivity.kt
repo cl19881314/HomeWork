@@ -20,6 +20,7 @@ import com.xlf.xsrt.work.base.BaseRcyAdapter
 import com.xlf.xsrt.work.base.RequestApi
 import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.detail.SubjectDetailActivity
+import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
 import com.xlf.xsrt.work.teacher.group.adapter.SelectedHomeworkAdapter
 import com.xlf.xsrt.work.teacher.group.viewmodel.SelectedHomeWorkModel
 import com.xlf.xsrt.work.utils.DateUtil
@@ -32,6 +33,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
 import kotlinx.android.synthetic.main.xsrt_activity_selected_homework.*
 import kotlinx.android.synthetic.main.xsrt_layout_arrage_dailog.view.*
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -190,6 +192,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
 
         mViewModel.mPushData.observe(this, Observer {
             if (it?.flag == 1) {
+                EventBus.getDefault().post(NeedRefreshSuccessBean())
                 if (flag == 0) {
                     //预约成功
                     showArrangeDailog("预约布置成功", R.drawable.xsrt_tc_success_icon, true)
