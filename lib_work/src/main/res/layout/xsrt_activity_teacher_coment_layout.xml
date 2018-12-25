@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="23dp"
         android:gravity="center"
-        android:text="2018年5月30号"
+        android:text="- -"
         android:paddingLeft="@dimen/xsrt_margin_left"
         android:paddingRight="@dimen/xsrt_margin_right"
         android:background="@drawable/xsrt_time_bg"

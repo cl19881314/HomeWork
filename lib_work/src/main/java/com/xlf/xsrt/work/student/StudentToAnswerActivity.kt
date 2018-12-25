@@ -17,6 +17,7 @@ import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.detail.QuestionDetailActivity
+import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
 import com.xlf.xsrt.work.fragment.StudentAnswerDetailFragment
 import com.xlf.xsrt.work.student.bean.HomeworkStuVo
 import com.xlf.xsrt.work.student.model.StudentAnswerModel
@@ -24,6 +25,7 @@ import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerDetailAdapter
 import com.xlf.xsrt.work.widget.TitleBar
 import kotlinx.android.synthetic.main.xsrt_activity_student_choose_answer.*
 import kotlinx.android.synthetic.main.xsrt_item_answer_option.view.*
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 
 /**
@@ -68,6 +70,7 @@ class StudentToAnswerActivity : BaseActivity() {
                 toast("提交成功")
                 //跳转到解析界面
                 mDataViewModel.getAnalysis(UserInfoConstant.getUserId(), mGroupWorkId)
+                EventBus.getDefault().post(NeedRefreshSuccessBean())
             } else {
                 toast("提交失败")
             }

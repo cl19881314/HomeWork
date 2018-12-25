@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
@@ -62,7 +63,10 @@ class StudentAnswerActivity : BaseActivity() {
                     if (mIsRefresh){
                         Observable.timer(100, TimeUnit.MILLISECONDS).observeOn(AndroidSchedulers.mainThread())
                                 .subscribe {
-
+                                    var manager = showDataRv.layoutManager as LinearLayoutManager
+                                    val index = manager.findFirstVisibleItemPosition()
+                                    showDataRv.scrollToPosition(index)
+                                    mIsRefresh = false
                                 }
                     }
                     mAdapter!!.setAnswerData(it?.stuAnswerList)
@@ -88,6 +92,7 @@ class StudentAnswerActivity : BaseActivity() {
 
     private fun addWorkPullData(homeworkList: ArrayList<StudentAnswerBean.HomeworkVo>) {
         homeWorkPullTxt.text = homeworkList[0].homeworkName
+        mWorkId = homeworkList[0].homeworkId
         var list = mutableListOf<PullBean>()
         for (i in homeworkList!!.indices) {
             var data = PullBean()
@@ -103,6 +108,7 @@ class StudentAnswerActivity : BaseActivity() {
 
     private fun addTimePullData(timeList: ArrayList<StudentAnswerBean.ClassVo>) {
         timePullTxt.text = timeList[0].createTime
+        mTimeId = DateUtil.chainToString2(timeList[0].createTime)
         var list = mutableListOf<PullBean>()
         for (i in timeList!!.indices) {
             var data = PullBean()
@@ -118,6 +124,7 @@ class StudentAnswerActivity : BaseActivity() {
 
     private fun addClassPullData(classList: ArrayList<StudentAnswerBean.ClassVo>) {
         classNamePullTxt.text = classList[0].className
+        mClassId = classList[0].classId
         var list = mutableListOf<PullBean>()
         for (i in classList!!.indices) {
             var data = PullBean()
@@ -190,8 +197,13 @@ class StudentAnswerActivity : BaseActivity() {
         }
     }
 
+    /**
+     * 教师批阅成功后返回刷新数据
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun needRefresh(event: NeedRefreshSuccessBean) {
+        mIsRefresh = true
+        mChooseType = 2
         mDataViewModel.getStudentAnswerData(UserInfoConstant.getUserId(), mClassId, mTimeId, mWorkId)
     }
 
