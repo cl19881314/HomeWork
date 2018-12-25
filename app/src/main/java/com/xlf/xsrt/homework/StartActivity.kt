@@ -1,11 +1,7 @@
 package com.xlf.xsrt.homework
 
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.xlf.xsrt.work.base.RequestApi
-import com.xlf.xsrt.work.student.StudentActivity
-import com.xlf.xsrt.work.teacher.TeacherActivity
+import android.support.v7.app.AppCompatActivity
 import com.xlf.xsrt.work.utils.LoginUtil
 import kotlinx.android.synthetic.main.activity_start.*
 

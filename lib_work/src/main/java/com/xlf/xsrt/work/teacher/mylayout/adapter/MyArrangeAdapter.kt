@@ -2,20 +2,15 @@ package com.xlf.xsrt.work.teacher.mylayout.adapter
 
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.bean.HomeworkBaseVo
-import com.xlf.xsrt.work.bean.MyArrangeBean
 import com.xlf.xsrt.work.detail.SubjectDetailActivity
 import com.xlf.xsrt.work.widget.xxxrecycler.XXXAdapter
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.xsrt_item_subject_layout.view.*
 
 class MyArrangeAdapter : XXXAdapter<MyArrangeAdapter.ArrangeHolder>() {

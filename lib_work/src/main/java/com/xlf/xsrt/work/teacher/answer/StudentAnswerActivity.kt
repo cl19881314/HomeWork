@@ -51,6 +51,7 @@ class StudentAnswerActivity : BaseActivity() {
         showDataRv.adapter = mAdapter
         showDataRv.isLoadable = false
         EventBus.getDefault().register(this)
+        emptyMsgTxt.text = "还没有学生提交作业哦~"
     }
 
     override fun doResponseData() {
