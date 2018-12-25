@@ -3,14 +3,15 @@ package com.xlf.xsrt.work.teacher.answer
 import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.text.Editable
 import android.text.TextUtils
-import com.jakewharton.rxbinding2.widget.RxTextView
+import android.text.TextWatcher
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
 import com.xlf.xsrt.work.teacher.answer.viewmodel.StuAnswerDetailViewModel
+import com.xlf.xsrt.work.utils.EmojiUtils
 import com.xlf.xsrt.work.widget.TitleBar
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.xsrt_activity_write_comment_layout.*
 import org.greenrobot.eventbus.EventBus
 
@@ -36,17 +37,27 @@ class WriteCommentActivity : BaseActivity(){
 
         })
 
-        RxTextView.textChanges(commentEdt).observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    if (it.isNotEmpty()){
-                        titleBar.setRightTextClor(resources.getColor(R.color.xsrt_btn_bg_color))
-                    } else {
-                        titleBar.setRightTextClor(resources.getColor(R.color.xsrt_title3_txt_color))
-                    }
-                    if (it.length >= 200){
-                        toast("最多输入200个字")
-                    }
+        commentEdt.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString().isNotEmpty()){
+                    titleBar.setRightTextClor(resources.getColor(R.color.xsrt_btn_bg_color))
+                } else {
+                    titleBar.setRightTextClor(resources.getColor(R.color.xsrt_title3_txt_color))
                 }
+                if (s!!.length >= 200){
+                    toast("最多输入200个字")
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                EmojiUtils.setEmojiEditText(s!!,start,count,commentEdt,this@WriteCommentActivity)
+                commentEdt.setSelection(commentEdt.text.toString().length)
+            }
+
+        })
     }
 
     override fun doResponseData() {
