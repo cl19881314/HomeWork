@@ -12,12 +12,16 @@ import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.constant.UserInfoConstant
+import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
 import com.xlf.xsrt.work.student.adapter.StudentAdapter
 import com.xlf.xsrt.work.student.model.StudentModel
 import com.xlf.xsrt.work.utils.DateUtil
 import com.xlf.xsrt.work.widget.TitleBar
 import com.xlf.xsrt.work.widget.calendar.CalendarBean
 import kotlinx.android.synthetic.main.xsrt_activity_student.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 /**
@@ -47,6 +51,7 @@ class StudentActivity : BaseActivity() {
     override fun init() {
         rcy_student.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rcy_student.adapter = mAdapter
+        EventBus.getDefault().register(this)
         mViewModel.getStuHomeworkByDate(UserInfoConstant.getUserId(), queryTime)
         mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), queryTime)
     }
@@ -137,6 +142,16 @@ class StudentActivity : BaseActivity() {
     private fun hideNoDataView() {
         rl_student.visibility = View.VISIBLE
         empty_student.visibility = View.GONE
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun eventToRefresh(event: NeedRefreshSuccessBean) {
+        mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), queryTime)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 
 }

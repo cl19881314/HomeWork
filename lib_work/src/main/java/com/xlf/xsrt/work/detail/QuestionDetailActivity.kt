@@ -9,6 +9,7 @@ import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.fragment.StudentAnswerDetailFragment
 import com.xlf.xsrt.work.teacher.answer.WriteCommentActivity
 import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerDetailAdapter
+import com.xlf.xsrt.work.widget.TitleBar
 import kotlinx.android.synthetic.main.xsrt_activity_answer_detail_layout.*
 
 /**
@@ -29,7 +30,7 @@ class QuestionDetailActivity : BaseActivity() {
         toDoCommentTxt.visibility = if (showTodo) View.VISIBLE else View.GONE
 
         var title = intent.getStringExtra("title")
-        titleBar.setTitleTxt(title)
+        titleBar_answer_detail.setTitleTxt(title)
         mAdapter = StudentAnswerDetailAdapter(supportFragmentManager)
         detailViewPager.adapter = mAdapter
         getDetailData()
@@ -37,8 +38,9 @@ class QuestionDetailActivity : BaseActivity() {
 
     }
 
+
     private fun getDetailData() {
-        if (mUrlList == null || mUrlList!!.isEmpty()){
+        if (mUrlList == null || mUrlList!!.isEmpty()) {
             return
         }
         var data = ArrayList<Fragment>()
@@ -58,11 +60,20 @@ class QuestionDetailActivity : BaseActivity() {
             intent.putExtra("stuAnswerId", mStuAnswerId)
             startActivityForResult(intent, 100)
         }
+        titleBar_answer_detail.setTitleBarClickListener(object : TitleBar.TitleBarClickListener {
+            override fun leftImgClick() {
+                finish()
+            }
+
+            override fun rightTextClick() {
+            }
+
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 100 && resultCode == RESULT_OK){
+        if (requestCode == 100 && resultCode == RESULT_OK) {
             //发布批阅后回到学生作业界面
             finish()
         }

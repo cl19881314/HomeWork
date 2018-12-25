@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <com.xlf.xsrt.work.widget.TitleBar
-        android:id="@+id/titleBar"
+        android:id="@+id/titleBar_answer_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
