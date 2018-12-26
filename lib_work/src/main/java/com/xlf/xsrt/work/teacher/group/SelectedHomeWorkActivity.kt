@@ -156,7 +156,12 @@ class SelectedHomeWorkActivity : BaseActivity() {
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribe {
                                                 when (it.flag) {
-                                                    1 -> mAdapter.removeData(position)
+                                                    1 -> {
+                                                        val refreshSuccessBean = NeedRefreshSuccessBean()
+                                                        refreshSuccessBean.groupSelectedNum = it.groupedCount
+                                                        EventBus.getDefault().post(refreshSuccessBean) //通知组作业界面刷新
+                                                        mAdapter.removeData(position)
+                                                    }
                                                     0 -> toast(it.msg!!)
                                                 }
                                             }
@@ -195,7 +200,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
 
         mViewModel.mPushData.observe(this, Observer {
             if (it?.flag == 1) {
-                EventBus.getDefault().post(NeedRefreshSuccessBean())
+                EventBus.getDefault().post(NeedRefreshSuccessBean()) //通知组作业界面刷新
                 if (flag == 0) {
                     //预约成功
                     showArrangeDailog("预约布置成功", R.drawable.xsrt_tc_success_icon, true)

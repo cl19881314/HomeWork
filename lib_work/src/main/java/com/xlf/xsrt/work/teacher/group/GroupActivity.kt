@@ -264,7 +264,7 @@ class GroupActivity : BaseActivity() {
                                 }
 
                                 override fun onFail(t: String) {
-                                    checkBox.isChecked = true
+                                    checkBox.isChecked = false
                                     toast("添加失败")
                                 }
                             })
@@ -282,7 +282,7 @@ class GroupActivity : BaseActivity() {
                                 }
 
                                 override fun onFail(t: String) {
-                                    checkBox.isChecked = false
+                                    checkBox.isChecked = true
                                     toast("移除失败")
                                 }
                             })
@@ -523,7 +523,7 @@ class GroupActivity : BaseActivity() {
     fun EventToRefresh(event: NeedRefreshSuccessBean) {
         mQueryCondition.page = 0
         mViewModel.queryHomeworkData(mQueryCondition)
-        mViewModel.mSelectedNum.value = 0 //手动清零
+        mViewModel.mSelectedNum.value = event.groupSelectedNum //手动刷新
     }
 
     override fun onDestroy() {
