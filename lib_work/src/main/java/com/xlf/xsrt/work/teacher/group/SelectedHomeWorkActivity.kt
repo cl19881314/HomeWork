@@ -159,6 +159,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
                                                     1 -> {
                                                         val refreshSuccessBean = NeedRefreshSuccessBean()
                                                         refreshSuccessBean.groupSelectedNum = it.groupedCount
+                                                        mViewModel.mSelectedNum.value = it.groupedCount //更新点击按钮状态
                                                         EventBus.getDefault().post(refreshSuccessBean) //通知组作业界面刷新
                                                         mAdapter.removeData(position)
                                                     }
@@ -221,6 +222,11 @@ class SelectedHomeWorkActivity : BaseActivity() {
 
         mViewModel.mError.observe(this, Observer {
             toast(it!!)
+        })
+
+        mViewModel.mSelectedNum.observe(this, Observer {
+            btn_subscribe_selected_homework.isEnabled = it!! > 0
+            btn_sure_selected_homework.isEnabled = it > 0
         })
 
     }

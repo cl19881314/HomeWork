@@ -66,10 +66,11 @@
             android:layout_marginLeft="@dimen/xsrt_margin_left"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:background="@drawable/xsrt_arranged_status_bg"
+            android:background="@drawable/xsrt_selector_arranged_status_bg"
             android:gravity="center"
             android:text="预约布置"
-            android:textColor="@color/xsrt_popwindow_font"
+            android:enabled="false"
+            android:textColor="@drawable/xsrt_selector_font_btn"
             android:textSize="15sp" />
 
         <TextView
@@ -79,7 +80,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="@dimen/xsrt_margin_right"
             android:layout_weight="1"
-            android:background="@drawable/xsrt_green_bg_btn"
+            android:enabled="false"
+            android:background="@drawable/xsrt_selector_btn_green_gray"
             android:gravity="center"
             android:text="确认布置"
             android:textColor="@color/xsrt_white"
