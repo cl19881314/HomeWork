@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.base.BaseRcyAdapter
@@ -76,7 +77,6 @@ class SelectedHomeWorkActivity : BaseActivity() {
         val nowYear = calendar.get(Calendar.YEAR)
         calendar.set(Calendar.YEAR, nowYear + 20)
         val end = DateUtil.dateToString(calendar.time, "yyyy-MM-dd HH:mm")
-//        grouphomework_name_select.text = DateUtil.chainToString2(start)//不用给默认当前时间
         mCustomDatePicker = CustomDatePicker(this, { time ->
             //预约作业
             val timeOfLong = DateUtil.string2date(time, "yyyy-MM-dd HH:mm")?.time
@@ -121,6 +121,9 @@ class SelectedHomeWorkActivity : BaseActivity() {
         grouphomework_name_select.setOnClickListener {
             val editText = EditText(this@SelectedHomeWorkActivity)
             editText.filters = Array<InputFilter>(1) { MaxTextLengthFileter(this, 20) }
+            val content = grouphomework_name_select.text.toString()
+            editText.setText(content, TextView.BufferType.EDITABLE)
+            editText.setSelection(content.length)
             AlertDialog.Builder(this@SelectedHomeWorkActivity)
                     .setTitle("修改名称")
                     .setView(editText)

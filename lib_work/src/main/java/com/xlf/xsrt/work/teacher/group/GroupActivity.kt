@@ -301,8 +301,10 @@ class GroupActivity : BaseActivity() {
                                             bean.collectFlag = Math.abs(bean.collectFlag!! - 1)
                                             if (bean.collectFlag == 1) {
                                                 imgview.setBackgroundResource(R.drawable.xsrt_ic_collection_yes)
+                                                toast("收藏成功")
                                             } else {
                                                 imgview.setBackgroundResource(R.drawable.xsrt_ic_collection_no)
+                                                toast("取消收藏成功")
                                             }
                                         }
                                     }
@@ -331,34 +333,6 @@ class GroupActivity : BaseActivity() {
         select_num_group.setOnClickListener {
             SelectedHomeWorkActivity.start(this@GroupActivity, mQueryCondition.groupedHomeworkId)
         }
-
-        //全选
-//        selectedAll_group.setOnClickListener {
-//            val data = mGroupAdapter.getData()
-//            if (selectedAll_group.isChecked) {
-//                for (i in 0 until data.size) {
-//                    data[i].addFlag = 1
-//                    mSelectedHomeWorks.add(data[i])
-//                }
-//                commit_group.isEnabled = true
-//            } else {
-//                for (i in 0 until data.size) {
-//                    data[i].addFlag = 0
-//                    mSelectedHomeWorks.remove(data[i])
-//                }
-//                commit_group.isEnabled = false
-//            }
-//            mGroupAdapter.notifyDataSetChanged()
-//        }
-//        //提交作业
-//        commit_group.setOnClickListener {
-//            val buffer = StringBuffer()
-//            for (item in mSelectedHomeWorks) {
-//                buffer.append("${item.homeworkId},")
-//            }
-//            val homeworkIds = buffer.toString()
-//            mViewModel.addOrCancleHomework(UserInfoConstant.getUserId(), 1, groupedHomeworkId, homeworkIds)
-//        }
 
     }
 
@@ -456,6 +430,7 @@ class GroupActivity : BaseActivity() {
                 } else {
                     hideEmptyView()
                     mGroupAdapter.addData(it, true)
+                    rcy_group.scrollToPosition(0)
                 }
             } else {
                 if (it == null || it.size == 0) {
@@ -467,19 +442,11 @@ class GroupActivity : BaseActivity() {
             mQueryCondition.page++
             rcy_group.stopLoadMore()
             rcy_group.isLoadable = mGroupAdapter.getData().size >= 20
-//            Observable.fromIterable(mGroupAdapter.getData())
-//                    .all {
-//                        it.addFlag == 1
-//                    }
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe { t ->
-//                        selectedAll_group.isChecked = t
-//                    }
         })
 
         mViewModel.mSelectedNum.observe(this, Observer {
             select_num_group.text = "已选作业（$it）"
+            select_num_group.isEnabled = it!! > 0
         })
 
         mViewModel.mGroupError.observe(this, Observer {
