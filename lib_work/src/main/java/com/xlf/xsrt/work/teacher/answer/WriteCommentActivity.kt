@@ -25,6 +25,8 @@ class WriteCommentActivity : BaseActivity(){
     }
 
     override fun init() {
+        var title = intent.getStringExtra("title")
+        titleBar.setTitleTxt(title)
         mStuAnswerId = intent.getIntExtra("stuAnswerId", -1)
         titleBar.setTitleBarClickListener(object : TitleBar.TitleBarClickListener{
             override fun leftImgClick() {
@@ -78,7 +80,7 @@ class WriteCommentActivity : BaseActivity(){
 
     private fun addComment(){
         val content = commentEdt.text.toString()
-        if (TextUtils.isEmpty(content)){
+        if (TextUtils.isEmpty(content) || TextUtils.isEmpty(content.trim()) || TextUtils.isEmpty(content.replace("\n",""))){
             toast("请输入内容")
             return
         }

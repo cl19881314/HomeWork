@@ -39,6 +39,7 @@ class StudentAdapter : BaseRcyAdapter<HomeworkStuVo>() {
         itemView.btn_checkMark_item_stu.setOnClickListener {
             var intent = Intent(itemView.context, CommentDetailActivity::class.java)
             intent.putExtra("stuAnswerId", bean.stuAnswerId)
+            intent.putExtra("title", "老师评论")
             itemView.context.startActivity(intent)
         }
 
@@ -51,7 +52,7 @@ class StudentAdapter : BaseRcyAdapter<HomeworkStuVo>() {
                 intent.putParcelableArrayListExtra("data", bean.homeworkBaseList)
             } else {
                 intent.setClass(itemView.context, QuestionDetailActivity::class.java)
-                intent.putExtra("title", bean.homeworkName)
+//                intent.putExtra("title", bean.homeworkName)
                 intent.putStringArrayListExtra("urlList", bean.analysisUrlList)
                 intent.putExtra("showTodo", false)
             }

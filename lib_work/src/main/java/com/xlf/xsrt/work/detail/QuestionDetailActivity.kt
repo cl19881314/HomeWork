@@ -3,6 +3,8 @@ package com.xlf.xsrt.work.detail
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
+import android.text.TextUtils
 import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
@@ -19,6 +21,7 @@ class QuestionDetailActivity : BaseActivity() {
     private var mAdapter: StudentAnswerDetailAdapter? = null
     private var mStuAnswerId = -1
     private var mUrlList: ArrayList<String>? = null
+    private var mTitle = ""
     override fun getContentViewId(): Int {
         return R.layout.xsrt_activity_answer_detail_layout
     }
@@ -29,13 +32,28 @@ class QuestionDetailActivity : BaseActivity() {
         var showTodo = intent.getBooleanExtra("showTodo", false)
         toDoCommentTxt.visibility = if (showTodo) View.VISIBLE else View.GONE
 
-        var title = intent.getStringExtra("title")
-        titleBar_answer_detail.setTitleTxt(title)
+        mTitle = intent.getStringExtra("title")
+        if (!TextUtils.isEmpty(mTitle)) {
+            titleBar_answer_detail.setTitleTxt(mTitle)
+        } else {
+            titleBar_answer_detail.setTitleTxt("1/${mUrlList?.size}")
+            detailViewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+                override fun onPageScrollStateChanged(state: Int) {
+
+                }
+
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    titleBar_answer_detail.setTitleTxt("${position + 1 }/${mUrlList?.size}")
+                }
+
+            })
+        }
         mAdapter = StudentAnswerDetailAdapter(supportFragmentManager)
         detailViewPager.adapter = mAdapter
         getDetailData()
-
-
     }
 
 
@@ -58,6 +76,7 @@ class QuestionDetailActivity : BaseActivity() {
         toDoCommentTxt.setOnClickListener {
             var intent = Intent(this@QuestionDetailActivity, WriteCommentActivity::class.java)
             intent.putExtra("stuAnswerId", mStuAnswerId)
+            intent.putExtra("title", mTitle)
             startActivityForResult(intent, 100)
         }
         titleBar_answer_detail.setTitleBarClickListener(object : TitleBar.TitleBarClickListener {

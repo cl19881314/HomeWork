@@ -61,6 +61,7 @@ class StudentAnswerAdapter : XXXAdapter<StudentAnswerAdapter.AnswerHolder>() {
             view.endStatusTxt.setOnClickListener {
                 var intent = Intent(view.context, CommentDetailActivity::class.java)
                 intent.putExtra("stuAnswerId", bean.stuAnswerId)
+                intent.putExtra("title", bean.stuName)
                 view.context.startActivity(intent)
             }
         }
