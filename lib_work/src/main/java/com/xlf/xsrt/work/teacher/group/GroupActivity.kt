@@ -122,6 +122,7 @@ class GroupActivity : BaseActivity() {
         }
         mDiffAdapter?.setOnItemClickListener(object : BaseRcyAdapter.ItemClickListener {
             override fun onItemClick(position: Int) {
+                //TODO:组装多选条件
                 mQueryCondition.difficultyId = mDiffAdapter!!.getData()[position].sysDictId!!.toString()
                 mDiffAdapter?.setIitemChecked(position)
             }
