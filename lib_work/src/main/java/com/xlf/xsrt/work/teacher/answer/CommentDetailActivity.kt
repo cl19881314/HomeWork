@@ -2,6 +2,7 @@ package com.xlf.xsrt.work.teacher.answer
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.text.TextUtils
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.teacher.answer.viewmodel.TeacherCommentViewModel
@@ -20,6 +21,8 @@ class CommentDetailActivity : BaseActivity(){
     }
 
     override fun init() {
+        var title = intent.getStringExtra("title")
+        titleBar.setTitleTxt(title)
         mDataViewModel.getTeacherCommentData(intent.getIntExtra("stuAnswerId", -1))
         mDataViewModel.mCommentViewModel.observe(this, Observer {
             if (it?.flag == 1){

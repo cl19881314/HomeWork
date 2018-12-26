@@ -45,11 +45,14 @@
                 android:id="@+id/homeWorkPullTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:maxWidth="150dp"
                 android:layout_alignParentRight="true"
                 android:drawableRight="@drawable/xsrt_icon_spinner_down"
                 android:gravity="center"
                 android:textColor="@color/xsrt_title1_txt_color"
                 android:textSize="15sp"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:text="- -" />
         </LinearLayout>
     </LinearLayout>
