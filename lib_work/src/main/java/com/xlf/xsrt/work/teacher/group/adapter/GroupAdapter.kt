@@ -1,6 +1,8 @@
 package com.xlf.xsrt.work.teacher.group.adapter
 
+import android.util.Log
 import android.view.View
+import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.xlf.xsrt.work.R
@@ -22,7 +24,7 @@ class GroupAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
         }
         itemView.subjectNumTxt.text = "编号${bean.homeworkId}"
         //详情
-        itemView.showDetailTxt.setOnClickListener {
+        itemView.fl_subject_item.setOnClickListener {
             listener?.onItemChildClick(it, positon)
         }
         //内容
@@ -35,13 +37,18 @@ class GroupAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
                 view.loadUrl(url)
                 return true
             }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                Log.d("chufei", "onPageFinished")
+                webview.loadUrl("javascript:window.HTMLOUT.getContentWidth(document.getElementsByTagName('html')[0].scrollWidth);")
+            }
         }
         webview.loadUrl(bean.homeworkContentUrl)
         //收藏
         itemView.isCollocted.visibility = View.VISIBLE
-        if(bean.collectFlag==1){
+        if (bean.collectFlag == 1) {
             itemView.isCollocted.setBackgroundResource(R.drawable.xsrt_ic_collection_yes)
-        }else{
+        } else {
             itemView.isCollocted.setBackgroundResource(R.drawable.xsrt_ic_collection_no)
         }
         itemView.isCollocted.setOnClickListener {
@@ -49,5 +56,9 @@ class GroupAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
         }
     }
 
+    @JavascriptInterface
+    fun getContentWidth(value: Int) {
+        Log.d("chufei","getContentwidth---》$value")
 
+    }
 }

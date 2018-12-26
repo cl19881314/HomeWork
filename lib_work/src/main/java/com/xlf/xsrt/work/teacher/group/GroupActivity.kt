@@ -34,6 +34,7 @@ import com.xlf.xsrt.work.widget.pulltextview.PullTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
+import kotlinx.android.synthetic.main.xsrt_item_empty_layout.view.*
 import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -317,7 +318,7 @@ class GroupActivity : BaseActivity() {
                                 })
 
                     }
-                    R.id.showDetailTxt -> {
+                    R.id.fl_subject_item -> {
                         //详情
                         var intent = Intent(this@GroupActivity, SubjectDetailActivity::class.java)
                         intent.putExtra("url", bean.homeworkDetailUrl)
@@ -510,13 +511,13 @@ class GroupActivity : BaseActivity() {
     private fun showEmptyView() {
         rcy_group.visibility = View.GONE
         empty_group.visibility = View.VISIBLE
-//        selectedAll_group.isEnabled = false
+        empty_group.emptyMsgTxt.text="找不到结果哎，还在努力添加中....."
+
     }
 
     private fun hideEmptyView() {
         rcy_group.visibility = View.VISIBLE
         empty_group.visibility = View.GONE
-//        selectedAll_group.isEnabled = true
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

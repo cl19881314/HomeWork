@@ -15,6 +15,10 @@ class MaxTextLengthFileter(ctx: Context, maxLength: Int) : InputFilter {
     }
 
     override fun filter(source: CharSequence?, start: Int, end: Int, dest: Spanned?, dstart: Int, dend: Int): CharSequence? {
+        if (EmojiUtils.isEmojiCharacter(source!!)) {
+            Toast.makeText(mContext, "不能输入表情", Toast.LENGTH_SHORT).show()
+            return ""
+        }
         val keep = mMaxLength - (dest?.length!!.minus(dend - dstart))
         if (keep < (end - start)) {
             Toast.makeText(mContext, "最多只能输入${mMaxLength}个字", Toast.LENGTH_SHORT).show()

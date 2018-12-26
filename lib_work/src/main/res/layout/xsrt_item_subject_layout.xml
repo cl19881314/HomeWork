@@ -57,7 +57,7 @@
         android:id="@+id/divider1"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/xsrt_divider"/>
+        android:background="@color/xsrt_divider" />
 
     <WebView
         android:id="@+id/showContentWeb"
@@ -66,26 +66,33 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginBottom="2dp"
-        android:scrollbars="none"/>
+        android:scrollbars="none" />
 
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginTop="2dp"
-        android:background="@color/xsrt_divider"/>
+        android:background="@color/xsrt_divider" />
 
-    <TextView
-        android:id="@+id/showDetailTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:layout_gravity="center"
-        android:drawableRight="@drawable/xsrt_ic_right_arrow"
-        android:drawablePadding="5dp"
-        android:gravity="center_vertical"
-        android:padding="5dp"
-        android:text="查看详情"
-        android:textColor="@color/xsrt_title1_txt_color"
-        android:textSize="14sp"/>
+    <FrameLayout
+        android:id="@+id/fl_subject_item"
+        android:layout_width="match_parent"
+        android:layout_height="37dp">
+
+        <TextView
+            android:id="@+id/showDetailTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:drawableRight="@drawable/xsrt_ic_right_arrow"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="查看详情"
+            android:textColor="@color/xsrt_title1_txt_color"
+            android:textSize="14sp" />
+    </FrameLayout>
+
 
 </LinearLayout>

@@ -146,38 +146,6 @@
             android:gravity="center"
             android:textColor="@color/xsrt_white"
             android:textSize="15sp" />
-        <!--<CheckBox-->
-        <!--android:id="@+id/selectedAll_group"-->
-        <!--android:layout_width="18dp"-->
-        <!--android:layout_height="18dp"-->
-        <!--android:layout_marginLeft="@dimen/xsrt_margin_left"-->
-        <!--android:background="@drawable/xsrt_selector_raddio_btn"-->
-        <!--android:button="@null" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/subjectNumTxt"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="5dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:text="全选"-->
-        <!--android:textColor="@color/xsrt_title1_txt_color"-->
-        <!--android:textSize="15sp" />-->
-
-        <!--<TextView-->
-
-        <!--android:id="@+id/commit_group"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="37dp"-->
-        <!--android:layout_marginRight="@dimen/xsrt_margin_right"-->
-        <!--android:background="@drawable/xsrt_selector_btn_green_gray"-->
-        <!--android:enabled="false"-->
-        <!--android:gravity="center"-->
-        <!--android:paddingLeft="20dp"-->
-        <!--android:paddingRight="20dp"-->
-        <!--android:text="添加到作业"-->
-        <!--android:textColor="@color/xsrt_white"-->
-        <!--android:textSize="15sp" />-->
 
     </LinearLayout>
 
