@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/xsrt_arranged_status_bg"
+            android:background="@drawable/xsrt_arranged_status_bg_enable"
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

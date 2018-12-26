@@ -24,6 +24,11 @@ class SelectedHomeWorkModel : ViewModel() {
      */
     var mPushData: MutableLiveData<BaseEntry> = MutableLiveData()
 
+    /**
+     * 已选作业个数
+     */
+    var mSelectedNum: MutableLiveData<Int> = MutableLiveData()
+
     @SuppressLint("CheckResult")
     fun pushHomeWork(teacherId: Int, appointmentTime: String, groupedHomeworkId: Int, homeworkName: String) {
         RequestApi.getInstance().pushHomeWork(teacherId, appointmentTime, groupedHomeworkId, groupedHomeworkId, homeworkName)
@@ -47,6 +52,7 @@ class SelectedHomeWorkModel : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it ->
                     mGroupHomeworkData.value = it
+                    mSelectedNum.value = it.groupedCount
                 }, { e ->
                     mError.value = "网络异常，请检查网络"
                 })

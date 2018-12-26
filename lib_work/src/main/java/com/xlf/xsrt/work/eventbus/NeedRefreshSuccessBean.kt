@@ -6,5 +6,5 @@ package com.xlf.xsrt.work.eventbus
  * @des
  */
 class NeedRefreshSuccessBean {
-
+    var groupSelectedNum = 0
 }
