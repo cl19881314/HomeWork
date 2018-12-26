@@ -40,9 +40,10 @@ abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
         return mData
     }
 
-    fun removeData(position: Int){
+    fun removeData(position: Int) {
         mData.removeAt(position)
-        notifyDataSetChanged()
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, mData.size - position)
     }
 
     fun getItemContent(position: Int): T? {
