@@ -21,7 +21,7 @@ class QuestionDetailActivity : BaseActivity() {
     private var mAdapter: StudentAnswerDetailAdapter? = null
     private var mStuAnswerId = -1
     private var mUrlList: ArrayList<String>? = null
-    private var mTitle = ""
+    private var mTitle :String ?= null
     override fun getContentViewId(): Int {
         return R.layout.xsrt_activity_answer_detail_layout
     }
@@ -34,7 +34,7 @@ class QuestionDetailActivity : BaseActivity() {
 
         mTitle = intent.getStringExtra("title")
         if (!TextUtils.isEmpty(mTitle)) {
-            titleBar_answer_detail.setTitleTxt(mTitle)
+            titleBar_answer_detail.setTitleTxt(mTitle!!)
         } else {
             titleBar_answer_detail.setTitleTxt("1/${mUrlList?.size}")
             detailViewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener{
@@ -76,7 +76,7 @@ class QuestionDetailActivity : BaseActivity() {
         toDoCommentTxt.setOnClickListener {
             var intent = Intent(this@QuestionDetailActivity, WriteCommentActivity::class.java)
             intent.putExtra("stuAnswerId", mStuAnswerId)
-            intent.putExtra("title", mTitle)
+            intent.putExtra("title", if (TextUtils.isEmpty(mTitle)) "" else mTitle)
             startActivityForResult(intent, 100)
         }
         titleBar_answer_detail.setTitleBarClickListener(object : TitleBar.TitleBarClickListener {
