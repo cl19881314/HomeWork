@@ -24,7 +24,7 @@ class ScreenPopWindowAdapter : BaseRcyAdapter<SysDictVo>() {
     }
 
     fun setIitemChecked(positon: Int) {
-//        unCheckedAll()
+        unCheckedAll()
         mData[positon].isSelected = true
         notifyDataSetChanged()
     }
