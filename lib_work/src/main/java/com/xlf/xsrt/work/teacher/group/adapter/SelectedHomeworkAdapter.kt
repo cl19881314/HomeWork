@@ -15,7 +15,7 @@ class SelectedHomeworkAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
     }
 
     override fun setItemContent(itemView: View, bean: HomeworkBaseVo, positon: Int, listener: ItemChildViewClickListener?) {
-        itemView.subjectNumTxt.text = String.format("编号:%s", bean.homeworkId)
+        itemView.subjectNumTxt.text = String.format("编号:%s", bean.itemCode)
         itemView.showDetailTxt.setOnClickListener {
             listener?.onItemChildClick(it, positon)
         }

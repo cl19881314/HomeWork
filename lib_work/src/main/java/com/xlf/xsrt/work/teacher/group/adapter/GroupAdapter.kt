@@ -22,7 +22,7 @@ class GroupAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
         itemView.isAdded.setOnClickListener {
             listener?.onItemChildClick(it, positon)
         }
-        itemView.subjectNumTxt.text = "编号${bean.homeworkId}"
+        itemView.subjectNumTxt.text = "编号${bean.itemCode}"
         //详情
         itemView.fl_subject_item.setOnClickListener {
             listener?.onItemChildClick(it, positon)
@@ -39,8 +39,8 @@ class GroupAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
-                Log.d("chufei", "onPageFinished")
-                webview.loadUrl("javascript:window.HTMLOUT.getContentWidth(document.getElementsByTagName('html')[0].scrollWidth);")
+                super.onPageFinished(view, url)
+                Log.d("chufei","onPageFinished $positon  width--》${view?.width}   height-->${view?.height}")
             }
         }
         webview.loadUrl(bean.homeworkContentUrl)
@@ -54,11 +54,5 @@ class GroupAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
         itemView.isCollocted.setOnClickListener {
             listener?.onItemChildClick(it, positon)
         }
-    }
-
-    @JavascriptInterface
-    fun getContentWidth(value: Int) {
-        Log.d("chufei","getContentwidth---》$value")
-
     }
 }
