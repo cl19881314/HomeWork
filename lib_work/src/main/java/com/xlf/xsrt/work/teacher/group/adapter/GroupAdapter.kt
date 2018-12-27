@@ -37,11 +37,6 @@ class GroupAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
                 view.loadUrl(url)
                 return true
             }
-
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-                Log.d("chufei","onPageFinished $positon  width--》${view?.width}   height-->${view?.height}")
-            }
         }
         webview.loadUrl(bean.homeworkContentUrl)
         //收藏
