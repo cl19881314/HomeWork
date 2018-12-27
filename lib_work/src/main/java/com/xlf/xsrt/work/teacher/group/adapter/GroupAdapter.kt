@@ -22,7 +22,7 @@ class GroupAdapter : BaseRcyAdapter<HomeworkBaseVo>() {
         itemView.isAdded.setOnClickListener {
             listener?.onItemChildClick(it, positon)
         }
-        itemView.subjectNumTxt.text = "编号${bean.itemCode}"
+        itemView.subjectNumTxt.text = String.format("编号:%s", bean.itemCode)
         //详情
         itemView.fl_subject_item.setOnClickListener {
             listener?.onItemChildClick(it, positon)
