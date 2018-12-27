@@ -176,7 +176,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
                         val bean = mAdapter.getItemContent(position)
                         var intent = Intent(this@SelectedHomeWorkActivity, SubjectDetailActivity::class.java)
                         intent.putExtra("url", bean?.homeworkDetailUrl)
-                        intent.putExtra("num", bean?.homeworkId.toString())
+                        intent.putExtra("num", bean?.itemCode.toString())
                         startActivity(intent)
                     }
                 }

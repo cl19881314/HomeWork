@@ -323,7 +323,7 @@ class GroupActivity : BaseActivity() {
                         //详情
                         var intent = Intent(this@GroupActivity, SubjectDetailActivity::class.java)
                         intent.putExtra("url", bean.homeworkDetailUrl)
-                        intent.putExtra("num", bean.homeworkId.toString())
+                        intent.putExtra("num", bean.itemCode.toString())
                         startActivity(intent)
                     }
                     else -> {

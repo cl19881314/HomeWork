@@ -79,7 +79,7 @@ class StudentToAnswerActivity : BaseActivity() {
         mDataViewModel.mAnalysisModel.observe(this, Observer {
             if (it?.flag == 1) {
                 var intent = Intent(this@StudentToAnswerActivity, QuestionDetailActivity::class.java)
-//                intent.putExtra("title", mTitle)
+                intent.putExtra("title", "")
                 intent.putStringArrayListExtra("urlList", it.analysisUrlList)
                 intent.putExtra("showTodo", false)
                 startActivity(intent)

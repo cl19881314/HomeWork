@@ -43,11 +43,11 @@ class MyArrangeAdapter : XXXAdapter<MyArrangeAdapter.ArrangeHolder>() {
 
         fun bindTo(position: Int) {
             var bean = mData[position]
-            view.subjectNumTxt.text = String.format("编号:%s", bean.homeworkId)
+            view.subjectNumTxt.text = String.format("编号:%s", bean.itemCode)
             view.fl_subject_item.setOnClickListener {
                 var intent = Intent(itemView.context, SubjectDetailActivity::class.java)
                 intent.putExtra("url", bean.homeworkDetailUrl)
-                intent.putExtra("num", bean.homeworkId.toString())
+                intent.putExtra("num", bean.itemCode.toString())
                 itemView.context.startActivity(intent)
             }
             var webview = view.showContentWeb
