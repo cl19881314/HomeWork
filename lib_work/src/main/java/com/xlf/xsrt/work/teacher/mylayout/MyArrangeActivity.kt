@@ -51,13 +51,15 @@ class MyArrangeActivity : BaseActivity() {
                 var timeBean = mHomeworkList!![position]
                 addWorkPullData(timeBean)
                 if (timeBean.subFlag == 1) {
-                    mViewModer.getArrangeData(UserInfoConstant.getUserId(), timeBean.subDataList!![0].sysDictId!!)
+                    mGroupWorkId = timeBean.subDataList!![0].sysDictId!!
+                    mViewModer.getArrangeData(UserInfoConstant.getUserId(), mGroupWorkId)
                 }
             }
         })
         homeWorkPullTxt.setItemClickListener(object :PullTextView.PullListItemListener{
             override fun onItemClick(bean: PullBean, position: Int) {
-                mViewModer.getArrangeData(UserInfoConstant.getUserId(), bean.searchId)
+                mGroupWorkId = bean.searchId
+                mViewModer.getArrangeData(UserInfoConstant.getUserId(), mGroupWorkId)
             }
         })
         timePullTxt.setOnClickListener {
