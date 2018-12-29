@@ -3,7 +3,7 @@ package com.xlf.xsrt.work.student.model
 import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.xlf.xsrt.work.base.RequestApi
+import com.xlf.xsrt.work.http.RequestApi
 import com.xlf.xsrt.work.student.bean.StuHomwork
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

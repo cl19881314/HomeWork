@@ -1,8 +1,6 @@
 package com.xlf.xsrt.work.teacher.group.adapter
 
-import android.util.Log
 import android.view.View
-import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.xlf.xsrt.work.R

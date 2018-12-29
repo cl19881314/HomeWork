@@ -20,6 +20,7 @@
         android:background="@color/xsrt_divider" />
 
     <LinearLayout
+        android:paddingLeft="@dimen/xsrt_margin_left"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:gravity="center_vertical"
@@ -100,6 +101,7 @@
             android:drawableRight="@drawable/xsrt_table_shaixuan_icon"
             android:drawablePadding="4dp"
             android:text="筛选"
+            android:textSize="15sp"
             android:textColor="@color/xsrt_btn_bg_color" />
     </LinearLayout>
 

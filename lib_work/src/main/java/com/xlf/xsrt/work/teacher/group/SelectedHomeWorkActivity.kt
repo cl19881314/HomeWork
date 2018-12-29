@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.InputFilter
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -18,10 +17,10 @@ import android.widget.TextView
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.base.BaseRcyAdapter
-import com.xlf.xsrt.work.base.RequestApi
+import com.xlf.xsrt.work.http.RequestApi
 import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.detail.SubjectDetailActivity
-import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
+import com.xlf.xsrt.work.eventbus.RefreshEvent
 import com.xlf.xsrt.work.teacher.group.adapter.SelectedHomeworkAdapter
 import com.xlf.xsrt.work.teacher.group.viewmodel.SelectedHomeWorkModel
 import com.xlf.xsrt.work.utils.DateUtil
@@ -31,7 +30,6 @@ import com.xlf.xsrt.work.widget.TitleBar
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.xsrt_activity_group_teacher.*
 import kotlinx.android.synthetic.main.xsrt_activity_selected_homework.*
 import kotlinx.android.synthetic.main.xsrt_layout_arrage_dailog.view.*
 import org.greenrobot.eventbus.EventBus
@@ -107,7 +105,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
             mCustomDatePicker?.show(now)
         }
         btn_sure_selected_homework.setOnClickListener {
-            AlertDialog.Builder(this@SelectedHomeWorkActivity)
+            val alertDialog = AlertDialog.Builder(this@SelectedHomeWorkActivity)
                     .setTitle("是否确认布置该作业")
                     .setNegativeButton("取消") { dialog, which ->
                         dialog.dismiss()
@@ -117,6 +115,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
                         dialog.dismiss()
                     }
                     .show()
+            setAlerDailogTextSize(alertDialog, 18)
         }
         grouphomework_name_select.setOnClickListener {
             val editText = EditText(this@SelectedHomeWorkActivity)
@@ -124,7 +123,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
             val content = grouphomework_name_select.text.toString()
             editText.setText(content, TextView.BufferType.EDITABLE)
             editText.setSelection(content.length)
-            AlertDialog.Builder(this@SelectedHomeWorkActivity)
+            val alertDialog = AlertDialog.Builder(this@SelectedHomeWorkActivity)
                     .setTitle("修改名称")
                     .setView(editText)
                     .setNegativeButton("取消") { dialog, which ->
@@ -139,6 +138,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
                         dialog.dismiss()
                     }
                     .show()
+            setAlerDailogTextSize(alertDialog, 18)
 
 
         }
@@ -146,7 +146,7 @@ class SelectedHomeWorkActivity : BaseActivity() {
             override fun onItemChildClick(childView: View, position: Int) {
                 when (childView.id) {
                     R.id.dellImg -> {
-                        AlertDialog.Builder(this@SelectedHomeWorkActivity)
+                        val alertDialog = AlertDialog.Builder(this@SelectedHomeWorkActivity)
                                 .setTitle("是否确定将该题目移除作业？")
                                 .setPositiveButton("确定") { dialog, which ->
                                     dialog.dismiss()
@@ -157,8 +157,9 @@ class SelectedHomeWorkActivity : BaseActivity() {
                                             .subscribe {
                                                 when (it.flag) {
                                                     1 -> {
-                                                        val refreshSuccessBean = NeedRefreshSuccessBean()
+                                                        val refreshSuccessBean = RefreshEvent()
                                                         refreshSuccessBean.groupSelectedNum = it.groupedCount
+                                                        refreshSuccessBean.type = 0//只刷新作业数据
                                                         mViewModel.mSelectedNum.value = it.groupedCount //更新点击按钮状态
                                                         EventBus.getDefault().post(refreshSuccessBean) //通知组作业界面刷新
                                                         mAdapter.removeData(position)
@@ -171,6 +172,8 @@ class SelectedHomeWorkActivity : BaseActivity() {
                                     dialog.dismiss()
                                 }
                                 .show()
+                        setAlerDailogTextSize(alertDialog, 18)
+
                     }
                     R.id.showDetailTxt -> {
                         val bean = mAdapter.getItemContent(position)
@@ -183,6 +186,23 @@ class SelectedHomeWorkActivity : BaseActivity() {
             }
 
         })
+    }
+
+    fun setAlerDailogTextSize(alertDialog: AlertDialog?, size: Int) {
+        try {
+            val mAlert = AlertDialog::class.java.getDeclaredField("mAlert")
+            mAlert.isAccessible = true
+            val mAlertController = mAlert.get(alertDialog)
+            //通过反射修改title字体大小和颜色
+            val field = mAlertController.javaClass.getDeclaredField("mTitleView")
+            field.isAccessible = true
+            val textView = field.get(mAlertController) as TextView
+            textView.textSize = size.toFloat()
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        } catch (e: NoSuchFieldException) {
+            e.printStackTrace()
+        }
     }
 
     override fun doResponseData() {
@@ -201,7 +221,9 @@ class SelectedHomeWorkActivity : BaseActivity() {
 
         mViewModel.mPushData.observe(this, Observer {
             if (it?.flag == 1) {
-                EventBus.getDefault().post(NeedRefreshSuccessBean()) //通知组作业界面刷新
+                val refreshSuccessBean = RefreshEvent()
+                refreshSuccessBean.type = 1//刷新整个组作业界面
+                EventBus.getDefault().post(refreshSuccessBean) //通知组作业界面刷新
                 if (flag == 0) {
                     //预约成功
                     showArrangeDailog("预约布置成功", R.drawable.xsrt_tc_success_icon, true)

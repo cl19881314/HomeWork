@@ -4,12 +4,11 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.constant.UserInfoConstant
-import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
+import com.xlf.xsrt.work.eventbus.RefreshEvent
 import com.xlf.xsrt.work.teacher.answer.adapter.StudentAnswerAdapter
 import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import com.xlf.xsrt.work.teacher.answer.viewmodel.StudentAnswerViewModel
@@ -78,10 +77,10 @@ class StudentAnswerActivity : BaseActivity() {
                 if (it?.classList?.size ?: -1 > 0 && mChooseType == -1) {
                     addClassPullData(it?.classList!!)
                 }
-                if (it?.createTimeList?.size ?: -1 > 0 && (mChooseType == 0 || mChooseType == -1)) {
+                if (it?.createTimeList?.size ?: -1 > 0 && mChooseType == -1) {
                     addTimePullData(it?.createTimeList!!)
                 }
-                if (it?.homeworkList?.size ?: -1 > 0 && mChooseType != 2) {
+                if (it?.homeworkList?.size ?: -1 > 0 && mChooseType != 0 && mChooseType != 2) {
                     addWorkPullData(it?.homeworkList!!)
                 }
             }
@@ -147,7 +146,7 @@ class StudentAnswerActivity : BaseActivity() {
             override fun onItemClick(bean: PullBean, position: Int) {
                 mChooseType = 0
                 mClassId = bean.searchId
-                mDataViewModel.getStudentAnswerData(UserInfoConstant.getUserId(), mClassId, "", -1)
+                mDataViewModel.getStudentAnswerData(UserInfoConstant.getUserId(), mClassId, mTimeId, mWorkId)
             }
 
         })
@@ -202,7 +201,7 @@ class StudentAnswerActivity : BaseActivity() {
      * 教师批阅成功后返回刷新数据
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun needRefresh(event: NeedRefreshSuccessBean) {
+    fun needRefresh(event: RefreshEvent) {
         mIsRefresh = true
         mChooseType = 2
         mDataViewModel.getStudentAnswerData(UserInfoConstant.getUserId(), mClassId, mTimeId, mWorkId)

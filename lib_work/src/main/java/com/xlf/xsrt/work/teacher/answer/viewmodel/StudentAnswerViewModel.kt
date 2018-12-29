@@ -2,7 +2,7 @@ package com.xlf.xsrt.work.teacher.answer.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.xlf.xsrt.work.base.RequestApi
+import com.xlf.xsrt.work.http.RequestApi
 import com.xlf.xsrt.work.teacher.answer.bean.StudentAnswerBean
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

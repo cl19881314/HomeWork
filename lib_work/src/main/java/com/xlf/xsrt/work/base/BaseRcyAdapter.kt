@@ -1,5 +1,6 @@
 package com.xlf.xsrt.work.base
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,16 @@ abstract class BaseRcyAdapter<T> : XXXAdapter<BaseRcyHolder>() {
         mData.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, mData.size - position)
+    }
+
+    /**
+     * xxxRecycleView移除单个item，由于有header，调此方法
+     */
+    fun removeData(position: Int, hasFoot: Boolean) {
+        mData.removeAt(position)
+        notifyItemRemoved(position+1)
+        notifyItemRangeChanged(position + 1, mData.size - position)
+
     }
 
     fun getItemContent(position: Int): T? {

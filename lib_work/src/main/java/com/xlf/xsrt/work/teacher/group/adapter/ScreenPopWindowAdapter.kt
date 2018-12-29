@@ -7,6 +7,7 @@ import com.xlf.xsrt.work.bean.SysDictVo
 import kotlinx.android.synthetic.main.xsrt_item_screen_popwindow.view.*
 
 class ScreenPopWindowAdapter : BaseRcyAdapter<SysDictVo>() {
+    var posSelected = -1
     override fun initLayoutId(viewType: Int): Int {
         return R.layout.xsrt_item_screen_popwindow
     }
@@ -20,11 +21,13 @@ class ScreenPopWindowAdapter : BaseRcyAdapter<SysDictVo>() {
         for (item in mData) {
             item.isSelected = false
         }
+        posSelected = -1
         notifyDataSetChanged()
     }
 
     fun setIitemChecked(positon: Int) {
         unCheckedAll()
+        posSelected = positon
         mData[positon].isSelected = true
         notifyDataSetChanged()
     }

@@ -26,7 +26,7 @@ class MaxTextLengthFileter(ctx: Context, maxLength: Int) : InputFilter {
         return when {
             keep <= 0 -> ""
             keep >= end - start -> null
-            else -> source!!.subSequence(start, start + keep)
+            else -> source.subSequence(start, start + keep)
         }
     }
 

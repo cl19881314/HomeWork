@@ -13,12 +13,12 @@ class StartActivity : AppCompatActivity() {
         btn_teacher.setOnClickListener {
             //            var intent = Intent(this, TeacherActivity::class.java)
 //            startActivity(intent)
-            LoginUtil.enterHomeWork(this, "token2")
+//            LoginUtil.enterHomeWork(this, "token2")
         }
         btn_student.setOnClickListener {
             //            var intent = Intent(this, StudentActivity::class.java)
 //            startActivity(intent)
-            LoginUtil.enterHomeWork(this, "token1")
+//            LoginUtil.enterHomeWork(this, "token1")
         }
         logonBtn.setOnClickListener {
             var user = userEdt.text.toString()

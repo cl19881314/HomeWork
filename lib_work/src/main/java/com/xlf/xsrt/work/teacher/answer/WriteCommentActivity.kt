@@ -8,7 +8,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
-import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
+import com.xlf.xsrt.work.eventbus.RefreshEvent
 import com.xlf.xsrt.work.teacher.answer.viewmodel.StuAnswerDetailViewModel
 import com.xlf.xsrt.work.utils.EmojiUtils
 import com.xlf.xsrt.work.widget.TitleBar
@@ -26,7 +26,9 @@ class WriteCommentActivity : BaseActivity(){
 
     override fun init() {
         var title = intent.getStringExtra("title")
-        titleBar.setTitleTxt(title)
+        if (!TextUtils.isEmpty(title)) {
+            titleBar.setTitleTxt(title)
+        }
         mStuAnswerId = intent.getIntExtra("stuAnswerId", -1)
         titleBar.setTitleBarClickListener(object : TitleBar.TitleBarClickListener{
             override fun leftImgClick() {
@@ -67,7 +69,7 @@ class WriteCommentActivity : BaseActivity(){
             if (it?.flag == 1){
                 toast("发布批阅成功")
                 setResult(Activity.RESULT_OK)
-                EventBus.getDefault().post(NeedRefreshSuccessBean())
+                EventBus.getDefault().post(RefreshEvent())
                 finish()
             } else {
                 toast("发布批阅失败")

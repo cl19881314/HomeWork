@@ -13,10 +13,9 @@ class DateUtil {
          * 格式 "yyyy-MM-dd"
          */
         fun string2date(dateString: String, format: String): Date? {
-            var formateDate: Date? = null
-            val format = SimpleDateFormat(format)
+            var formateDate: Date?
             try {
-                formateDate = format.parse(dateString)
+                formateDate = SimpleDateFormat(format).parse(dateString)
             } catch (e: ParseException) {
                 return null
             }
@@ -27,7 +26,7 @@ class DateUtil {
         /**
          * 日期转化为字符串
          */
-        fun dateToString(date: Date,format: String): String {
+        fun dateToString(date: Date, format: String): String {
             val sdf = SimpleDateFormat(format)
             return sdf.format(date)
         }

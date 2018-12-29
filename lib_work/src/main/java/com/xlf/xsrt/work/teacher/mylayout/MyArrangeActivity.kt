@@ -24,6 +24,7 @@ class MyArrangeActivity : BaseActivity() {
     private var mAdapter: MyArrangeAdapter? = null
     private var mGroupWorkId = -1
     private var mHomeworkList: ArrayList<SysDictVo>? = null
+    private var isFirstInitData = false //处理由于webview太长，导致scrollToTop不能显示完全的bug
     private val mViewModer by lazy {
         ViewModelProviders.of(this@MyArrangeActivity).get(MyArrangeViewModel::class.java)
     }
@@ -88,6 +89,20 @@ class MyArrangeActivity : BaseActivity() {
                     }
                     .show()
         }
+        showDataRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == 0) {
+                    isFirstInitData = false
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                if (isFirstInitData) {
+                    recyclerView?.scrollToPosition(0)
+                }
+            }
+        })
     }
 
     override fun doResponseData() {
@@ -102,7 +117,10 @@ class MyArrangeActivity : BaseActivity() {
                 }
                 if (it?.homeworkBaseList?.size ?: -1 > 0) {
                     showData(true)
-                    showDataRv.scrollToPosition(0)
+//                    showDataRv.scrollToPosition(0)
+                    val layoutManager = showDataRv.layoutManager as LinearLayoutManager
+                    layoutManager.scrollToPositionWithOffset(0, 0)
+                    isFirstInitData = true //处理由于webview太长，导致scrollToTop不能显示完全的bug
                     mAdapter!!.setArrangeData(it?.homeworkBaseList)
                 } else {
                     showData(false)

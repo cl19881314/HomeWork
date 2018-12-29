@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,7 @@ import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.detail.QuestionDetailActivity
-import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
+import com.xlf.xsrt.work.eventbus.RefreshEvent
 import com.xlf.xsrt.work.fragment.StudentAnswerDetailFragment
 import com.xlf.xsrt.work.student.bean.HomeworkStuVo
 import com.xlf.xsrt.work.student.model.StudentAnswerModel
@@ -61,7 +62,9 @@ class StudentToAnswerActivity : BaseActivity() {
         titleBar.setRightTextClor(resources.getColor(R.color.xsrt_btn_bg_color))
         titleBar.setRightTextVisibility(View.GONE)
         mTitle = intent.getStringExtra("title")
-        titleBar.setTitleTxt(mTitle)
+        if (!TextUtils.isEmpty(mTitle)) {
+            titleBar.setTitleTxt(mTitle)
+        }
     }
 
     private fun initViewModel() {
@@ -70,7 +73,7 @@ class StudentToAnswerActivity : BaseActivity() {
                 toast("提交成功")
                 //跳转到解析界面
                 mDataViewModel.getAnalysis(UserInfoConstant.getUserId(), mGroupWorkId)
-                EventBus.getDefault().post(NeedRefreshSuccessBean())
+                EventBus.getDefault().post(RefreshEvent())
             } else {
                 toast("提交失败")
             }

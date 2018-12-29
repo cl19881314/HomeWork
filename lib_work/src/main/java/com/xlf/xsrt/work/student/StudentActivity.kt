@@ -7,12 +7,11 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.constant.UserInfoConstant
-import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
+import com.xlf.xsrt.work.eventbus.RefreshEvent
 import com.xlf.xsrt.work.student.adapter.StudentAdapter
 import com.xlf.xsrt.work.student.model.StudentModel
 import com.xlf.xsrt.work.utils.DateUtil
@@ -29,7 +28,8 @@ import java.util.*
  */
 class StudentActivity : BaseActivity() {
     //查询的时间
-    private var queryTime = ""
+    private var queryMonthTime = ""
+    private var queryDayTime = ""
     private val mViewModel by lazy {
         ViewModelProviders.of(this).get(StudentModel::class.java)
     }
@@ -52,8 +52,8 @@ class StudentActivity : BaseActivity() {
         rcy_student.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rcy_student.adapter = mAdapter
         EventBus.getDefault().register(this)
-        mViewModel.getStuHomeworkByDate(UserInfoConstant.getUserId(), queryTime)
-        mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), queryTime)
+        mViewModel.getStuHomeworkByDate(UserInfoConstant.getUserId(), queryMonthTime)
+        mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), queryDayTime)
     }
 
     override fun initListener() {
@@ -72,15 +72,15 @@ class StudentActivity : BaseActivity() {
             tv_time_stu.text = "${year}年${month}月"
             val instance = Calendar.getInstance()
             instance.set(year, month - 1, 1)
-            queryTime = DateUtil.dateToString(instance.time, "yyyy-MM-dd")
-            mViewModel.getStuHomeworkByDate(UserInfoConstant.getUserId(), queryTime)
+            queryMonthTime = DateUtil.dateToString(instance.time, "yyyy-MM-dd")
+            mViewModel.getStuHomeworkByDate(UserInfoConstant.getUserId(), queryMonthTime)
         }
         calendar_stu.setOnCanlendarItemListener { calendar, position ->
             //获取数据 刷新recyvleview
             val instance = Calendar.getInstance()
             instance.set(calendar.year, calendar.month - 1, calendar.day)
-            queryTime = DateUtil.dateToString(instance.time, "yyyy-MM-dd")
-            mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), queryTime)
+            queryDayTime = DateUtil.dateToString(instance.time, "yyyy-MM-dd")
+            mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), queryDayTime)
         }
 
     }
@@ -117,7 +117,7 @@ class StudentActivity : BaseActivity() {
             }
             calendar_stu.setSchemeDate(courseInfos)//绘制刷新
             //跳转到当月（初始化时才跳转）
-            if (TextUtils.isEmpty(queryTime.trim())) {
+            if (TextUtils.isEmpty(queryMonthTime.trim())) {
                 tv_time_stu.text = "${today.year}年${today.month}月"//初始化title
                 calendar_stu.moveToDate(today.year, today.month)
             }
@@ -145,8 +145,9 @@ class StudentActivity : BaseActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun eventToRefresh(event: NeedRefreshSuccessBean) {
-        mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), queryTime)
+    fun eventToRefresh(event: RefreshEvent) {
+        mViewModel.getStuHomeworkByDate(UserInfoConstant.getUserId(), queryMonthTime)
+        mViewModel.getHomeworkByDay(UserInfoConstant.getUserId(), queryDayTime)
     }
 
     override fun onDestroy() {

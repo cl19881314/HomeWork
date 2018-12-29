@@ -1,5 +1,6 @@
 package com.xlf.xsrt.work.teacher.group
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -7,6 +8,7 @@ import android.content.Intent
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -17,15 +19,14 @@ import android.widget.PopupWindow
 import com.xlf.xsrt.work.R
 import com.xlf.xsrt.work.base.BaseActivity
 import com.xlf.xsrt.work.base.BaseRcyAdapter
-import com.xlf.xsrt.work.base.RequestApi
-import com.xlf.xsrt.work.bean.HomeworkBaseVo
+import com.xlf.xsrt.work.http.RequestApi
 import com.xlf.xsrt.work.bean.SysDictVo
 import com.xlf.xsrt.work.teacher.group.adapter.GroupAdapter
 import com.xlf.xsrt.work.teacher.group.adapter.ScreenPopWindowAdapter
 import com.xlf.xsrt.work.bean.QueryCondition
 import com.xlf.xsrt.work.constant.UserInfoConstant
 import com.xlf.xsrt.work.detail.SubjectDetailActivity
-import com.xlf.xsrt.work.eventbus.NeedRefreshSuccessBean
+import com.xlf.xsrt.work.eventbus.RefreshEvent
 import com.xlf.xsrt.work.teacher.group.bean.AddRespondeBean
 import com.xlf.xsrt.work.teacher.group.viewmodel.GroupModel
 import com.xlf.xsrt.work.widget.TitleBar
@@ -39,19 +40,18 @@ import kotlinx.android.synthetic.main.xsrt_layout_popwindow_screen_group.view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.util.*
 
 class GroupActivity : BaseActivity() {
 
     private var mDiffPopWindow: PopupWindow? = null
     private var mDiffAdapter: ScreenPopWindowAdapter? = null
+    private var isFirstInitData = false //处理由于webview太长，导致scrollToTop不能显示完全的bug
 
     private var mTextBooks: MutableList<SysDictVo> = mutableListOf()//教材
     private var mDirectors: MutableList<SysDictVo> = mutableListOf() //目录
     private var mSections: MutableList<SysDictVo> = mutableListOf() //章节
     private var mDiffLevels: MutableList<SysDictVo> = mutableListOf() //困难等级
 
-    private var mSelectedHomeWorks: ArrayList<HomeworkBaseVo> = ArrayList() //选择预添加的作业
     private val mViewModel by lazy {
         ViewModelProviders.of(this).get(GroupModel::class.java)
     }
@@ -89,12 +89,14 @@ class GroupActivity : BaseActivity() {
         mQueryCondition.userId = UserInfoConstant.getUserId().toString()
     }
 
+    private var manager: LinearLayoutManager? = null
     private fun initRcyView() {
-        val manager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        screen_group.paint.isFakeBoldText = true//加粗
+        manager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rcy_group.layoutManager = manager
         rcy_group.adapter = mGroupAdapter
         rcy_group.setOnLoadMoreListener {
-            if (manager.findLastCompletelyVisibleItemPosition() == mGroupAdapter.getData().size + 1)
+            if (manager!!.findLastCompletelyVisibleItemPosition() == mGroupAdapter.getData().size + 1)
                 mViewModel.queryHomeworkData(mQueryCondition)
             else {
                 rcy_group.stopLoadMore()
@@ -102,6 +104,7 @@ class GroupActivity : BaseActivity() {
         }
     }
 
+    private var posSelected: Int = -1
     private fun initDiffPopWindow() {
         val windowView = LayoutInflater.from(this).inflate(R.layout.xsrt_layout_popwindow_screen_group, null)
         mDiffAdapter = ScreenPopWindowAdapter()
@@ -112,18 +115,15 @@ class GroupActivity : BaseActivity() {
         mDiffPopWindow?.isFocusable = false
         mDiffPopWindow?.animationStyle = R.style.xsrt_popwin_anim_style
         //初始化
-        windowView.rbtn_base_screen.isChecked = true//默认基础库为true
-        //初始化筛选中的点击事件
-        windowView.rgp_screen.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.rbtn_base_screen -> mQueryCondition.baseFlag = "1"//基础题库
-                R.id.rbtn_collect_screen -> mQueryCondition.baseFlag = "0"//我的收藏
-            }
+        windowView.rbtn_base_screen.isChecked = mQueryCondition.baseFlag == "1"
+        windowView.rbtn_collect_screen.isChecked = mQueryCondition.baseFlag == "0"
+        if (posSelected != -1 && TextUtils.isEmpty(mQueryCondition.difficultyId.trim())) {
+            mDiffAdapter?.setIitemChecked(posSelected)
+        } else {
+            mDiffAdapter?.unCheckedAll()
         }
         mDiffAdapter?.setOnItemClickListener(object : BaseRcyAdapter.ItemClickListener {
             override fun onItemClick(position: Int) {
-                //TODO:组装多选条件
-                mQueryCondition.difficultyId = mDiffAdapter!!.getData()[position].sysDictId!!.toString()
                 mDiffAdapter?.setIitemChecked(position)
             }
 
@@ -132,13 +132,22 @@ class GroupActivity : BaseActivity() {
         windowView.clear_screen_popwindow.setOnClickListener {
             windowView.rbtn_base_screen.isChecked = true
             mDiffAdapter?.unCheckedAll()
-            mQueryCondition.baseFlag = "1"
-            mQueryCondition.difficultyId = ""
         }
         windowView.sure_screen_popwindow.setOnClickListener {
             mDiffPopWindow?.dismiss()
             //点击确定，开始筛选搜索
             mQueryCondition.page = 0
+            if (windowView.rbtn_collect_screen.isChecked) {
+                mQueryCondition.baseFlag = "0"
+            } else {
+                mQueryCondition.baseFlag = "1"
+            }
+            posSelected = mDiffAdapter!!.posSelected
+            if (posSelected == -1) {
+                mQueryCondition.difficultyId = ""
+            } else {
+                mQueryCondition.difficultyId = mDiffAdapter!!.getData()[posSelected].sysDictId!!.toString()
+            }
             mViewModel.queryHomeworkData(mQueryCondition)
         }
         windowView.screen_root_pop_group.setOnClickListener {
@@ -148,6 +157,8 @@ class GroupActivity : BaseActivity() {
         mDiffPopWindow?.setOnDismissListener {
 
         }
+
+
     }
 
     override fun initListener() {
@@ -210,6 +221,14 @@ class GroupActivity : BaseActivity() {
                 section_group.hidePop()
             }
             mDiffAdapter?.addData(mDiffLevels, true)
+            val contentView = mDiffPopWindow?.contentView
+            contentView?.rbtn_base_screen?.isChecked = mQueryCondition.baseFlag == "1"
+            contentView?.rbtn_collect_screen?.isChecked = mQueryCondition.baseFlag == "0"
+            if (posSelected != -1 && !TextUtils.isEmpty(mQueryCondition.difficultyId.trim())) {
+                mDiffAdapter?.setIitemChecked(posSelected)
+            } else {
+                mDiffAdapter?.unCheckedAll()
+            }
             mDiffPopWindow!!.showAtLocation(ll_root_group, Gravity.END, 0, 0)
         }
 
@@ -306,6 +325,9 @@ class GroupActivity : BaseActivity() {
                                                 toast("收藏成功")
                                             } else {
                                                 imgview.setBackgroundResource(R.drawable.xsrt_ic_collection_no)
+                                                if (mQueryCondition.baseFlag == "0") {
+                                                    mGroupAdapter.removeData(position, true)
+                                                }
                                                 toast("取消收藏成功")
                                             }
                                         }
@@ -335,6 +357,21 @@ class GroupActivity : BaseActivity() {
         select_num_group.setOnClickListener {
             SelectedHomeWorkActivity.start(this@GroupActivity, mQueryCondition.groupedHomeworkId)
         }
+
+        rcy_group.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == 0) {
+                    isFirstInitData = false
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                if (isFirstInitData) {
+                    recyclerView?.scrollToPosition(0)
+                }
+            }
+        })
 
     }
 
@@ -394,6 +431,7 @@ class GroupActivity : BaseActivity() {
     }
 
 
+    @SuppressLint("CheckResult")
     override fun doResponseData() {
         mViewModel.mGroupData.observe(this, Observer {
             if (it?.flag == RESPONSE_SUCCESS) {
@@ -401,6 +439,9 @@ class GroupActivity : BaseActivity() {
                 mDiffLevels.clear()
                 mDiffLevels.addAll(it.difficultyList!!)
                 mDiffAdapter?.addData(mDiffLevels, true)
+                //滚动到第一个item
+                isFirstInitData = true //处理由于webview太长，导致scrollToTop不能显示完全的bug
+                manager!!.scrollToPositionWithOffset(0, 0)
                 //初始化教材数据
                 mTextBooks.clear()
                 mTextBooks.addAll(it.textBookList!!)
@@ -415,13 +456,16 @@ class GroupActivity : BaseActivity() {
                     data.add(pullBean)
                 }
                 textbook_group.updateData(data, true)
-                textbook_group.text = mTextBooks[0].sysDictName
+
                 //初始化目录数据
                 setDefaultDirecData()
                 //初始化章节数据
                 setDefaultSectionData()
                 //初始化默认查询条件
-                mQueryCondition.textbookId = mTextBooks[0].sysDictId.toString()
+                if (mTextBooks.size > 0) {
+                    textbook_group.text = mTextBooks[0].sysDictName
+                    mQueryCondition.textbookId = mTextBooks[0].sysDictId.toString()
+                }
                 mQueryCondition.groupedHomeworkId = it.groupedHomeworkId!!
             }
         })
@@ -432,7 +476,8 @@ class GroupActivity : BaseActivity() {
                 } else {
                     hideEmptyView()
                     mGroupAdapter.addData(it, true)
-                    rcy_group.scrollToPosition(0)
+                    isFirstInitData = true //处理由于webview太长，导致scrollToTop不能显示完全的bug
+                    manager!!.scrollToPositionWithOffset(0, 0)
                 }
             } else {
                 if (it == null || it.size == 0) {
@@ -512,7 +557,7 @@ class GroupActivity : BaseActivity() {
     private fun showEmptyView() {
         rcy_group.visibility = View.GONE
         empty_group.visibility = View.VISIBLE
-        empty_group.emptyMsgTxt.text="找不到结果哎，还在努力添加中....."
+        empty_group.emptyMsgTxt.text = "找不到结果哎，还在努力添加中....."
 
     }
 
@@ -522,15 +567,27 @@ class GroupActivity : BaseActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun EventToRefresh(event: NeedRefreshSuccessBean) {
-        mQueryCondition.page = 0
-        mViewModel.queryHomeworkData(mQueryCondition)
-        mViewModel.mSelectedNum.value = event.groupSelectedNum //手动刷新
+    fun EventToRefresh(event: RefreshEvent) {
+        when (event.type) {
+            0 -> {
+                mQueryCondition.page = 0
+                mViewModel.queryHomeworkData(mQueryCondition)
+                mViewModel.mSelectedNum.value = event.groupSelectedNum //手动刷新
+            }
+            1 -> {
+                mQueryCondition.page = 0
+                mViewModel.loadGroupData(UserInfoConstant.getUserId())
+                mQueryCondition.difficultyId = "" //手动重置查询条件
+                mQueryCondition.baseFlag = "1"
+            }
+        }
+
     }
 
+
     override fun onDestroy() {
-        super.onDestroy()
         EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
 }

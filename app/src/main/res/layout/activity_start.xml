@@ -23,7 +23,7 @@
         android:id="@+id/logonBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="登陆"
+        android:text="登录"
         />
 
     <Button
